@@ -38,12 +38,13 @@ async Task<GameResponse> SubmitGame(GameInput input)
     HttpClient client = new();
     client.BaseAddress = new Uri(gameUrl, UriKind.Absolute);
 
+    Console.WriteLine("Response:");
     var res = client.Send(request);
     Console.WriteLine("");
     Console.WriteLine(res.StatusCode);
+
     var responsePayload = await res.Content.ReadAsStringAsync();
 
-    Console.WriteLine("Response:");
     PrettyPrintJson(JsonConvert.DeserializeObject(responsePayload));
 
     GameResponse gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
@@ -75,19 +76,19 @@ foreach (Customer customer in map.customers)
 
     var personality = personalities[customer.personality];
 
-    //var proposal = new CustomerLoanRequestProposal()
-    //{
-    //    CustomerName = customer.name,
-    //    MonthsToPayBackLoan = map.gameLengthInMonths,
-    //    YearlyInterestRate = personality.MaxInterestRate
-    //};
+    if (personality.AcceptedMaxInterest == null)
+    {
+        throw new KeyNotFoundException($"Personality {customer.personality} does not have an AcceptedMaxInterest.");
+    }
 
-    input.Proposals.Add(new CustomerLoanRequestProposal()
+    var proposal = new CustomerLoanRequestProposal()
     {
         CustomerName = customer.name,
         MonthsToPayBackLoan = map.gameLengthInMonths,
+        //YearlyInterestRate = personality.AcceptedMaxInterest ?? 0m
         YearlyInterestRate = 0.1m, //TODO put maximum interest rate here, take from personality
-    });
+    };
+    input.Proposals.Add(proposal);
 }
 
 Random random = new Random();
@@ -114,7 +115,7 @@ for (int i = 0; i < map.gameLengthInMonths; i++)
     }
 }
 
+var gameResponse = await SubmitGame(input);
 
-var gameResponse = SubmitGame(input);
 
 Console.WriteLine("Done.");
