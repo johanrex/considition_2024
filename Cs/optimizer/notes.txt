@@ -2,7 +2,7 @@
 * skriv ihop reglerna och fråga claude om han kan rekommendera algoritmer. 
 * infer personality traits using binary search for the different personalities, in isolation. 
 * hur väga risk vs profitability? Hur kvantifiera risk?
-* 
+* personality - "during the final night, players must discover these values to maximize their total points."
 
 
 Description:
