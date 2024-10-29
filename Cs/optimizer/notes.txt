@@ -3,71 +3,96 @@
 * infer personality traits using binary search for the different personalities, in isolation. 
 * hur väga risk vs profitability? Hur kvantifiera risk?
 * personality - "during the final night, players must discover these values to maximize their total points."
+* undersök en personlighet i taget och se hur det påverkar score.
+* undersök vilka features som korrelerar med score. 
+* genetisk strategi
+* binary search - interestrate
+
+-------------
+
+Scoring:
+
+public bool CanPayLoan() => this.Capital >= this.Loan.GetTotalMonthlyPayment();
+
+internal Decimal GetTotalMonthlyPayment()
+{
+    Decimal num1 = this.GetMonthlyInterestRate();
+    if (num1 == 0M)
+        num1 = 0.0001M;
+    double x = (double)(1M + num1);
+    Decimal num2 = num1 * (Decimal)Math.Pow(x, (double)this.MonthsToPayBack);
+    Decimal num3 = (Decimal)Math.Pow(x, (double)this.MonthsToPayBack) - 1M;
+    if (num3 == 0M)
+        num3 = 0.0001M;
+    return this.Amount * (num2 / num3);
+}
+
+private Decimal GetMonthlyInterestRate() => this.YearlyInterestRate / 12M;
+
+public void PayBills(
+    int iteration,
+    Dictionary<Personality, PersonalitySpecification> personalityDict)
+{
+    bool flag = iteration % 3 == 0;
+    this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (Decimal)(this.HasStudentLoans & flag ? 2000 : 0) - (Decimal)(this.NumberOfKids * 2000) - this.Mortgage * 0.01M;
+}
+
+public Decimal PayLoan()
+{
+    this.Capital -= this.Loan.GetTotalMonthlyPayment();
+    this.Loan.LowerRemainingBalance(this.Loan.GetPrincipalPayment());
+    ++this.SuccessfulPaymentStreak;
+    Decimal interestPayment = this.Loan.GetInterestPayment();
+    this.Profit += interestPayment;
+    return interestPayment;
+}
 
 
-Description:
-
-Considition 2024 is focus on the finance and loan market. The competing teams will take on the role of Ikano Bank and create an algorithm to enable automatic loan application assessment.
-
-The competition consists of several stages, each with increasing challenges, such as high-risk customers where the bank faces the risk of losing money in the short term, a healthy economy, or similar scenarios.
-Game components:
-    Recieve the API-key and login
-    You as player are Ikano Bank
-    Playing cards are customers to the bank - which are common people.
-    Select customers from a predefined list available for each game.
-
-Each game week has different starting budgets that you as player must adhere to. Every map has different customers with different personalities and different wants and needs.
-
-Each customer has a predefined product they want to borrow, with price and environmental score.
-
-Set your own interest rate for the customer to manipulate and see if they can earn more or less.
-
-
-How do you keep your customer happy?
-
-Customer happiness is linked to receiving healthy economy awards as well as avoiding any penalties.
-
-The environmental impact is related to the product the customer wants to borrow.
-
-Example: Lending for a diesel car may generate more profit, but the environmental impact is significantly worse compared to lending for an electric bicycle, so this must be kept in mind while playing.
-
-Every iteration in game is equivalent to 1 month. You will have access to a timeline where you can play, rewind and stop the time. You do this to see history of your actions.
+public void CollectPayments(
+    CustomerActionIteration iteration,
+    int iterationIndex,
+    List<Customer> customers,
+    Map map)
+{
+    foreach (Customer customer in customers)
+    {
+        CustomerAction customerAction = iteration.CustomerActions[customer.Name];
+        customer.Payday();
+        // ISSUE: reference to a compiler-generated field
+        customer.PayBills(iterationIndex, this.\u003CconfigService\u003EP.Personalities);
+        if (customer.CanPayLoan())
+            map.Budget += customer.PayLoan();
+        else
+            customer.IncrementMark();
+        if (customerAction.Type == CustomerActionType.Award)
+            map.Budget -= this.Award(customer, customerAction.Award);
+    }
+}
 
 
-2 actions you can do. In every game can you:
+public bool Propose(
+    Decimal yearlyInterestRate,
+    int monthsToPayBack,
+    Dictionary<Personality, PersonalitySpecification> personalityDict)
+{
+    Decimal? acceptedMinInterest = personalityDict[this.Personality].AcceptedMinInterest;
+    Decimal? acceptedMaxInterest = personalityDict[this.Personality].AcceptedMaxInterest;
+    Decimal num1 = yearlyInterestRate;
+    Decimal? nullable1 = acceptedMinInterest;
+    Decimal valueOrDefault1 = nullable1.GetValueOrDefault();
+    if (!(num1 < valueOrDefault1 & nullable1.HasValue))
+    {
+        Decimal num2 = yearlyInterestRate;
+        Decimal? nullable2 = acceptedMaxInterest;
+        Decimal valueOrDefault2 = nullable2.GetValueOrDefault();
+        if (!(num2 > valueOrDefault2 & nullable2.HasValue))
+        {
+            this.Loan.YearlyInterestRate = yearlyInterestRate;
+            this.Loan.MonthsToPayBack = monthsToPayBack;
+            return true;
+        }
+    }
+    return false;
+}
 
-    Award (award your customers for paying in time).
-    Skip (no action at all). 
-
-How do you win?
-    Total score
-    Total happiness of all your customers
-    Totat environmental impact your customers have done
-
-
-Every customer on each map has the following properties, which can be found in the corresponding JSON file:
-
-    Capital - How much capital the customer has.
-
-    Personality - Each customer has a personality that affects their spending habits and their likelihood of accepting your proposal. During the training weeks, all personalities and their multipliers will be public, but during the final night, players must discover these values to maximize their total points.
-
-    Loan - What the customer wants to loan for and how much they are applying for.
-
-    Income - How much money the customer earns every month. This, combined with their capital, determines whether they will be able to repay their loan each month.
-
-    Marks - If a customer cannot pay, they will receive a strike. After a certain number of strikes, the customer will be bankrupt, and while their current profits and environmental score will be saved, their happiness will decrease by 500 points.
-
-    Monthly Expenses - How much money the customer spends each month.
-
-    Kids - For every child a customer has, it incurs a set cost of 2,000 SEK each month.
-
-    Mortgage - If the customer has a mortgage, they will pay 0.1% of it every month.
-
-    Student Loans - If the customer has student loans, they will subtract 2,000 SEK every third month.
-
-The purpose of the game is to choose customers and set values based on a few parameters to loan out your money. Customers will either accept or deny the proposals you send, depending on their personalities.
-
-Each map is configured with JSON files.
-
-The scoring function is expensive and unknown at this point. It's hidden behind an api. 
 

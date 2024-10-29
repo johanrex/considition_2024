@@ -1,11 +1,19 @@
 ﻿using CsharpStarterkit;
 using Newtonsoft.Json;
+using System.Net.WebSockets;
 using System.Text;
 
-string gameUrl = "https://api.considition.com/";
+//string gameUrl = "https://api.considition.com/";
+string gameUrl = "http://localhost:8080/";
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-string mapFile = "Map.json";
 
+void PrettyPrintJson(object obj)
+{
+    string prettyJson = JsonConvert.SerializeObject(obj, Formatting.Indented);
+    Console.WriteLine(prettyJson);
+}
+
+ 
 HttpClient client = new();
 client.BaseAddress = new Uri(gameUrl, UriKind.Absolute);
 
@@ -15,6 +23,8 @@ GameInput input = new()
     Proposals = new(),
     Iterations = new()
 };
+
+string mapFile = "Map.json";
 
 string mapDataText = File.ReadAllText(mapFile);
 MapData mapData = JsonConvert.DeserializeObject<MapData>(mapDataText);
@@ -60,8 +70,17 @@ HttpRequestMessage request = new();
 request.Method = HttpMethod.Post;
 request.RequestUri = new Uri(gameUrl + "game", UriKind.Absolute);
 request.Headers.Add("x-api-key", apiKey);
+
+Console.WriteLine("Request payload:");
+PrettyPrintJson(input);
+
 request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
 
 var res = client.Send(request);
+Console.WriteLine("");
 Console.WriteLine(res.StatusCode);
-Console.WriteLine(await res.Content.ReadAsStringAsync());
+var responsePayload = await res.Content.ReadAsStringAsync();
+
+Console.WriteLine("Response:");
+PrettyPrintJson(JsonConvert.DeserializeObject(responsePayload));
+
