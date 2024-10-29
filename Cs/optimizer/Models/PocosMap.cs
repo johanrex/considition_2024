@@ -1,4 +1,4 @@
-﻿namespace CsharpStarterkit
+﻿namespace optimizer.Models
 {
 
     public class MapData

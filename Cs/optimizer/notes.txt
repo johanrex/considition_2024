@@ -7,6 +7,8 @@
 * undersök vilka features som korrelerar med score. 
 * genetisk strategi
 * binary search - interestrate
+* generate a ton of personalities and see how close I can get to the real values.
+* calculate profitability for all persons and choose according to that. 
 
 -------------
 
