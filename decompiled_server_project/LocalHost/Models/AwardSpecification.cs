@@ -1,10 +1,9 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.AwardSpecification
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
-using System;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -13,9 +12,9 @@ namespace LocalHost.Models
 {
     public record AwardSpecification
     {
-        public Decimal Cost { get; init; }
+        public double Cost { get; init; }
 
-        public Decimal BaseHappiness { get; set; }
+        public double BaseHappiness { get; set; }
 
         [CompilerGenerated]
         protected virtual bool PrintMembers(StringBuilder builder)

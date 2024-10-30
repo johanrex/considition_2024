@@ -33,6 +33,10 @@ async Task<GameResponse> SubmitGame(GameInput input)
     Console.WriteLine("Request payload:");
     PrettyPrintJson(input);
 
+    //write the json to file
+    string prettyJson = JsonConvert.SerializeObject(input, Formatting.Indented);
+    File.WriteAllText("gameInput.json", prettyJson);
+
     request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
 
     HttpClient client = new();
@@ -85,8 +89,8 @@ foreach (Customer customer in map.customers)
     {
         CustomerName = customer.name,
         MonthsToPayBackLoan = map.gameLengthInMonths,
-        //YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0m
-        YearlyInterestRate = 0.1m, //TODO put maximum interest rate here, take from personality
+        YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0m,
+        //YearlyInterestRate = 0.1m, 
     };
     input.Proposals.Add(proposal);
 }

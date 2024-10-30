@@ -14,36 +14,31 @@ namespace optimizer.Models
 {
     public record GameResult
     {
-        public decimal TotalProfit { get; init; }
+        public double TotalProfit { get; init; }
 
-        public decimal HappynessScore { get; init; }
+        public double HappynessScore { get; init; }
 
-        public decimal EnvironmentalImpact { get; init; }
+        public double EnvironmentalImpact { get; init; }
 
-        public decimal TotalScore => TotalProfit + HappynessScore + EnvironmentalImpact;
+        public double TotalScore => this.TotalProfit + this.HappynessScore + this.EnvironmentalImpact;
 
         public required string MapName { get; set; }
-
-        public required List<string> UnlockedAchievements { get; init; }
 
         [CompilerGenerated]
         protected virtual bool PrintMembers(StringBuilder builder)
         {
             RuntimeHelpers.EnsureSufficientExecutionStack();
             builder.Append("TotalProfit = ");
-            builder.Append(TotalProfit.ToString());
+            builder.Append(this.TotalProfit.ToString());
             builder.Append(", HappynessScore = ");
-            builder.Append(HappynessScore.ToString());
+            builder.Append(this.HappynessScore.ToString());
             builder.Append(", EnvironmentalImpact = ");
-            builder.Append(EnvironmentalImpact.ToString());
+            builder.Append(this.EnvironmentalImpact.ToString());
             builder.Append(", TotalScore = ");
-            builder.Append(TotalScore.ToString());
+            builder.Append(this.TotalScore.ToString());
             builder.Append(", MapName = ");
-            builder.Append((object)MapName);
-            builder.Append(", UnlockedAchievements = ");
-            builder.Append(UnlockedAchievements);
+            builder.Append((object)this.MapName);
             return true;
         }
-
     }
 }

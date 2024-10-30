@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.SaveGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using Dapper;
@@ -20,18 +20,21 @@ namespace LocalHost.Services
 {
     public class SaveGameService : ISaveGameService
     {
+        private readonly IConfiguration mConfiguration;
         private const string GetTeamIdSql = "select Id from Teams where ApiKey = @ApiKey";
         private const string GetTopScoreSql = "select Id, max(TotalScore) from Leaderboard where TeamId = @TeamId group by Id";
         private const string InsertTopScoreSql = "insert into Leaderboard(Id, GameId, TeamId, City, TotalScore, Happiness, EnvironmentalScore) values (newid(), @GameId, @TeamId, @City, @TotalScore, @Happiness, @EnviromentalScore);";
         private const string SaveGameSql = "insert into SavedGame(Id, TeamId, GameData) values (@Id, @TeamId, @GameData);";
         private const string GetGameSql = "select GameData from SavedGame where Id = @Id and TeamId = @TeamId;";
+        private readonly bool dbDisabled;
 
         public SaveGameService(IConfiguration configuration)
         {
-            // ISSUE: reference to a compiler-generated field
-            this.\u003Cconfiguration\u003EP = configuration;
-            // ISSUE: explicit constructor call
-            base.\u002Ector();
+            this.mConfiguration = configuration;
+            bool result;
+            if (!bool.TryParse(Environment.GetEnvironmentVariable("DB_DISABLED"), out result))
+                return;
+            this.dbDisabled = result;
         }
 
         public async Task<GameResult> SaveGame(
@@ -42,11 +45,13 @@ namespace LocalHost.Services
         {
             GameResult gameResult = new GameResult()
             {
-                TotalProfit = customers.Sum<Customer>((Func<Customer, Decimal>)(x => x.Profit)),
-                HappynessScore = customers.Sum<Customer>((Func<Customer, Decimal>)(x => x.Happiness)),
-                EnvironmentalImpact = customers.Sum<Customer>((Func<Customer, Decimal>)(x => x.Loan.EnvironmentalImpact)),
+                TotalProfit = customers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
+                HappynessScore = customers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
+                EnvironmentalImpact = customers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
                 MapName = gameInput.MapName
             };
+            if (this.dbDisabled)
+                return gameResult;
             Guid teamId;
             await using (SqlConnection connection = new SqlConnection(this.GetDbConnectionString()))
             {
@@ -93,7 +98,7 @@ namespace LocalHost.Services
             {
                 TeamId = teamId
             });
-            if (nullable.HasValue && !((Decimal)nullable.Value.Item2 < gameResult.TotalScore))
+            if (nullable.HasValue && (double)nullable.Value.Item2 >= gameResult.TotalScore)
                 return;
             int num = await connection.ExecuteAsync("insert into Leaderboard(Id, GameId, TeamId, City, TotalScore, Happiness, EnvironmentalScore) values (newid(), @GameId, @TeamId, @City, @TotalScore, @Happiness, @EnviromentalScore);", (object)new
             {
@@ -123,8 +128,7 @@ namespace LocalHost.Services
 
         private string GetDbConnectionString()
         {
-            // ISSUE: reference to a compiler-generated field
-            string connectionString = this.\u003Cconfiguration\u003EP.GetConnectionString("Default");
+            string connectionString = this.mConfiguration.GetConnectionString("Default");
             if (connectionString != null)
                 return connectionString;
             return Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? throw new Exception("Could not read connection string");

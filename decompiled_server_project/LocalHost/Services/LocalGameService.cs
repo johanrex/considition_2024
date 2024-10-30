@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.LocalGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -50,7 +50,7 @@ namespace LocalHost.Services
                 return new GameResponse() { Message = str };
             // ISSUE: reference to a compiler-generated field
             List<Customer> customerList = this.\u003CcustomerService\u003EP.RequestCustomers(gameInput, map);
-            Decimal num = customerList.Sum<Customer>((Func<Customer, Decimal>)(c => c.Loan.Amount));
+            double num = customerList.Sum<Customer>((Func<Customer, double>)(c => c.Loan.Amount));
             map.Budget -= num;
             this.HandleIterations(gameInput.Iterations, customerList, map);
             // ISSUE: reference to a compiler-generated field
@@ -72,22 +72,26 @@ namespace LocalHost.Services
         {
             if (gameInput.Proposals.Count == 0)
                 return "You must choose at least one customer to play!";
+            if (gameInput.Iterations.Count > map.GameLengthInMonths)
+                return "You can not exceed amount of months in 'iterations' then described in map config";
             if (map.GameLengthInMonths != gameInput.Iterations.Count)
                 return "You must provide customer actions for each month of the designated game lenght!";
             if (gameInput.Iterations.Any<CustomerActionIteration>((Func<CustomerActionIteration, bool>)(iteration => iteration.CustomerActions.Count != gameInput.Proposals.Count)))
                 return "Each iterations must have an action for each customer!";
+            if (gameInput.Proposals.Any<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, bool>)(proposal => proposal.MonthsToPayBackLoan < 0)))
+                return "Customers need at least one month to pay back loan";
             IEnumerable<string> mapCustomerNames = map.Customers.Select<Customer, string>((Func<Customer, string>)(c => c.Name));
             if (gameInput.Proposals.Any<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, bool>)(proposal => !mapCustomerNames.Contains<string>(proposal.CustomerName))))
                 return "All requested customers must exist on the chosen map!";
-            if (!(gameInput.Proposals.Sum<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, Decimal>)(x =>
+            if (gameInput.Proposals.Sum<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, double>)(x =>
             {
                 Customer customer = map.Customers.FirstOrDefault<Customer>((Func<Customer, bool>)(y => y.Name == x.CustomerName));
-                return (object)customer == null ? 0M : customer.Loan.Amount;
-            })) > map.Budget))
+                return (object)customer == null ? 0.0 : customer.Loan.Amount;
+            })) <= map.Budget)
                 return (string)null;
             DefaultInterpolatedStringHandler interpolatedStringHandler = new DefaultInterpolatedStringHandler(54, 1);
             interpolatedStringHandler.AppendLiteral("Tried starting game without sufficient funds, budget: ");
-            interpolatedStringHandler.AppendFormatted<Decimal>(map.Budget);
+            interpolatedStringHandler.AppendFormatted<double>(map.Budget);
             return interpolatedStringHandler.ToStringAndClear();
         }
 

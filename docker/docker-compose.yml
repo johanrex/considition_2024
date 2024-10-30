@@ -8,6 +8,7 @@ services:
     environment:
       - DB_CONNECTION_STRING=Server=db;Database=Considition2024;User Id=sa;Password=Kalle123!;TrustServerCertificate=True;
       - CONSIDITION_API_KEY=05ae5782-1936-4c6a-870b-f3d64089dcf5
+      - DB_DISABLED=Y
     depends_on:
       - db
     restart: unless-stopped

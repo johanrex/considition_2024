@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.AwardSpecificationConverter
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
@@ -41,10 +41,10 @@ namespace LocalHost.Models
         private static AwardSpecification ReadPersonalitySpec(ref Utf8JsonReader reader)
         {
             JsonConverterUtils.ReadStartObject(ref reader);
-            (string Key, Decimal Value) propertyKvp1 = JsonConverterUtils.GetPropertyKvp<Decimal>(ref reader);
-            (string Key, Decimal Value) propertyKvp2 = JsonConverterUtils.GetPropertyKvp<Decimal>(ref reader);
+            (string Key, double Value) propertyKvp1 = JsonConverterUtils.GetPropertyKvp<double>(ref reader);
+            (string Key, double Value) propertyKvp2 = JsonConverterUtils.GetPropertyKvp<double>(ref reader);
             JsonConverterUtils.ReadEndObject(ref reader);
-            Dictionary<string, Decimal> dictionary = new Dictionary<string, Decimal>()
+            Dictionary<string, double> dictionary = new Dictionary<string, double>()
       {
         {
           propertyKvp1.Key,

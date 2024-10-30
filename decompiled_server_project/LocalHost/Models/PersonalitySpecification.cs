@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.PersonalitySpecification
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
@@ -14,13 +14,13 @@ namespace LocalHost.Models
 {
     public record PersonalitySpecification()
     {
-        public Decimal HappinessMultiplier { get; set; }
+        public double HappinessMultiplier { get; set; }
 
-        public Decimal? AcceptedMinInterest { get; set; }
+        public double? AcceptedMinInterest { get; set; }
 
-        public Decimal? AcceptedMaxInterest { get; set; }
+        public double? AcceptedMaxInterest { get; set; }
 
-        public Decimal LivingStandardMultiplier { get; set; }
+        public double LivingStandardMultiplier { get; set; }
 
         [CompilerGenerated]
         protected virtual bool PrintMembers(StringBuilder builder)
@@ -44,7 +44,7 @@ namespace LocalHost.Models
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
-            return (((EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<Decimal>.Default.GetHashCode(this.\u003CHappinessMultiplier\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal?>.Default.GetHashCode(this.\u003CAcceptedMinInterest\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal?>.Default.GetHashCode(this.\u003CAcceptedMaxInterest\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal>.Default.GetHashCode(this.\u003CLivingStandardMultiplier\u003Ek__BackingField);
+            return (((EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<double>.Default.GetHashCode(this.\u003CHappinessMultiplier\u003Ek__BackingField)) * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(this.\u003CAcceptedMinInterest\u003Ek__BackingField)) * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(this.\u003CAcceptedMaxInterest\u003Ek__BackingField)) * -1521134295 + EqualityComparer<double>.Default.GetHashCode(this.\u003CLivingStandardMultiplier\u003Ek__BackingField);
         }
 
         [CompilerGenerated]
@@ -60,7 +60,7 @@ namespace LocalHost.Models
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
-            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<Decimal>.Default.Equals(this.\u003CHappinessMultiplier\u003Ek__BackingField, other.\u003CHappinessMultiplier\u003Ek__BackingField) && EqualityComparer<Decimal?>.Default.Equals(this.\u003CAcceptedMinInterest\u003Ek__BackingField, other.\u003CAcceptedMinInterest\u003Ek__BackingField) && EqualityComparer<Decimal?>.Default.Equals(this.\u003CAcceptedMaxInterest\u003Ek__BackingField, other.\u003CAcceptedMaxInterest\u003Ek__BackingField) && EqualityComparer<Decimal>.Default.Equals(this.\u003CLivingStandardMultiplier\u003Ek__BackingField, other.\u003CLivingStandardMultiplier\u003Ek__BackingField);
+            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<double>.Default.Equals(this.\u003CHappinessMultiplier\u003Ek__BackingField, other.\u003CHappinessMultiplier\u003Ek__BackingField) && EqualityComparer<double?>.Default.Equals(this.\u003CAcceptedMinInterest\u003Ek__BackingField, other.\u003CAcceptedMinInterest\u003Ek__BackingField) && EqualityComparer<double?>.Default.Equals(this.\u003CAcceptedMaxInterest\u003Ek__BackingField, other.\u003CAcceptedMaxInterest\u003Ek__BackingField) && EqualityComparer<double>.Default.Equals(this.\u003CLivingStandardMultiplier\u003Ek__BackingField, other.\u003CLivingStandardMultiplier\u003Ek__BackingField);
         }
 
         [CompilerGenerated]

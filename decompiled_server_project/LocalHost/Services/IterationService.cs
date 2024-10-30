@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.IterationService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -43,7 +43,7 @@ namespace LocalHost.Services
             }
         }
 
-        private Decimal Award(Customer customer, AwardType award)
+        private double Award(Customer customer, AwardType award)
         {
             switch (award)
             {
@@ -82,7 +82,7 @@ namespace LocalHost.Services
                     AwardSpecification award6 = this.\u003CconfigService\u003EP.Awards[AwardType.HalfInterestRate];
                     // ISSUE: reference to a compiler-generated field
                     customer.Happiness += award6.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier;
-                    return customer.Loan.GetInterestPayment() / 2.0M;
+                    return customer.Loan.GetInterestPayment() / 2.0;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(award), (object)award, (string)null);
             }

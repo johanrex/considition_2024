@@ -1,6 +1,6 @@
 ﻿
 #nullable disable
-namespace LocalHost.Models
+namespace optimizer.Models
 {
     public enum Personality
     {

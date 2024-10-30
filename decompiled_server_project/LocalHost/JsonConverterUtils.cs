@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.JsonConverterUtils
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using Microsoft.CSharp.RuntimeBinder;
@@ -58,7 +58,7 @@ namespace LocalHost
                     obj1 = (object)reader.GetString();
                     break;
                 case JsonTokenType.Number:
-                    obj1 = (object)reader.GetDecimal();
+                    obj1 = (object)reader.GetDouble();
                     break;
                 case JsonTokenType.True:
                     obj1 = (object)true;

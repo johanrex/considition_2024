@@ -1,10 +1,9 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Customer
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -22,19 +21,19 @@ namespace LocalHost.Models
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Personality Personality { get; init; }
 
-        public Decimal Capital { get; set; }
+        public double Capital { get; set; }
 
-        public Decimal Income { get; init; }
+        public double Income { get; init; }
 
-        public Decimal MonthlyExpenses { get; init; }
+        public double MonthlyExpenses { get; init; }
 
         public int NumberOfKids { get; init; }
 
-        public Decimal Mortgage { get; init; }
+        public double Mortgage { get; init; }
 
         public bool HasStudentLoans { get; init; }
 
-        public Decimal Happiness { get; set; }
+        public double Happiness { get; set; }
 
         public bool IsBankrupt { get; private set; }
 
@@ -42,7 +41,7 @@ namespace LocalHost.Models
 
         public int SuccessfulPaymentStreak { get; set; }
 
-        public Decimal Profit { get; private set; }
+        public double Profit { get; private set; }
 
         private int MarkLimit { get; }
 
@@ -53,17 +52,17 @@ namespace LocalHost.Models
           Dictionary<Personality, PersonalitySpecification> personalityDict)
         {
             bool flag = iteration % 3 == 0;
-            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (Decimal)(this.HasStudentLoans & flag ? 2000 : 0) - (Decimal)(this.NumberOfKids * 2000) - this.Mortgage * 0.01M;
+            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (this.HasStudentLoans & flag ? 2000.0 : 0.0) - (double)(this.NumberOfKids * 2000) - this.Mortgage * 0.01;
         }
 
         public bool CanPayLoan() => this.Capital >= this.Loan.GetTotalMonthlyPayment();
 
-        public Decimal PayLoan()
+        public double PayLoan()
         {
             this.Capital -= this.Loan.GetTotalMonthlyPayment();
             this.Loan.LowerRemainingBalance(this.Loan.GetPrincipalPayment());
             ++this.SuccessfulPaymentStreak;
-            Decimal interestPayment = this.Loan.GetInterestPayment();
+            double interestPayment = this.Loan.GetInterestPayment();
             this.Profit += interestPayment;
             return interestPayment;
         }
@@ -75,27 +74,27 @@ namespace LocalHost.Models
             if (this.Marks >= this.MarkLimit)
             {
                 this.IsBankrupt = true;
-                this.Happiness -= 500.0M;
+                this.Happiness -= 500.0;
             }
             else
-                this.Happiness -= 50.0M;
+                this.Happiness -= 50.0;
         }
 
         public bool Propose(
-          Decimal yearlyInterestRate,
+          double yearlyInterestRate,
           int monthsToPayBack,
           Dictionary<Personality, PersonalitySpecification> personalityDict)
         {
-            Decimal? acceptedMinInterest = personalityDict[this.Personality].AcceptedMinInterest;
-            Decimal? acceptedMaxInterest = personalityDict[this.Personality].AcceptedMaxInterest;
-            Decimal num1 = yearlyInterestRate;
-            Decimal? nullable1 = acceptedMinInterest;
-            Decimal valueOrDefault1 = nullable1.GetValueOrDefault();
+            double? acceptedMinInterest = personalityDict[this.Personality].AcceptedMinInterest;
+            double? acceptedMaxInterest = personalityDict[this.Personality].AcceptedMaxInterest;
+            double num1 = yearlyInterestRate;
+            double? nullable1 = acceptedMinInterest;
+            double valueOrDefault1 = nullable1.GetValueOrDefault();
             if (!(num1 < valueOrDefault1 & nullable1.HasValue))
             {
-                Decimal num2 = yearlyInterestRate;
-                Decimal? nullable2 = acceptedMaxInterest;
-                Decimal valueOrDefault2 = nullable2.GetValueOrDefault();
+                double num2 = yearlyInterestRate;
+                double? nullable2 = acceptedMaxInterest;
+                double valueOrDefault2 = nullable2.GetValueOrDefault();
                 if (!(num2 > valueOrDefault2 & nullable2.HasValue))
                 {
                     this.Loan.YearlyInterestRate = yearlyInterestRate;

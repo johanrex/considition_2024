@@ -1,10 +1,9 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Map
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,7 +15,7 @@ namespace LocalHost.Models
     {
         public string Name { get; init; }
 
-        public Decimal Budget { get; set; }
+        public double Budget { get; set; }
 
         public int GameLengthInMonths { get; init; }
 

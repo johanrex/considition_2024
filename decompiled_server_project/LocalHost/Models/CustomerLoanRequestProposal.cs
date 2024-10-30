@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.CustomerLoanRequestProposal
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
@@ -16,7 +16,7 @@ namespace LocalHost.Models
     {
         public string CustomerName { get; set; }
 
-        public Decimal YearlyInterestRate { get; set; }
+        public double YearlyInterestRate { get; set; }
 
         public int MonthsToPayBackLoan { get; set; }
 
@@ -39,7 +39,7 @@ namespace LocalHost.Models
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
-            return ((EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.\u003CCustomerName\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal>.Default.GetHashCode(this.\u003CYearlyInterestRate\u003Ek__BackingField)) * -1521134295 + EqualityComparer<int>.Default.GetHashCode(this.\u003CMonthsToPayBackLoan\u003Ek__BackingField);
+            return ((EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.\u003CCustomerName\u003Ek__BackingField)) * -1521134295 + EqualityComparer<double>.Default.GetHashCode(this.\u003CYearlyInterestRate\u003Ek__BackingField)) * -1521134295 + EqualityComparer<int>.Default.GetHashCode(this.\u003CMonthsToPayBackLoan\u003Ek__BackingField);
         }
 
         [CompilerGenerated]
@@ -53,7 +53,7 @@ namespace LocalHost.Models
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
-            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<string>.Default.Equals(this.\u003CCustomerName\u003Ek__BackingField, other.\u003CCustomerName\u003Ek__BackingField) && EqualityComparer<Decimal>.Default.Equals(this.\u003CYearlyInterestRate\u003Ek__BackingField, other.\u003CYearlyInterestRate\u003Ek__BackingField) && EqualityComparer<int>.Default.Equals(this.\u003CMonthsToPayBackLoan\u003Ek__BackingField, other.\u003CMonthsToPayBackLoan\u003Ek__BackingField);
+            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<string>.Default.Equals(this.\u003CCustomerName\u003Ek__BackingField, other.\u003CCustomerName\u003Ek__BackingField) && EqualityComparer<double>.Default.Equals(this.\u003CYearlyInterestRate\u003Ek__BackingField, other.\u003CYearlyInterestRate\u003Ek__BackingField) && EqualityComparer<int>.Default.Equals(this.\u003CMonthsToPayBackLoan\u003Ek__BackingField, other.\u003CMonthsToPayBackLoan\u003Ek__BackingField);
         }
 
         [CompilerGenerated]

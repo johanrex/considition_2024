@@ -1,11 +1,9 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.GameResult
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
 // Assembly location: C:\temp\app\LocalHost.dll
 
-using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -14,17 +12,15 @@ namespace LocalHost.Models
 {
     public record GameResult
     {
-        public Decimal TotalProfit { get; init; }
+        public double TotalProfit { get; init; }
 
-        public Decimal HappynessScore { get; init; }
+        public double HappynessScore { get; init; }
 
-        public Decimal EnvironmentalImpact { get; init; }
+        public double EnvironmentalImpact { get; init; }
 
-        public Decimal TotalScore => this.TotalProfit + this.HappynessScore + this.EnvironmentalImpact;
+        public double TotalScore => this.TotalProfit + this.HappynessScore + this.EnvironmentalImpact;
 
         public string MapName { get; set; }
-
-        public List<string> UnlockedAchievements { get; init; }
 
         [CompilerGenerated]
         protected virtual bool PrintMembers(StringBuilder builder)
@@ -40,8 +36,6 @@ namespace LocalHost.Models
             builder.Append(this.TotalScore.ToString());
             builder.Append(", MapName = ");
             builder.Append((object)this.MapName);
-            builder.Append(", UnlockedAchievements = ");
-            builder.Append((object)this.UnlockedAchievements);
             return true;
         }
 
