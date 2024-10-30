@@ -1,0 +1,83 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: LocalHost.Models.PersonalitySpecification
+// Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: 277A783F-1186-461D-9163-D01AAF05EBE1
+// Assembly location: C:\temp\app\LocalHost.dll
+
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Text;
+
+#nullable enable
+namespace LocalHost.Models
+{
+    public record PersonalitySpecification()
+    {
+        public Decimal HappinessMultiplier { get; set; }
+
+        public Decimal? AcceptedMinInterest { get; set; }
+
+        public Decimal? AcceptedMaxInterest { get; set; }
+
+        public Decimal LivingStandardMultiplier { get; set; }
+
+        [CompilerGenerated]
+        protected virtual bool PrintMembers(StringBuilder builder)
+        {
+            RuntimeHelpers.EnsureSufficientExecutionStack();
+            builder.Append("HappinessMultiplier = ");
+            builder.Append(this.HappinessMultiplier.ToString());
+            builder.Append(", AcceptedMinInterest = ");
+            builder.Append(this.AcceptedMinInterest.ToString());
+            builder.Append(", AcceptedMaxInterest = ");
+            builder.Append(this.AcceptedMaxInterest.ToString());
+            builder.Append(", LivingStandardMultiplier = ");
+            builder.Append(this.LivingStandardMultiplier.ToString());
+            return true;
+        }
+
+        [CompilerGenerated]
+        public override int GetHashCode()
+        {
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            return (((EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<Decimal>.Default.GetHashCode(this.\u003CHappinessMultiplier\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal?>.Default.GetHashCode(this.\u003CAcceptedMinInterest\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal?>.Default.GetHashCode(this.\u003CAcceptedMaxInterest\u003Ek__BackingField)) * -1521134295 + EqualityComparer<Decimal>.Default.GetHashCode(this.\u003CLivingStandardMultiplier\u003Ek__BackingField);
+        }
+
+        [CompilerGenerated]
+        public virtual bool Equals(PersonalitySpecification? other)
+        {
+            if ((object)this == (object)other)
+                return true;
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<Decimal>.Default.Equals(this.\u003CHappinessMultiplier\u003Ek__BackingField, other.\u003CHappinessMultiplier\u003Ek__BackingField) && EqualityComparer<Decimal?>.Default.Equals(this.\u003CAcceptedMinInterest\u003Ek__BackingField, other.\u003CAcceptedMinInterest\u003Ek__BackingField) && EqualityComparer<Decimal?>.Default.Equals(this.\u003CAcceptedMaxInterest\u003Ek__BackingField, other.\u003CAcceptedMaxInterest\u003Ek__BackingField) && EqualityComparer<Decimal>.Default.Equals(this.\u003CLivingStandardMultiplier\u003Ek__BackingField, other.\u003CLivingStandardMultiplier\u003Ek__BackingField);
+        }
+
+        [CompilerGenerated]
+        protected PersonalitySpecification(PersonalitySpecification original)
+        {
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            this.\u003CHappinessMultiplier\u003Ek__BackingField = original.\u003CHappinessMultiplier\u003Ek__BackingField;
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            this.\u003CAcceptedMinInterest\u003Ek__BackingField = original.\u003CAcceptedMinInterest\u003Ek__BackingField;
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            this.\u003CAcceptedMaxInterest\u003Ek__BackingField = original.\u003CAcceptedMaxInterest\u003Ek__BackingField;
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            this.\u003CLivingStandardMultiplier\u003Ek__BackingField = original.\u003CLivingStandardMultiplier\u003Ek__BackingField;
+        }
+    }
+}
