@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: Program
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
+// MVID: 37D09AE0-70E5-46F8-B3D7-80D789257673
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost;
@@ -25,27 +25,27 @@ ServiceCollectionServiceExtensions.AddTransient<ICustomerService, CustomerServic
 ServiceCollectionServiceExtensions.AddTransient<ISaveGameService, SaveGameService>(services);
 WebApplication app = builder.Build();
 await DataContext.MigrateAsync();
-EndpointRouteBuilderExtensions.MapPost(app, "/game", (Delegate)(async (gameService, httpContext, [FromBody] gameInput) =>
+EndpointRouteBuilderExtensions.MapPost(app, "/game", (Delegate) (async (gameService, httpContext, [FromBody] gameInput) =>
 {
-    (Guid apiKey2, IResult unauthorized2) = CheckAuth(httpContext);
-    if (unauthorized2 != null)
-        return unauthorized2;
-    GameResponse gameResponse = await gameService.RunGame(gameInput, apiKey2);
-    return gameResponse.Message != null ? Results.BadRequest<string>(gameResponse.Message) : Results.Ok<GameResponse>(gameResponse);
+  (Guid apiKey2, IResult unauthorized2) = CheckAuth(httpContext);
+  if (unauthorized2 != null)
+    return unauthorized2;
+  GameResponse gameResponse = await gameService.RunGame(gameInput, apiKey2);
+  return gameResponse.Message != null ? Results.BadRequest<string>(gameResponse.Message) : Results.Ok<GameResponse>(gameResponse);
 }));
-EndpointRouteBuilderExtensions.MapGet(app, "/game", (Delegate)(async (gameService, httpContext, [FromQuery] gameId) =>
+EndpointRouteBuilderExtensions.MapGet(app, "/game", (Delegate) (async (gameService, httpContext, [FromQuery] gameId) =>
 {
-    (Guid apiKey4, IResult unauthorized4) = CheckAuth(httpContext);
-    if (unauthorized4 != null)
-        return unauthorized4;
-    SaveGame game = await gameService.GetGame(gameId, apiKey4);
-    return (object)game != null ? Results.Ok<SaveGame>(game) : Results.NotFound();
+  (Guid apiKey4, IResult unauthorized4) = CheckAuth(httpContext);
+  if (unauthorized4 != null)
+    return unauthorized4;
+  SaveGame game = await gameService.GetGame(gameId, apiKey4);
+  return (object) game != null ? Results.Ok<SaveGame>(game) : Results.NotFound();
 }));
 app.Run();
-app = (WebApplication)null;
+app = (WebApplication) null;
 
 static (Guid apiKey, IResult? unauthorized) CheckAuth(HttpContext httpContext)
 {
-    Guid result;
-    return Guid.TryParse(Enumerable.FirstOrDefault<string>(httpContext.Request.Headers["x-api-key"]), out result) ? (result, (IResult)null) : (result, Results.Unauthorized());
+  Guid result;
+  return Guid.TryParse(Enumerable.FirstOrDefault<string>(httpContext.Request.Headers["x-api-key"]), out result) ? (result, (IResult) null) : (result, Results.Unauthorized());
 }

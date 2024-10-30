@@ -24,21 +24,5 @@ namespace optimizer.Models
 
         public required string MapName { get; set; }
 
-        [CompilerGenerated]
-        protected virtual bool PrintMembers(StringBuilder builder)
-        {
-            RuntimeHelpers.EnsureSufficientExecutionStack();
-            builder.Append("TotalProfit = ");
-            builder.Append(this.TotalProfit.ToString());
-            builder.Append(", HappynessScore = ");
-            builder.Append(this.HappynessScore.ToString());
-            builder.Append(", EnvironmentalImpact = ");
-            builder.Append(this.EnvironmentalImpact.ToString());
-            builder.Append(", TotalScore = ");
-            builder.Append(this.TotalScore.ToString());
-            builder.Append(", MapName = ");
-            builder.Append((object)this.MapName);
-            return true;
-        }
     }
 }

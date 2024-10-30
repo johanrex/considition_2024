@@ -1,4 +1,4 @@
-﻿namespace optimizer.Models
+﻿namespace optimizer.Models.Pocos
 {
 
     public class MapData
@@ -8,6 +8,7 @@
         public int gameLengthInMonths { get; set; }
         public Customer[] customers { get; set; }
     }
+
 
     public class Customer
     {
@@ -21,7 +22,6 @@
         public decimal homeMortgage { get; set; }
         public bool hasStudentLoan { get; set; }
     }
-
     public class Loan
     {
         public string product { get; set; }

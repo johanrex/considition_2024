@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using optimizer;
 using optimizer.Models;
+using optimizer.Models.Pocos;
 using System.Text;
 
 //string gameUrl = "https://api.considition.com/";

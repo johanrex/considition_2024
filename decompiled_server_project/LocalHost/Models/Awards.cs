@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Awards
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
+// MVID: 37D09AE0-70E5-46F8-B3D7-80D789257673
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
@@ -13,44 +13,44 @@ using System.Text.Json.Serialization;
 #nullable enable
 namespace LocalHost.Models
 {
-    public record Awards()
+  public record Awards()
+  {
+    [JsonPropertyName("Awards")]
+    [JsonConverter(typeof (AwardSpecificationConverter))]
+    public Dictionary<AwardType, AwardSpecification> AwardSpecifications { get; set; }
+
+    [CompilerGenerated]
+    protected virtual bool PrintMembers(StringBuilder builder)
     {
-        [JsonPropertyName("Awards")]
-        [JsonConverter(typeof(AwardSpecificationConverter))]
-        public Dictionary<AwardType, AwardSpecification> AwardSpecifications { get; set; }
-
-        [CompilerGenerated]
-        protected virtual bool PrintMembers(StringBuilder builder)
-        {
-            RuntimeHelpers.EnsureSufficientExecutionStack();
-            builder.Append("AwardSpecifications = ");
-            builder.Append((object)this.AwardSpecifications);
-            return true;
-        }
-
-        [CompilerGenerated]
-        public override int GetHashCode()
-        {
-            // ISSUE: reference to a compiler-generated field
-            return EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<Dictionary<AwardType, AwardSpecification>>.Default.GetHashCode(this.\u003CAwardSpecifications\u003Ek__BackingField);
-        }
-
-        [CompilerGenerated]
-        public virtual bool Equals(Awards? other)
-        {
-            if ((object)this == (object)other)
-                return true;
-            // ISSUE: reference to a compiler-generated field
-            // ISSUE: reference to a compiler-generated field
-            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<Dictionary<AwardType, AwardSpecification>>.Default.Equals(this.\u003CAwardSpecifications\u003Ek__BackingField, other.\u003CAwardSpecifications\u003Ek__BackingField);
-        }
-
-        [CompilerGenerated]
-        protected Awards(Awards original)
-        {
-            // ISSUE: reference to a compiler-generated field
-            // ISSUE: reference to a compiler-generated field
-            this.\u003CAwardSpecifications\u003Ek__BackingField = original.\u003CAwardSpecifications\u003Ek__BackingField;
-        }
+      RuntimeHelpers.EnsureSufficientExecutionStack();
+      builder.Append("AwardSpecifications = ");
+      builder.Append((object) this.AwardSpecifications);
+      return true;
     }
+
+    [CompilerGenerated]
+    public override int GetHashCode()
+    {
+      // ISSUE: reference to a compiler-generated field
+      return EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<Dictionary<AwardType, AwardSpecification>>.Default.GetHashCode(this.\u003CAwardSpecifications\u003Ek__BackingField);
+    }
+
+    [CompilerGenerated]
+    public virtual bool Equals(Awards? other)
+    {
+      if ((object) this == (object) other)
+        return true;
+      // ISSUE: reference to a compiler-generated field
+      // ISSUE: reference to a compiler-generated field
+      return (object) other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<Dictionary<AwardType, AwardSpecification>>.Default.Equals(this.\u003CAwardSpecifications\u003Ek__BackingField, other.\u003CAwardSpecifications\u003Ek__BackingField);
+    }
+
+    [CompilerGenerated]
+    protected Awards(Awards original)
+    {
+      // ISSUE: reference to a compiler-generated field
+      // ISSUE: reference to a compiler-generated field
+      this.\u003CAwardSpecifications\u003Ek__BackingField = original.\u003CAwardSpecifications\u003Ek__BackingField;
+    }
+  }
 }
