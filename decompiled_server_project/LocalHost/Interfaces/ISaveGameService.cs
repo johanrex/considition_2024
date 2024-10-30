@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 #nullable enable
 namespace LocalHost.Interfaces
 {
-  public interface ISaveGameService
-  {
-    Task<GameResult> SaveGame(
-      GameInput gameInput,
-      List<Customer> customers,
-      Guid apiKey,
-      Guid gameId);
+    public interface ISaveGameService
+    {
+        Task<GameResult> SaveGame(
+          GameInput gameInput,
+          List<Customer> customers,
+          Guid apiKey,
+          Guid gameId);
 
-    Task<LocalHost.Models.SaveGame?> GetGame(Guid gameId, Guid apiKey);
-  }
+        Task<LocalHost.Models.SaveGame?> GetGame(Guid gameId, Guid apiKey);
+    }
 }

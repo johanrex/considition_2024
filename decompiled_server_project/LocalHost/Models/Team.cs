@@ -9,16 +9,16 @@ using System;
 #nullable enable
 namespace Considition.Entities
 {
-  public class Team
-  {
-    public Guid Id { get; set; }
+    public class Team
+    {
+        public Guid Id { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
-    public string? Venue { get; set; }
+        public string? Venue { get; set; }
 
-    public Guid ApiKey { get; set; }
+        public Guid ApiKey { get; set; }
 
-    public DateTime Timestamp { get; set; }
-  }
+        public DateTime Timestamp { get; set; }
+    }
 }

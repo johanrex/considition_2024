@@ -13,38 +13,38 @@ using System.Text.Json.Serialization;
 #nullable enable
 namespace LocalHost.Models
 {
-  [JsonConverter(typeof (CustomerActionIterationConverter))]
-  public record CustomerActionIteration()
-  {
-    public Dictionary<string, CustomerAction> CustomerActions;
-
-    [CompilerGenerated]
-    protected virtual bool PrintMembers(StringBuilder builder)
+    [JsonConverter(typeof(CustomerActionIterationConverter))]
+    public record CustomerActionIteration()
     {
-      RuntimeHelpers.EnsureSufficientExecutionStack();
-      builder.Append("CustomerActions = ");
-      builder.Append((object) this.CustomerActions);
-      return true;
-    }
+        public Dictionary<string, CustomerAction> CustomerActions;
 
-    [CompilerGenerated]
-    public override int GetHashCode()
-    {
-      return EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<Dictionary<string, CustomerAction>>.Default.GetHashCode(this.CustomerActions);
-    }
+        [CompilerGenerated]
+        protected virtual bool PrintMembers(StringBuilder builder)
+        {
+            RuntimeHelpers.EnsureSufficientExecutionStack();
+            builder.Append("CustomerActions = ");
+            builder.Append((object)this.CustomerActions);
+            return true;
+        }
 
-    [CompilerGenerated]
-    public virtual bool Equals(CustomerActionIteration? other)
-    {
-      if ((object) this == (object) other)
-        return true;
-      return (object) other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<Dictionary<string, CustomerAction>>.Default.Equals(this.CustomerActions, other.CustomerActions);
-    }
+        [CompilerGenerated]
+        public override int GetHashCode()
+        {
+            return EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<Dictionary<string, CustomerAction>>.Default.GetHashCode(this.CustomerActions);
+        }
 
-    [CompilerGenerated]
-    protected CustomerActionIteration(CustomerActionIteration original)
-    {
-      this.CustomerActions = original.CustomerActions;
+        [CompilerGenerated]
+        public virtual bool Equals(CustomerActionIteration? other)
+        {
+            if ((object)this == (object)other)
+                return true;
+            return (object)other != null && this.EqualityContract == other.EqualityContract && EqualityComparer<Dictionary<string, CustomerAction>>.Default.Equals(this.CustomerActions, other.CustomerActions);
+        }
+
+        [CompilerGenerated]
+        protected CustomerActionIteration(CustomerActionIteration original)
+        {
+            this.CustomerActions = original.CustomerActions;
+        }
     }
-  }
 }

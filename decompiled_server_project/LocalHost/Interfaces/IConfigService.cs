@@ -10,12 +10,12 @@ using System.Collections.Generic;
 #nullable enable
 namespace LocalHost.Interfaces
 {
-  public interface IConfigService
-  {
-    Map? GetMap(string mapName);
+    public interface IConfigService
+    {
+        Map? GetMap(string mapName);
 
-    Dictionary<Personality, PersonalitySpecification> Personalities { get; }
+        Dictionary<Personality, PersonalitySpecification> Personalities { get; }
 
-    Dictionary<AwardType, AwardSpecification> Awards { get; }
-  }
+        Dictionary<AwardType, AwardSpecification> Awards { get; }
+    }
 }

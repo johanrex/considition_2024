@@ -12,33 +12,33 @@ using System.Text;
 #nullable enable
 namespace LocalHost.Models
 {
-  public record GameResponse
-  {
-    public Guid? GameId { get; init; }
-
-    public GameResult? Score { get; init; }
-
-    public string? Message { get; set; }
-
-    public List<string> AchievementsUnlocked { get; init; }
-
-    [CompilerGenerated]
-    protected virtual bool PrintMembers(StringBuilder builder)
+    public record GameResponse
     {
-      RuntimeHelpers.EnsureSufficientExecutionStack();
-      builder.Append("GameId = ");
-      builder.Append(this.GameId.ToString());
-      builder.Append(", Score = ");
-      builder.Append((object) this.Score);
-      builder.Append(", Message = ");
-      builder.Append((object) this.Message);
-      builder.Append(", AchievementsUnlocked = ");
-      builder.Append((object) this.AchievementsUnlocked);
-      return true;
-    }
+        public Guid? GameId { get; init; }
 
-    public GameResponse()
-    {
+        public GameResult? Score { get; init; }
+
+        public string? Message { get; set; }
+
+        public List<string> AchievementsUnlocked { get; init; }
+
+        [CompilerGenerated]
+        protected virtual bool PrintMembers(StringBuilder builder)
+        {
+            RuntimeHelpers.EnsureSufficientExecutionStack();
+            builder.Append("GameId = ");
+            builder.Append(this.GameId.ToString());
+            builder.Append(", Score = ");
+            builder.Append((object)this.Score);
+            builder.Append(", Message = ");
+            builder.Append((object)this.Message);
+            builder.Append(", AchievementsUnlocked = ");
+            builder.Append((object)this.AchievementsUnlocked);
+            return true;
+        }
+
+        public GameResponse()
+        {
+        }
     }
-  }
 }

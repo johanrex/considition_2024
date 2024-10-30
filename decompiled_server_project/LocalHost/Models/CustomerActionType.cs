@@ -7,9 +7,9 @@
 #nullable disable
 namespace LocalHost.Models
 {
-  public enum CustomerActionType
-  {
-    Skip,
-    Award,
-  }
+    public enum CustomerActionType
+    {
+        Skip,
+        Award,
+    }
 }

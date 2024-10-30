@@ -10,25 +10,25 @@ using System.Text;
 #nullable enable
 namespace LocalHost.Models
 {
-  public record AwardSpecification
-  {
-    public double Cost { get; init; }
-
-    public double BaseHappiness { get; set; }
-
-    [CompilerGenerated]
-    protected virtual bool PrintMembers(StringBuilder builder)
+    public record AwardSpecification
     {
-      RuntimeHelpers.EnsureSufficientExecutionStack();
-      builder.Append("Cost = ");
-      builder.Append(this.Cost.ToString());
-      builder.Append(", BaseHappiness = ");
-      builder.Append(this.BaseHappiness.ToString());
-      return true;
-    }
+        public double Cost { get; init; }
 
-    public AwardSpecification()
-    {
+        public double BaseHappiness { get; set; }
+
+        [CompilerGenerated]
+        protected virtual bool PrintMembers(StringBuilder builder)
+        {
+            RuntimeHelpers.EnsureSufficientExecutionStack();
+            builder.Append("Cost = ");
+            builder.Append(this.Cost.ToString());
+            builder.Append(", BaseHappiness = ");
+            builder.Append(this.BaseHappiness.ToString());
+            return true;
+        }
+
+        public AwardSpecification()
+        {
+        }
     }
-  }
 }

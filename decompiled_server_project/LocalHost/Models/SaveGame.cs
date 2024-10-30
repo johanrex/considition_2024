@@ -9,5 +9,5 @@ using System.Collections.Generic;
 #nullable enable
 namespace LocalHost.Models
 {
-  public record SaveGame(GameInput GameInput, List<Customer> Customers, GameResult GameResult);
+    public record SaveGame(GameInput GameInput, List<Customer> Customers, GameResult GameResult);
 }

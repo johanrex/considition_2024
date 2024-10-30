@@ -7,14 +7,14 @@
 #nullable disable
 namespace LocalHost.Models
 {
-  public enum AwardType
-  {
-    None,
-    IkeaCheck,
-    IkeaFoodCoupon,
-    IkeaDeliveryCheck,
-    NoInterestRate,
-    GiftCard,
-    HalfInterestRate,
-  }
+    public enum AwardType
+    {
+        None,
+        IkeaCheck,
+        IkeaFoodCoupon,
+        IkeaDeliveryCheck,
+        NoInterestRate,
+        GiftCard,
+        HalfInterestRate,
+    }
 }

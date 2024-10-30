@@ -10,8 +10,8 @@ using System.Collections.Generic;
 #nullable enable
 namespace LocalHost.Interfaces
 {
-  public interface ICustomerService
-  {
-    List<Customer> RequestCustomers(GameInput gameInput, Map map);
-  }
+    public interface ICustomerService
+    {
+        List<Customer> RequestCustomers(GameInput gameInput, Map map);
+    }
 }

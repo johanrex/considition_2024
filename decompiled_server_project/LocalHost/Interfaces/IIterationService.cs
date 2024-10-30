@@ -10,12 +10,12 @@ using System.Collections.Generic;
 #nullable enable
 namespace LocalHost.Interfaces
 {
-  public interface IIterationService
-  {
-    void CollectPayments(
-      CustomerActionIteration iteration,
-      int i,
-      List<Customer> customers,
-      Map map);
-  }
+    public interface IIterationService
+    {
+        void CollectPayments(
+          CustomerActionIteration iteration,
+          int i,
+          List<Customer> customers,
+          Map map);
+    }
 }

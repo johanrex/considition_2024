@@ -10,37 +10,37 @@ using System.Text;
 #nullable enable
 namespace LocalHost.Models
 {
-  public record GameResult
-  {
-    public double TotalProfit { get; init; }
-
-    public double HappynessScore { get; init; }
-
-    public double EnvironmentalImpact { get; init; }
-
-    public double TotalScore => this.TotalProfit + this.HappynessScore + this.EnvironmentalImpact;
-
-    public string MapName { get; set; }
-
-    [CompilerGenerated]
-    protected virtual bool PrintMembers(StringBuilder builder)
+    public record GameResult
     {
-      RuntimeHelpers.EnsureSufficientExecutionStack();
-      builder.Append("TotalProfit = ");
-      builder.Append(this.TotalProfit.ToString());
-      builder.Append(", HappynessScore = ");
-      builder.Append(this.HappynessScore.ToString());
-      builder.Append(", EnvironmentalImpact = ");
-      builder.Append(this.EnvironmentalImpact.ToString());
-      builder.Append(", TotalScore = ");
-      builder.Append(this.TotalScore.ToString());
-      builder.Append(", MapName = ");
-      builder.Append((object) this.MapName);
-      return true;
-    }
+        public double TotalProfit { get; init; }
 
-    public GameResult()
-    {
+        public double HappynessScore { get; init; }
+
+        public double EnvironmentalImpact { get; init; }
+
+        public double TotalScore => this.TotalProfit + this.HappynessScore + this.EnvironmentalImpact;
+
+        public string MapName { get; set; }
+
+        [CompilerGenerated]
+        protected virtual bool PrintMembers(StringBuilder builder)
+        {
+            RuntimeHelpers.EnsureSufficientExecutionStack();
+            builder.Append("TotalProfit = ");
+            builder.Append(this.TotalProfit.ToString());
+            builder.Append(", HappynessScore = ");
+            builder.Append(this.HappynessScore.ToString());
+            builder.Append(", EnvironmentalImpact = ");
+            builder.Append(this.EnvironmentalImpact.ToString());
+            builder.Append(", TotalScore = ");
+            builder.Append(this.TotalScore.ToString());
+            builder.Append(", MapName = ");
+            builder.Append((object)this.MapName);
+            return true;
+        }
+
+        public GameResult()
+        {
+        }
     }
-  }
 }

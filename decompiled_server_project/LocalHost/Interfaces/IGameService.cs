@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 #nullable enable
 namespace LocalHost.Interfaces
 {
-  public interface IGameService
-  {
-    Task<GameResponse> RunGame(GameInput gameInput, Guid apiKey);
+    public interface IGameService
+    {
+        Task<GameResponse> RunGame(GameInput gameInput, Guid apiKey);
 
-    Task<SaveGame?> GetGame(Guid gameId, Guid apiKey);
-  }
+        Task<SaveGame?> GetGame(Guid gameId, Guid apiKey);
+    }
 }

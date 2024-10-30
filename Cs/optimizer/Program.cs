@@ -57,9 +57,18 @@ async Task<GameResponse> SubmitGame(GameInput input)
     return gameResponse;
 }
 
-//TODO hardcoded from json file
+
+/*
+///////////////////////////////////////////////////////////////////
+//Here comes the meat.
+///////////////////////////////////////////////////////////////////
+*/
+
+//TODO infer personalities instead.
 var personalities = PersonalityUtils.GetHardcodedPersonalities();
 
+
+//Read the map with all the customers
 MapData map = GetMap(mapFile);
 
 
