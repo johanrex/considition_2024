@@ -5,7 +5,7 @@ namespace optimizer
 {
     internal class PersonalityUtils
     {
-        internal static Dictionary<string, PersonalitySpecification> GetHardcodedPersonalities()
+        internal static Dictionary<Personality, PersonalitySpecification> GetHardcodedPersonalities()
         {
             // Read the JSON file
             string jsonFilePath = "personalities.json";
@@ -18,7 +18,7 @@ namespace optimizer
             }
 
             var personalitiesJson = JsonConvert.SerializeObject(jsonObject["Personalities"]);
-            var personalitiesDict = JsonConvert.DeserializeObject<Dictionary<string, PersonalitySpecification>>(personalitiesJson);
+            var personalitiesDict = JsonConvert.DeserializeObject<Dictionary<Personality, PersonalitySpecification>>(personalitiesJson);
             return personalitiesDict;
         }
     }

@@ -4,8 +4,8 @@ using optimizer.Models.Pocos;
 using optimizer.Models.Simulation;
 using System.Text;
 
-//string gameUrl = "https://api.considition.com/";
-string gameUrl = "http://localhost:8080/";
+string gameUrl = "https://api.considition.com/";
+//string gameUrl = "http://localhost:8080/";
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 string mapFile = "map.json";
 
@@ -82,27 +82,32 @@ GameInput input = new()
 
 foreach (var customer in map.customers)
 {
-    //make sure all personality types we get from the map are known in the personalities dictionary
-    if (!personalities.ContainsKey(customer.personality))
+    // Convert the string to the Personality enum
+    if (!Enum.TryParse(customer.personality, out Personality personalityEnum))
     {
-        throw new KeyNotFoundException($"Personality {customer.personality} not found in the personalities dictionary.");
+        throw new Exception($"Can't find matching enum for personality {customer.personality}.");
     }
 
-    var personality = personalities[customer.personality];
-
-    if (personality.AcceptedMaxInterest == null)
+    if (!personalities.ContainsKey(personalityEnum))
     {
-        throw new KeyNotFoundException($"Personality {customer.personality} does not have an AcceptedMaxInterest.");
+        throw new KeyNotFoundException($"Personality {personalityEnum} not found in the personalities dictionary.");
     }
 
-    var proposal = new CustomerLoanRequestProposal()
-    {
-        CustomerName = customer.name,
-        MonthsToPayBackLoan = map.gameLengthInMonths,
-        YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0,
-        //YearlyInterestRate = 0.1m, 
-    };
-    input.Proposals.Add(proposal);
+    var personality = personalities[personalityEnum];
+
+    (var totalPayment, var proposal) = LoanUtils.FindOptimalLoanProposal(map, customer, personalities);
+
+
+    //var proposal = new CustomerLoanRequestProposal()
+    //{
+    //    CustomerName = customer.name,
+    //    MonthsToPayBackLoan = map.gameLengthInMonths,
+    //    YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0,
+    //    //YearlyInterestRate = 0.1m, 
+    //};
+    
+    if(proposal != null)
+        input.Proposals.Add(proposal);
 }
 
 Random random = new Random();
@@ -110,18 +115,18 @@ Random random = new Random();
 string[] actionTypes = { "Award", "Skip" };
 string[] awardTypes = { "IkeaFoodCoupon", "IkeaDeliveryCheck", "IkeaCheck", "GiftCard", "HalfInterestRate", "NoInterestRate" };
 
+// Extract customer names from the proposals
+var customerNames = input.Proposals.Select(p => p.CustomerName).ToList();
 
 for (int i = 0; i < map.gameLengthInMonths; i++)
 {
-    //var x = new CustomerActionIteration();
-    //input.Iterations.Add(x);
     Dictionary<string, CustomerAction> t = new();
     input.Iterations.Add(t);
-    foreach (var customer in map.customers)
+    foreach (var customerName in customerNames)
     {
         string randomType = actionTypes[random.Next(actionTypes.Length)];
         string randomAward = randomType == "Skip" ? "None" : awardTypes[random.Next(awardTypes.Length)];
-        t.Add(customer.name, new CustomerAction
+        t.Add(customerName, new CustomerAction
         {
             Type = randomType,
             Award = randomAward
