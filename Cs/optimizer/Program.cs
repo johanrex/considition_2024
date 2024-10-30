@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using optimizer;
-using optimizer.Models;
 using optimizer.Models.Pocos;
+using optimizer.Models.Simulation;
 using System.Text;
 
 //string gameUrl = "https://api.considition.com/";
@@ -80,7 +80,7 @@ GameInput input = new()
 };
 
 
-foreach (Customer customer in map.customers)
+foreach (var customer in map.customers)
 {
     //make sure all personality types we get from the map are known in the personalities dictionary
     if (!personalities.ContainsKey(customer.personality))
@@ -99,7 +99,7 @@ foreach (Customer customer in map.customers)
     {
         CustomerName = customer.name,
         MonthsToPayBackLoan = map.gameLengthInMonths,
-        YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0m,
+        YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0,
         //YearlyInterestRate = 0.1m, 
     };
     input.Proposals.Add(proposal);

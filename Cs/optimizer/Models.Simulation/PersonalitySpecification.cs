@@ -5,16 +5,17 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 #nullable enable
-namespace LocalHost.Models
+namespace optimizer.Models.Simulation
 {
     public record PersonalitySpecification()
     {
-        public Decimal HappinessMultiplier { get; set; }
+        public double HappinessMultiplier { get; set; }
 
-        public Decimal? AcceptedMinInterest { get; set; }
+        public double? AcceptedMinInterest { get; set; }
 
-        public Decimal? AcceptedMaxInterest { get; set; }
+        public double? AcceptedMaxInterest { get; set; }
 
-        public Decimal LivingStandardMultiplier { get; set; }
+        public double LivingStandardMultiplier { get; set; }
+
     }
 }

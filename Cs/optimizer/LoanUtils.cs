@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LocalHost.Models;
-using optimizer.Models;
-using optimizer.Models.Pocos;
+﻿using optimizer.Models.Pocos;
+using optimizer.Models.Simulation;
 
 namespace optimizer
 {
@@ -18,7 +12,7 @@ namespace optimizer
 
         public static (double, CustomerLoanRequestProposal) FindOptimalLoanProposal(double initialBankCapital, optimizer.Models.Pocos.Customer customer, MapData map, Dictionary<string, PersonalitySpecification> personalities)
         {
-            customer.name
+            customer.name;
             //TODO grid search for optimal loan proposal
 
         }

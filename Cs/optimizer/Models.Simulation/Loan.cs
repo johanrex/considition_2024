@@ -1,16 +1,11 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: LocalHost.Models.Loan
-// Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1790A9F3-C8FD-4294-9282-EE084D3CC633
-// Assembly location: C:\temp\app\LocalHost.dll
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 #nullable enable
-namespace optimizer.Models
+namespace optimizer.Models.Simulation
 {
     public record Loan()
     {

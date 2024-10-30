@@ -1,6 +1,6 @@
 ﻿
 #nullable disable
-namespace optimizer.Models
+namespace optimizer.Models.Simulation
 {
     public enum Personality
     {

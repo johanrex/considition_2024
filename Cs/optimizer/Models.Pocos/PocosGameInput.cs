@@ -17,7 +17,7 @@ public class GameInput
 public class CustomerLoanRequestProposal
 {
     public string CustomerName { get; set; } = null!;
-    public decimal YearlyInterestRate { get; set; }
+    public double YearlyInterestRate { get; set; }
     public int MonthsToPayBackLoan { get; set; }
 }
 
