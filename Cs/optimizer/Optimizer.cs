@@ -10,73 +10,6 @@ string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 //string mapFile = "map_10000.json";
 string mapFile = "map.json";
 
-void PrettyPrintJson(object obj)
-{
-    string prettyJson = JsonConvert.SerializeObject(obj, Formatting.Indented);
-    Console.WriteLine(prettyJson);
-}
-
-
-MapData GetMap(string mapFilename, Dictionary<Personality, PersonalitySpecification> personalities)
-{
-    string mapDataText = File.ReadAllText(mapFilename);
-    var map = JsonConvert.DeserializeObject<MapData>(mapDataText);
-
-    //Verify the input
-    foreach (var customer in map.customers)
-    {
-        // Convert the string to the Personality enum
-        if (!Enum.TryParse(customer.personality, out Personality personalityEnum))
-        {
-            throw new Exception($"Can't find matching enum for personality {customer.personality}.");
-        }
-
-        if (!personalities.ContainsKey(personalityEnum))
-        {
-            throw new KeyNotFoundException($"Personality {personalityEnum} not found in the personalities dictionary.");
-        }
-    }
-
-    return map;
-}
-
-
-async Task<GameResponse> SubmitGame(string gameUrl, GameInput input)
-{
-    Console.WriteLine("Request payload:");
-    PrettyPrintJson(input);
-
-    ////TODO this kills performance.
-    ////write the json to file
-    //string prettyJson = JsonConvert.SerializeObject(input, Formatting.Indented);
-    //File.WriteAllText("gameInput.json", prettyJson);
-
-    HttpRequestMessage request = new();
-    request.Method = HttpMethod.Post;
-    request.RequestUri = new Uri(gameUrl + "game", UriKind.Absolute);
-    request.Headers.Add("x-api-key", apiKey);
-
-
-    request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
-
-    HttpClient client = new();
-    //client.BaseAddress = new Uri(gameUrl, UriKind.Absolute);
-
-    Console.WriteLine("Response:");
-    var res = client.Send(request);
-    Console.WriteLine("");
-    Console.WriteLine(res.StatusCode);
-
-    var responsePayload = await res.Content.ReadAsStringAsync();
-
-    PrettyPrintJson(JsonConvert.DeserializeObject(responsePayload));
-
-    GameResponse gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
-
-    return gameResponse;
-}
-
-
 /*
 ///////////////////////////////////////////////////////////////////
 //Here comes the meat.
@@ -84,16 +17,66 @@ async Task<GameResponse> SubmitGame(string gameUrl, GameInput input)
 */
 
 
-//TODO infer personalities instead.
-var personalities = PersonalityUtils.GetHardcodedPersonalities();
+GameUtils gameUtils = new GameUtils(gameUrl, apiKey);
 
 //Read the map with all the customers
-MapData map = GetMap(mapFile, personalities);
+MapData map = GameUtils.GetMap(mapFile);
 
-var yearlyInterestRate = 0.01;
-var monthsToPayBackLoan = 14;
-var input = LoanUtils.CreateSingleCustomerGameInput(map.name, map.gameLengthInMonths, map.customers[0].name, yearlyInterestRate, monthsToPayBackLoan);
-var gameResponse = await SubmitGame(gameUrl, input);
+//TODO infer personalities instead.
+var personalities = PersonalityUtils.GetHardcodedPersonalities();
+if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
+{
+    throw new Exception("Map contains unknown personalities.");
+}
+if (!PersonalityUtils.HasKnownInterestRates(personalities))
+{
+    throw new Exception("Some personalities have unknown interest rates.");
+}
+
+
+//Let's test simulated annealing
+var customer = map.customers[0];
+var customerName = customer.name;
+var personality = PersonalityUtils.StringToEnum(customer.personality);
+var personalitySpec = personalities[personality];
+var acceptedMaxInterest = personalitySpec.AcceptedMaxInterest ?? 0.0;
+var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
+var startYearlyInterestRate = (acceptedMaxInterest - acceptedMinInterest)/2 + acceptedMinInterest;
+var startMonthsToPayBackLoan = map.gameLengthInMonths/2;
+var maxMonthsToPayBackLoan = 50 * 12;
+var initialTemperature = 1000.0;
+var coolingRate = 0.003;
+var maxIterations = 1000;
+
+SimulatedAnnealing anneal = new SimulatedAnnealing(
+    gameUtils, 
+    map.name, 
+    map.gameLengthInMonths, 
+    customerName, 
+    startYearlyInterestRate, 
+    startMonthsToPayBackLoan, 
+    acceptedMinInterest, 
+    acceptedMaxInterest, 
+    maxMonthsToPayBackLoan);
+
+(var optimalInterestRate, var optimalMonthsToPayBackLoan) = anneal.Run(
+    startYearlyInterestRate,
+    startMonthsToPayBackLoan,
+    initialTemperature,
+    coolingRate,
+    maxIterations,
+    acceptedMinInterest,
+    acceptedMaxInterest,
+    0,
+    maxMonthsToPayBackLoan);
+
+Console.WriteLine($"Customer name: {customerName}, optimalInterestRate: {optimalInterestRate}, optimalMonthsToPayBackLoan: {optimalMonthsToPayBackLoan}.");
+
+
+
+//var monthsToPayBackLoan = 14;
+//var input = LoanUtils.CreateSingleCustomerGameInput(map.name, map.gameLengthInMonths, map.customers[0].name, yearlyInterestRate, monthsToPayBackLoan);
+//var gameResponse = await gameUtils.SubmitGame(input);
 
 //foreach (var customer in map.customers)
 //{

@@ -8,8 +8,43 @@ namespace optimizer
 {
     internal class SimulatedAnnealing
     {
-        public static (double, int) Optimize(
-            Func<double, int, double> costFunction,
+        private string MapName;
+        private int GameLengthInMonths;
+        private string CustomerName;
+        private double AcceptedMinInterest;
+        private double AcceptedMaxInterest;
+        private int MaxMonthsToPayBackLoan;
+        private double YearlyInterestRate;
+        private int MonthsToPayBackLoan;
+        private GameUtils GameUtils;
+
+        private SimulatedAnnealing()
+        {}
+
+        public SimulatedAnnealing(GameUtils gameUtils, string mapName, int gameLengthInMonths, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
+        {
+            // Set the properties
+            MapName = mapName;
+            GameLengthInMonths = gameLengthInMonths;
+            CustomerName = customerName;
+            AcceptedMinInterest = acceptedMinInterest;
+            AcceptedMaxInterest = acceptedMaxInterest;
+            MaxMonthsToPayBackLoan = maxMonthsToPayBackLoan;
+            GameUtils = gameUtils;
+
+            // Set the optimization parameters
+            YearlyInterestRate = startYearlyInterestRate;
+            MonthsToPayBackLoan = startMonthsToPayBackLoan;
+        }
+
+        private double CostFunction(double yearlyInterestRate, int monthsToPayBackLoan)
+        {
+            var input = LoanUtils.CreateSingleCustomerGameInput(MapName, GameLengthInMonths, CustomerName, yearlyInterestRate, monthsToPayBackLoan);
+            var score = GameUtils.ScoreGame(input);
+            return score;
+        }
+
+        public (double, int) Run(
             double x0,
             int y0,
             double initialTemperature,
@@ -25,7 +60,7 @@ namespace optimizer
             int y = y0;
             double bestX = x;
             int bestY = y;
-            double bestCost = costFunction(x, y);
+            double bestCost = CostFunction(x, y);
             double temperature = initialTemperature;
 
             for (int i = 0; i < maxIterations; i++)
@@ -38,7 +73,7 @@ namespace optimizer
                 newX = Math.Max(xMin, Math.Min(xMax, newX));
                 newY = Math.Max(yMin, Math.Min(yMax, newY));
 
-                double newCost = costFunction(newX, newY);
+                double newCost = CostFunction(newX, newY);
 
                 // Accept the new variables based on probability
                 if (newCost < bestCost || Math.Exp((bestCost - newCost) / temperature) > rand.NextDouble())

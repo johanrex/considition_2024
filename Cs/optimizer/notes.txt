@@ -1,12 +1,12 @@
 
 
 Major tasks:
-* find minAcceptedInterestRate and maxAcceptedInterestRate for each personality
-    * genetic
-    * binary search
-    * grid search
-    * simulated annealing
-    * particle swarm optimization
+
+* Remote api: 
+    minAcceptedInterestRate for each personality
+    maxAcceptedInterestRate for each personality
+
+
 * find loan parameters for each individual
     * extract the dlls and use the functions directly
     * genetic
