@@ -1,0 +1,757 @@
+{
+  "name": "50 customers",
+  "budget": 100000000,
+  "gameLengthInMonths": 36,
+  "customers": [
+    {
+      "name": "Customer0",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 9.0,
+        "amount": 289453.0
+      },
+      "personality": "RiskTaker",
+      "capital": 755860.0,
+      "income": 43416.0,
+      "monthlyExpenses": 2642.0,
+      "numberOfKids": 1,
+      "homeMortgage": 7453665.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer1",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 9.0,
+        "amount": 1425514.0
+      },
+      "personality": "Conservative",
+      "capital": 951208.0,
+      "income": 43440.0,
+      "monthlyExpenses": 18967.0,
+      "numberOfKids": 1,
+      "homeMortgage": 347812.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer2",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 148.0,
+        "amount": 1154702.0
+      },
+      "personality": "Conservative",
+      "capital": 661549.0,
+      "income": 24600.0,
+      "monthlyExpenses": 18780.0,
+      "numberOfKids": 0,
+      "homeMortgage": 4289085.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer3",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 158.0,
+        "amount": 1791164.0
+      },
+      "personality": "Innovative",
+      "capital": 26024.0,
+      "income": 48371.0,
+      "monthlyExpenses": 41561.0,
+      "numberOfKids": 2,
+      "homeMortgage": 4377876.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer4",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 107.0,
+        "amount": 1810354.0
+      },
+      "personality": "Spontaneous",
+      "capital": 599339.0,
+      "income": 28552.0,
+      "monthlyExpenses": 32061.0,
+      "numberOfKids": 0,
+      "homeMortgage": 408533.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer5",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 103.0,
+        "amount": 3963453.0
+      },
+      "personality": "Innovative",
+      "capital": 555328.0,
+      "income": 8984.0,
+      "monthlyExpenses": 27339.0,
+      "numberOfKids": 6,
+      "homeMortgage": 3095891.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer6",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 124.0,
+        "amount": 3843647.0
+      },
+      "personality": "Spontaneous",
+      "capital": 413695.0,
+      "income": 1636.0,
+      "monthlyExpenses": 13881.0,
+      "numberOfKids": 2,
+      "homeMortgage": 822672.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer7",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 187.0,
+        "amount": 4997213.0
+      },
+      "personality": "RiskTaker",
+      "capital": 838731.0,
+      "income": 24800.0,
+      "monthlyExpenses": 12543.0,
+      "numberOfKids": 3,
+      "homeMortgage": 2977551.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer8",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 104.0,
+        "amount": 4751277.0
+      },
+      "personality": "Practical",
+      "capital": 165681.0,
+      "income": 33998.0,
+      "monthlyExpenses": 1267.0,
+      "numberOfKids": 4,
+      "homeMortgage": 9934356.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer9",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 30.0,
+        "amount": 561948.0
+      },
+      "personality": "Innovative",
+      "capital": 17990.0,
+      "income": 41033.0,
+      "monthlyExpenses": 46085.0,
+      "numberOfKids": 1,
+      "homeMortgage": 7372821.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer10",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 153.0,
+        "amount": 2097792.0
+      },
+      "personality": "RiskTaker",
+      "capital": 529999.0,
+      "income": 47384.0,
+      "monthlyExpenses": 28355.0,
+      "numberOfKids": 1,
+      "homeMortgage": 7407225.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer11",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 133.0,
+        "amount": 3335226.0
+      },
+      "personality": "Innovative",
+      "capital": 350292.0,
+      "income": 7851.0,
+      "monthlyExpenses": 3013.0,
+      "numberOfKids": 3,
+      "homeMortgage": 3362308.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer12",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 179.0,
+        "amount": 3640983.0
+      },
+      "personality": "Spontaneous",
+      "capital": 545162.0,
+      "income": 23582.0,
+      "monthlyExpenses": 44640.0,
+      "numberOfKids": 4,
+      "homeMortgage": 6975924.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer13",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 13.0,
+        "amount": 4453481.0
+      },
+      "personality": "Spontaneous",
+      "capital": 949001.0,
+      "income": 792.0,
+      "monthlyExpenses": 27373.0,
+      "numberOfKids": 5,
+      "homeMortgage": 3399868.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer14",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 15.0,
+        "amount": 3431360.0
+      },
+      "personality": "Practical",
+      "capital": 95663.0,
+      "income": 40183.0,
+      "monthlyExpenses": 39761.0,
+      "numberOfKids": 0,
+      "homeMortgage": 1667045.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer15",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 182.0,
+        "amount": 771348.0
+      },
+      "personality": "RiskTaker",
+      "capital": 586240.0,
+      "income": 34615.0,
+      "monthlyExpenses": 22227.0,
+      "numberOfKids": 2,
+      "homeMortgage": 284557.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer16",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 64.0,
+        "amount": 2877223.0
+      },
+      "personality": "Innovative",
+      "capital": 152170.0,
+      "income": 42567.0,
+      "monthlyExpenses": 640.0,
+      "numberOfKids": 2,
+      "homeMortgage": 6966174.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer17",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 9.0,
+        "amount": 1807033.0
+      },
+      "personality": "Conservative",
+      "capital": 648445.0,
+      "income": 46992.0,
+      "monthlyExpenses": 19782.0,
+      "numberOfKids": 3,
+      "homeMortgage": 1019754.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer18",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 14.0,
+        "amount": 1412482.0
+      },
+      "personality": "Conservative",
+      "capital": 118609.0,
+      "income": 47483.0,
+      "monthlyExpenses": 42397.0,
+      "numberOfKids": 5,
+      "homeMortgage": 9950824.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer19",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 142.0,
+        "amount": 1495064.0
+      },
+      "personality": "Practical",
+      "capital": 47985.0,
+      "income": 42345.0,
+      "monthlyExpenses": 49039.0,
+      "numberOfKids": 0,
+      "homeMortgage": 9533589.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer20",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 108.0,
+        "amount": 4134708.0
+      },
+      "personality": "Conservative",
+      "capital": 884083.0,
+      "income": 1424.0,
+      "monthlyExpenses": 19373.0,
+      "numberOfKids": 3,
+      "homeMortgage": 1749595.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer21",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 69.0,
+        "amount": 1732797.0
+      },
+      "personality": "Spontaneous",
+      "capital": 75177.0,
+      "income": 4329.0,
+      "monthlyExpenses": 27800.0,
+      "numberOfKids": 3,
+      "homeMortgage": 6096677.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer22",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 83.0,
+        "amount": 1331108.0
+      },
+      "personality": "Spontaneous",
+      "capital": 264426.0,
+      "income": 9480.0,
+      "monthlyExpenses": 9072.0,
+      "numberOfKids": 5,
+      "homeMortgage": 7614552.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer23",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 75.0,
+        "amount": 1249870.0
+      },
+      "personality": "RiskTaker",
+      "capital": 514984.0,
+      "income": 29657.0,
+      "monthlyExpenses": 45812.0,
+      "numberOfKids": 7,
+      "homeMortgage": 9695250.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer24",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 165.0,
+        "amount": 3546063.0
+      },
+      "personality": "Spontaneous",
+      "capital": 100012.0,
+      "income": 40676.0,
+      "monthlyExpenses": 14530.0,
+      "numberOfKids": 4,
+      "homeMortgage": 854040.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer25",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 191.0,
+        "amount": 1820569.0
+      },
+      "personality": "Spontaneous",
+      "capital": 876203.0,
+      "income": 24593.0,
+      "monthlyExpenses": 48977.0,
+      "numberOfKids": 6,
+      "homeMortgage": 6383493.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer26",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 152.0,
+        "amount": 974117.0
+      },
+      "personality": "Spontaneous",
+      "capital": 521918.0,
+      "income": 11397.0,
+      "monthlyExpenses": 3960.0,
+      "numberOfKids": 3,
+      "homeMortgage": 1999008.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer27",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 198.0,
+        "amount": 538509.0
+      },
+      "personality": "Innovative",
+      "capital": 497475.0,
+      "income": 32532.0,
+      "monthlyExpenses": 42254.0,
+      "numberOfKids": 4,
+      "homeMortgage": 7289312.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer28",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 66.0,
+        "amount": 449969.0
+      },
+      "personality": "Conservative",
+      "capital": 262755.0,
+      "income": 8669.0,
+      "monthlyExpenses": 3446.0,
+      "numberOfKids": 7,
+      "homeMortgage": 3584381.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer29",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 51.0,
+        "amount": 66089.0
+      },
+      "personality": "RiskTaker",
+      "capital": 587793.0,
+      "income": 7467.0,
+      "monthlyExpenses": 9923.0,
+      "numberOfKids": 5,
+      "homeMortgage": 8091215.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer30",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 163.0,
+        "amount": 2019878.0
+      },
+      "personality": "Practical",
+      "capital": 358897.0,
+      "income": 48662.0,
+      "monthlyExpenses": 31369.0,
+      "numberOfKids": 1,
+      "homeMortgage": 2792511.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer31",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 198.0,
+        "amount": 133310.0
+      },
+      "personality": "RiskTaker",
+      "capital": 965433.0,
+      "income": 42345.0,
+      "monthlyExpenses": 35211.0,
+      "numberOfKids": 5,
+      "homeMortgage": 1283409.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer32",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 89.0,
+        "amount": 4364723.0
+      },
+      "personality": "Practical",
+      "capital": 413317.0,
+      "income": 25120.0,
+      "monthlyExpenses": 49069.0,
+      "numberOfKids": 6,
+      "homeMortgage": 9480599.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer33",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 121.0,
+        "amount": 4272482.0
+      },
+      "personality": "Conservative",
+      "capital": 892678.0,
+      "income": 49999.0,
+      "monthlyExpenses": 40200.0,
+      "numberOfKids": 5,
+      "homeMortgage": 5553482.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer34",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 195.0,
+        "amount": 1975341.0
+      },
+      "personality": "Spontaneous",
+      "capital": 655144.0,
+      "income": 7108.0,
+      "monthlyExpenses": 44465.0,
+      "numberOfKids": 1,
+      "homeMortgage": 930446.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer35",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 30.0,
+        "amount": 2349177.0
+      },
+      "personality": "Conservative",
+      "capital": 527754.0,
+      "income": 21675.0,
+      "monthlyExpenses": 18993.0,
+      "numberOfKids": 0,
+      "homeMortgage": 8253073.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer36",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 125.0,
+        "amount": 3731183.0
+      },
+      "personality": "RiskTaker",
+      "capital": 191929.0,
+      "income": 33506.0,
+      "monthlyExpenses": 37235.0,
+      "numberOfKids": 7,
+      "homeMortgage": 3884777.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer37",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 152.0,
+        "amount": 160658.0
+      },
+      "personality": "Spontaneous",
+      "capital": 621508.0,
+      "income": 11807.0,
+      "monthlyExpenses": 11803.0,
+      "numberOfKids": 6,
+      "homeMortgage": 3964716.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer38",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 0.0,
+        "amount": 1049171.0
+      },
+      "personality": "Innovative",
+      "capital": 402003.0,
+      "income": 21683.0,
+      "monthlyExpenses": 10033.0,
+      "numberOfKids": 4,
+      "homeMortgage": 7426551.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer39",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 38.0,
+        "amount": 828996.0
+      },
+      "personality": "Practical",
+      "capital": 960854.0,
+      "income": 34095.0,
+      "monthlyExpenses": 3323.0,
+      "numberOfKids": 7,
+      "homeMortgage": 1001921.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer40",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 136.0,
+        "amount": 4625934.0
+      },
+      "personality": "Conservative",
+      "capital": 552028.0,
+      "income": 26063.0,
+      "monthlyExpenses": 46210.0,
+      "numberOfKids": 1,
+      "homeMortgage": 4234579.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer41",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 134.0,
+        "amount": 4061865.0
+      },
+      "personality": "Conservative",
+      "capital": 994106.0,
+      "income": 20333.0,
+      "monthlyExpenses": 48761.0,
+      "numberOfKids": 3,
+      "homeMortgage": 4504424.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer42",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 199.0,
+        "amount": 2056838.0
+      },
+      "personality": "RiskTaker",
+      "capital": 564717.0,
+      "income": 44362.0,
+      "monthlyExpenses": 23088.0,
+      "numberOfKids": 1,
+      "homeMortgage": 4463231.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer43",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 48.0,
+        "amount": 1901091.0
+      },
+      "personality": "Practical",
+      "capital": 155530.0,
+      "income": 19277.0,
+      "monthlyExpenses": 27865.0,
+      "numberOfKids": 3,
+      "homeMortgage": 8441449.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer44",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 142.0,
+        "amount": 2936777.0
+      },
+      "personality": "RiskTaker",
+      "capital": 181126.0,
+      "income": 44182.0,
+      "monthlyExpenses": 15925.0,
+      "numberOfKids": 4,
+      "homeMortgage": 9649618.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer45",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 33.0,
+        "amount": 3117575.0
+      },
+      "personality": "Conservative",
+      "capital": 698211.0,
+      "income": 5881.0,
+      "monthlyExpenses": 41022.0,
+      "numberOfKids": 5,
+      "homeMortgage": 5951645.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer46",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 174.0,
+        "amount": 2238630.0
+      },
+      "personality": "Innovative",
+      "capital": 928628.0,
+      "income": 11847.0,
+      "monthlyExpenses": 38235.0,
+      "numberOfKids": 5,
+      "homeMortgage": 7322597.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer47",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 75.0,
+        "amount": 4013745.0
+      },
+      "personality": "Innovative",
+      "capital": 809194.0,
+      "income": 30280.0,
+      "monthlyExpenses": 27075.0,
+      "numberOfKids": 5,
+      "homeMortgage": 7718355.0,
+      "hasStudentLoan": true
+    },
+    {
+      "name": "Customer48",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 69.0,
+        "amount": 4065786.0
+      },
+      "personality": "Innovative",
+      "capital": 891425.0,
+      "income": 3314.0,
+      "monthlyExpenses": 7739.0,
+      "numberOfKids": 7,
+      "homeMortgage": 5112055.0,
+      "hasStudentLoan": false
+    },
+    {
+      "name": "Customer49",
+      "loan": {
+        "product": "Home Mortgage",
+        "environmentalImpact": 145.0,
+        "amount": 2025575.0
+      },
+      "personality": "Innovative",
+      "capital": 864855.0,
+      "income": 37008.0,
+      "monthlyExpenses": 3255.0,
+      "numberOfKids": 1,
+      "homeMortgage": 4485805.0,
+      "hasStudentLoan": false
+    }
+  ]
+}

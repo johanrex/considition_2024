@@ -37,7 +37,7 @@ namespace optimizer
             MonthsToPayBackLoan = startMonthsToPayBackLoan;
         }
 
-        private double CostFunction(double yearlyInterestRate, int monthsToPayBackLoan)
+        private double ScoreFunction(double yearlyInterestRate, int monthsToPayBackLoan)
         {
             var input = LoanUtils.CreateSingleCustomerGameInput(MapName, GameLengthInMonths, CustomerName, yearlyInterestRate, monthsToPayBackLoan);
             var score = GameUtils.ScoreGame(input);
@@ -45,7 +45,7 @@ namespace optimizer
         }
 
 
-        public (double, int) Run(
+        public (double, double, int) Run(
             double x0,
             int y0,
             double initialTemperature,
@@ -61,7 +61,7 @@ namespace optimizer
             int y = y0;
             double bestX = x;
             int bestY = y;
-            double bestCost = CostFunction(x, y);
+            double bestScore = ScoreFunction(x, y);
             double temperature = initialTemperature;
 
             for (int i = 0; i < maxIterations; i++)
@@ -74,14 +74,14 @@ namespace optimizer
                 newX = Math.Max(xMin, Math.Min(xMax, newX));
                 newY = Math.Max(yMin, Math.Min(yMax, newY));
 
-                double newCost = CostFunction(newX, newY);
+                double newScore = ScoreFunction(newX, newY);
 
                 // Accept the new variables based on probability
-                if (newCost > bestCost || Math.Exp((newCost - bestCost) / temperature) > rand.NextDouble())
+                if (newScore > bestScore || Math.Exp((newScore - bestScore) / temperature) > rand.NextDouble())
                 {
                     x = newX;
                     y = newY;
-                    bestCost = newCost;
+                    bestScore = newScore;
                     bestX = x;
                     bestY = y;
                 }
@@ -90,7 +90,7 @@ namespace optimizer
                 temperature *= coolingRate;
             }
 
-            return (bestX, bestY);
+            return (bestScore, bestX, bestY);
         }
     }
 }
