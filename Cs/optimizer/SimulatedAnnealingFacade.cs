@@ -56,7 +56,7 @@ namespace optimizer
                     0,
                     maxMonthsToPayBackLoan);
 
-                Console.WriteLine($"Customer name: {customerName}, bestScore: {bestScore}, optimalInterestRate: {optimalInterestRate}, optimalMonthsToPayBackLoan: {optimalMonthsToPayBackLoan}.");
+                Console.WriteLine($"Customer name: {customerName}, bestScore: {bestScore}, optimalInterestRate: {optimalInterestRate}, optimalMonthsToPayBackLoan: {optimalMonthsToPayBackLoan}, loanAmount: {customer.loan.amount}.");
 
                 var detail = new CustomerPropositionDetails
                 {
