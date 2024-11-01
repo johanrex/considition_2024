@@ -44,6 +44,7 @@ namespace optimizer
             return score;
         }
 
+
         public (double, int) Run(
             double x0,
             int y0,
@@ -76,7 +77,7 @@ namespace optimizer
                 double newCost = CostFunction(newX, newY);
 
                 // Accept the new variables based on probability
-                if (newCost < bestCost || Math.Exp((bestCost - newCost) / temperature) > rand.NextDouble())
+                if (newCost > bestCost || Math.Exp((newCost - bestCost) / temperature) > rand.NextDouble())
                 {
                     x = newX;
                     y = newY;
