@@ -10,8 +10,13 @@ namespace optimizer
 {
     internal class SimulatedAnnealingFacade
     {
-        public static void Run(GameUtils gameUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public static List<CustomerPropositionDetails> Run(GameUtils gameUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
+            //TODO verify that customer names are unique when reading the map.
+
+
+            List<CustomerPropositionDetails> details = [];
+
             for (int i = 0; i < map.customers.Length; i++)
             {
                 //Let's test simulated annealing
@@ -52,9 +57,18 @@ namespace optimizer
 
                 Console.WriteLine($"Customer name: {customerName}, bestScore: {bestScore}, optimalInterestRate: {optimalInterestRate}, optimalMonthsToPayBackLoan: {optimalMonthsToPayBackLoan}.");
 
+                var detail = new CustomerPropositionDetails
+                {
+                    CustomerName = customerName,
+                    ScoreContribution = bestScore,
+                    LoanAmount = customer.loan.amount,
+                    OptimalInterestRate = optimalInterestRate,
+                    OptimalMonthsPayBack = optimalMonthsToPayBackLoan
+                };
+
+                details.Add(detail);
             }
-
-
+            return details;
         }
     }
 }

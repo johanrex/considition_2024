@@ -33,8 +33,7 @@ if (!PersonalityUtils.HasKnownInterestRates(personalities))
     throw new Exception("Some personalities have unknown interest rates.");
 }
 
-SimulatedAnnealingFacade.Run(gameUtils, map, personalities);
-
+var customerDetails = SimulatedAnnealingFacade.Run(gameUtils, map, personalities);
 
 
 Console.WriteLine("Done.");
