@@ -17,6 +17,7 @@ namespace optimizer
 
             List<CustomerPropositionDetails> details = [];
 
+            //TODO run in parallell
             for (int i = 0; i < map.customers.Length; i++)
             {
                 //Let's test simulated annealing
