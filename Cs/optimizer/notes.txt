@@ -1,4 +1,28 @@
 
+
+Major tasks:
+* find minAcceptedInterestRate and maxAcceptedInterestRate for each personality
+    * genetic
+    * binary search
+    * grid search
+    * simulated annealing
+    * particle swarm optimization
+* find loan parameters for each individual
+    * extract the dlls and use the functions directly
+    * genetic
+    * binary search
+    * grid search
+    * simulated annealing
+    * particle swarm optimization
+* find profitability for user during the given period
+* find the most profitable customers to lend to given the set budget
+* generera 1000 kunder och se hur lång tid det tar att köra. 
+* skapa lån på enormt lång tid eftersom det ger mest interest tillbaka tidigt. Typ 1.000.000 år. 
+
+
+
+
+Minor tasks:
 * skriv ihop reglerna och fråga claude om han kan rekommendera algoritmer. 
 * infer personality traits using binary search for the different personalities, in isolation. 
 * hur väga risk vs profitability? Hur kvantifiera risk?
@@ -10,8 +34,10 @@
 * generate a ton of personalities and see how close I can get to the real values.
 * calculate profitability for all persons and choose according to that. 
 * formulera en funktion för profitability med interestrate och months to pay back och lånebelopp. Fundera hur man hittar ett maximum på denna funktion.
-* rycka ur dllerna och anropa dom direkt utanför docker?
+* rycka ur dllerna och anropa dom direkt utanför docker? - Går fortare. 
 * customer name is a unique identifier.
+* This reads the Config/personalities.json file:
+    this.Personalities = JsonSerializer.Deserialize<LocalHost.Models.Personalities>(File.ReadAllText(Path.Join(directoryPath, "personalities.json")), this.jsonSerializerOptions)?.PersonalitySpecifications ?? throw new Exception("Count not parse personalities.json");
 
 
 * test optimizing paybacklength + interestRate for each personality by doing grid search initially. 

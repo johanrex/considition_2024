@@ -14,9 +14,9 @@ namespace optimizer.Models.Simulation
 {
     public record Customer
     {
-        public string Name { get; init; }
+        public required string Name { get; init; }
 
-        public Loan Loan { get; init; }
+        public required Loan Loan { get; init; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Personality Personality { get; init; }
@@ -103,10 +103,6 @@ namespace optimizer.Models.Simulation
                 }
             }
             return false;
-        }
-
-        public Customer()
-        {
         }
     }
 }

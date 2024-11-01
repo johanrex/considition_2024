@@ -4,9 +4,10 @@ using optimizer.Models.Pocos;
 using optimizer.Models.Simulation;
 using System.Text;
 
-string gameUrl = "https://api.considition.com/";
-//string gameUrl = "http://localhost:8080/";
+//string gameUrl = "https://api.considition.com/";
+string gameUrl = "http://localhost:8080/";
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
+//string mapFile = "map_10000.json";
 string mapFile = "map.json";
 
 void PrettyPrintJson(object obj)
@@ -16,32 +17,50 @@ void PrettyPrintJson(object obj)
 }
 
 
-MapData GetMap(string mapFilename)
+MapData GetMap(string mapFilename, Dictionary<Personality, PersonalitySpecification> personalities)
 {
     string mapDataText = File.ReadAllText(mapFilename);
     var map = JsonConvert.DeserializeObject<MapData>(mapDataText);
+
+    //Verify the input
+    foreach (var customer in map.customers)
+    {
+        // Convert the string to the Personality enum
+        if (!Enum.TryParse(customer.personality, out Personality personalityEnum))
+        {
+            throw new Exception($"Can't find matching enum for personality {customer.personality}.");
+        }
+
+        if (!personalities.ContainsKey(personalityEnum))
+        {
+            throw new KeyNotFoundException($"Personality {personalityEnum} not found in the personalities dictionary.");
+        }
+    }
+
     return map;
 }
 
 
-async Task<GameResponse> SubmitGame(GameInput input)
+async Task<GameResponse> SubmitGame(string gameUrl, GameInput input)
 {
+    Console.WriteLine("Request payload:");
+    PrettyPrintJson(input);
+
+    ////TODO this kills performance.
+    ////write the json to file
+    //string prettyJson = JsonConvert.SerializeObject(input, Formatting.Indented);
+    //File.WriteAllText("gameInput.json", prettyJson);
+
     HttpRequestMessage request = new();
     request.Method = HttpMethod.Post;
     request.RequestUri = new Uri(gameUrl + "game", UriKind.Absolute);
     request.Headers.Add("x-api-key", apiKey);
 
-    Console.WriteLine("Request payload:");
-    PrettyPrintJson(input);
-
-    //write the json to file
-    string prettyJson = JsonConvert.SerializeObject(input, Formatting.Indented);
-    File.WriteAllText("gameInput.json", prettyJson);
 
     request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
 
     HttpClient client = new();
-    client.BaseAddress = new Uri(gameUrl, UriKind.Absolute);
+    //client.BaseAddress = new Uri(gameUrl, UriKind.Absolute);
 
     Console.WriteLine("Response:");
     var res = client.Send(request);
@@ -64,52 +83,27 @@ async Task<GameResponse> SubmitGame(GameInput input)
 ///////////////////////////////////////////////////////////////////
 */
 
+
 //TODO infer personalities instead.
 var personalities = PersonalityUtils.GetHardcodedPersonalities();
 
-
 //Read the map with all the customers
-MapData map = GetMap(mapFile);
+MapData map = GetMap(mapFile, personalities);
 
+var yearlyInterestRate = 0.01;
+var monthsToPayBackLoan = 14;
+var input = LoanUtils.CreateSingleCustomerGameInput(map.name, map.gameLengthInMonths, map.customers[0].name, yearlyInterestRate, monthsToPayBackLoan);
+var gameResponse = await SubmitGame(gameUrl, input);
 
-GameInput input = new()
-{
-    MapName = map.name,
-    Proposals = new(),
-    Iterations = new()
-};
+//foreach (var customer in map.customers)
+//{
+//    (var totalPayment, var proposal) = LoanUtils.FindOptimalLoanProposal(map, customer, personalities);
 
+//    if(proposal != null)
+//        input.Proposals.Add(proposal);
+//}
 
-foreach (var customer in map.customers)
-{
-    // Convert the string to the Personality enum
-    if (!Enum.TryParse(customer.personality, out Personality personalityEnum))
-    {
-        throw new Exception($"Can't find matching enum for personality {customer.personality}.");
-    }
-
-    if (!personalities.ContainsKey(personalityEnum))
-    {
-        throw new KeyNotFoundException($"Personality {personalityEnum} not found in the personalities dictionary.");
-    }
-
-    var personality = personalities[personalityEnum];
-
-    (var totalPayment, var proposal) = LoanUtils.FindOptimalLoanProposal(map, customer, personalities);
-
-
-    //var proposal = new CustomerLoanRequestProposal()
-    //{
-    //    CustomerName = customer.name,
-    //    MonthsToPayBackLoan = map.gameLengthInMonths,
-    //    YearlyInterestRate = personality.AcceptedMaxInterest ?? 0.0,
-    //    //YearlyInterestRate = 0.1m, 
-    //};
-    
-    if(proposal != null)
-        input.Proposals.Add(proposal);
-}
-
+/*
 Random random = new Random();
 
 string[] actionTypes = { "Award", "Skip" };
@@ -133,8 +127,9 @@ for (int i = 0; i < map.gameLengthInMonths; i++)
         });
     }
 }
+*/
 
-var gameResponse = await SubmitGame(input);
+//var gameResponse = await SubmitGame(input);
 
 
 Console.WriteLine("Done.");

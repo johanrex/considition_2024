@@ -12,7 +12,7 @@ namespace optimizer.Models.Simulation
         private double amount;
         private const int MonthsInAYear = 12;
 
-        public string Product { get; set; }
+        public required string Product { get; set; }
 
         public double EnvironmentalImpact { get; set; }
 
