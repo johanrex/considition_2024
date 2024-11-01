@@ -52,7 +52,6 @@ namespace optimizer
 
                 Console.WriteLine($"Customer name: {customerName}, bestScore: {bestScore}, optimalInterestRate: {optimalInterestRate}, optimalMonthsToPayBackLoan: {optimalMonthsToPayBackLoan}.");
 
-
             }
 
 
