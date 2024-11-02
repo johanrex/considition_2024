@@ -11,26 +11,73 @@ namespace optimizer
     {
         public static List<CustomerPropositionDetails> Select(MapData map, List<CustomerPropositionDetails> customerDetails)
         {
+            Console.WriteLine("All customers count: " + customerDetails.Count.ToString());
+
             //TODO verify that customer names are unique when reading the map.
 
             //TODO how do we select the most profitable customers within our budget?
             //Is this a knapsack problem? Are there other approaches?
 
             /*
-            Customer name: Gordon, bestScore: 32024,999999999993, optimalInterestRate: 0,02, optimalMonthsToPayBackLoan: 18, loanAmount: 800000,00.
-            Customer name: Glenn, bestScore: -11100, optimalInterestRate: 49996,461425335634, optimalMonthsToPayBackLoan: 10, loanAmount: 300000,00.
-            Customer name: Kim, bestScore: 500,0000000000001, optimalInterestRate: 0,1, optimalMonthsToPayBackLoan: 1, loanAmount: 2000,00.
-            Customer name: Emil, bestScore: 2074,999999999999, optimalInterestRate: 0,05, optimalMonthsToPayBackLoan: 35, loanAmount: 20000,00.
-            Customer name: Ada, bestScore: 249999,9999999999, optimalInterestRate: 0,5, optimalMonthsToPayBackLoan: 28, loanAmount: 250000,00.
+            CustomerPropositionDetails { CustomerName = Glenn, ScoreContribution = -11100, LoanAmount = 300000,00, OptimalInterestRate = 50007,7542410451, OptimalMonthsPayBack = 31 }
+            CustomerPropositionDetails { CustomerName = Emil, ScoreContribution = 2074,999999999999, LoanAmount = 20000,00, OptimalInterestRate = 0,05, OptimalMonthsPayBack = 15 }
+            CustomerPropositionDetails { CustomerName = Kim, ScoreContribution = 500,0000000000001, LoanAmount = 2000,00, OptimalInterestRate = 0,1, OptimalMonthsPayBack = 51 }
+            CustomerPropositionDetails { CustomerName = Gordon, ScoreContribution = 32024,999999999993, LoanAmount = 800000,00, OptimalInterestRate = 0,02, OptimalMonthsPayBack = 22 }
+            CustomerPropositionDetails { CustomerName = Ada, ScoreContribution = 249999,9999999999, LoanAmount = 250000,00, OptimalInterestRate = 0,5, OptimalMonthsPayBack = 21 }
             */
 
-            //The bank's budget
-            var budget = map.budget;
+            int n = customerDetails.Count;
+            double budget = map.budget;
+
+            // Create a DP table
+            double[,] dp = new double[n + 1, (int)budget + 1];
+
+            // Fill the DP table
+            for (int i = 1; i <= n; i++)
+            {
+                for (int w = 0; w <= budget; w++)
+                {
+                    if (customerDetails[i - 1].LoanAmount <= w)
+                    {
+                        dp[i, w] = Math.Max(dp[i - 1, w], dp[i - 1, w - (int)customerDetails[i - 1].LoanAmount] + customerDetails[i - 1].ScoreContribution);
+                    }
+                    else
+                    {
+                        dp[i, w] = dp[i - 1, w];
+                    }
+                }
+            }
+
+            // Backtrack to find the selected items
+            List<CustomerPropositionDetails> selectedCustomers = new List<CustomerPropositionDetails>();
+            for (int i = n, w = (int)budget; i > 0 && w >= 0; i--)
+            {
+                if (dp[i, w] != dp[i - 1, w])
+                {
+                    selectedCustomers.Add(customerDetails[i - 1]);
+                    w -= (int)customerDetails[i - 1].LoanAmount;
+                }
+            }
+
+            Console.WriteLine("Selected customers count: " + selectedCustomers.Count.ToString());
+
+            Console.WriteLine("These customers were selected:");
+            foreach (var customer in selectedCustomers)
+            {
+                Console.WriteLine(customer.ToString());
+            }
+
+            Console.WriteLine("These customers were NOT selected:");
+            foreach (var customer in customerDetails.Except(selectedCustomers))
+            {
+                Console.WriteLine(customer.ToString());
+            }
+
+            Console.WriteLine("Total predicted score: ");
+            Console.WriteLine(selectedCustomers.Sum(c => c.ScoreContribution));
 
 
-
-            return null;
-
+            return selectedCustomers;
         }
     }
 }

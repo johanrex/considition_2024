@@ -11,19 +11,7 @@ namespace optimizer
 {
     internal class GameUtils
     {
-        public string GameUrl;
-        public string ApiKey;
-
-        private GameUtils()
-        {}
-
-        public GameUtils(string gameUrl, string apiKey)
-        {
-            GameUrl = gameUrl;
-            ApiKey = apiKey;
-        }
-
-        static void PrettyPrintJson(object obj)
+        public static void PrettyPrintJson(object obj)
         {
             string prettyJson = JsonConvert.SerializeObject(obj, Formatting.Indented);
             Console.WriteLine(prettyJson);
@@ -36,53 +24,17 @@ namespace optimizer
             return map;
         }
 
-
-        public double ScoreGame(GameInput game)
+        public static bool IsCustomerNamesUnique(MapData map)
         {
-            if (game == null)
-            {
-                throw new ArgumentNullException(nameof(game));
-            }
-
-            GameResponse resp = SubmitGame(game).Result;
-
-            //TODO this might not always have a score if something bad happened.
-            GameResult result = resp.Score;
-            return result.TotalScore;
+            var customerNames = map.customers.Select(c => c.name);
+            return customerNames.Distinct().Count() == customerNames.Count();
         }
 
-        async public Task<GameResponse> SubmitGame(GameInput input)
+        public static double GetTotalScore(GameResponse gameResponse)
         {
-            //Console.WriteLine("Request payload:");
-            //PrettyPrintJson(input);
-
-            ////TODO this kills performance.
-            ////write the json to file
-            //string prettyJson = JsonConvert.SerializeObject(input, Formatting.Indented);
-            //File.WriteAllText("gameInput.json", prettyJson);
-
-            HttpRequestMessage request = new()
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(GameUrl + "game", UriKind.Absolute)
-            };
-            request.Headers.Add("x-api-key", ApiKey);
-            request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
-
-            HttpClient client = new();
-
-            var res = client.Send(request);
-            //Console.WriteLine("Response:");
-            //Console.WriteLine("");
-            //Console.WriteLine(res.StatusCode);
-
-            var responsePayload = await res.Content.ReadAsStringAsync();
-
-            //PrettyPrintJson(JsonConvert.DeserializeObject(responsePayload));
-
-            GameResponse gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
-
-            return gameResponse;
+            //TODO this might not always have a score if something bad happened.
+            //Consider throwing an exception.
+            return gameResponse.Score.TotalScore;
         }
     }
 }

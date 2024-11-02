@@ -1,7 +1,9 @@
 ﻿using optimizer.Models.Pocos;
 using optimizer.Models.Simulation;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +12,18 @@ namespace optimizer
 {
     internal class SimulatedAnnealingFacade
     {
-        public static List<CustomerPropositionDetails> Run(GameUtils gameUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public static List<CustomerPropositionDetails> Run(ServerUtils serverUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
-            //TODO verify that customer names are unique when reading the map.
+            // Start the stopwatch
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
+            var details = new ConcurrentBag<CustomerPropositionDetails>();
 
-            List<CustomerPropositionDetails> details = [];
-
-            //TODO run in parallell
-            for (int i = 0; i < map.customers.Length; i++)
+            // TODO since we're IO bound by network traffic it's possible to use an async/await with Task instead of Parallel.For. Might be more efficient.
+            // From copilot: When dealing with I/O-bound operations, using parallelism with Parallel.For might not be the most efficient approach. Instead, you should consider using asynchronous programming to handle I/O-bound tasks more effectively.
+            Parallel.For(0, map.customers.Length, i =>
             {
-                //Let's test simulated annealing
+                // Let's test simulated annealing
                 var customer = map.customers[i];
                 var customerName = customer.name;
                 var personality = PersonalityUtils.StringToEnum(customer.personality);
@@ -35,7 +38,7 @@ namespace optimizer
                 var maxIterations = 1000;
 
                 SimulatedAnnealing anneal = new SimulatedAnnealing(
-                    gameUtils,
+                    serverUtils,
                     map.name,
                     map.gameLengthInMonths,
                     customerName,
@@ -56,8 +59,6 @@ namespace optimizer
                     0,
                     maxMonthsToPayBackLoan);
 
-                Console.WriteLine($"Customer name: {customerName}, bestScore: {bestScore}, optimalInterestRate: {optimalInterestRate}, optimalMonthsToPayBackLoan: {optimalMonthsToPayBackLoan}, loanAmount: {customer.loan.amount}.");
-
                 var detail = new CustomerPropositionDetails
                 {
                     CustomerName = customerName,
@@ -66,10 +67,22 @@ namespace optimizer
                     OptimalInterestRate = optimalInterestRate,
                     OptimalMonthsPayBack = optimalMonthsToPayBackLoan
                 };
-
                 details.Add(detail);
-            }
-            return details;
+
+                Console.WriteLine(detail.ToString());
+            });
+
+            // Stop the stopwatch
+            stopwatch.Stop();
+
+            // Calculate total time and customers per second
+            double totalTimeInSeconds = stopwatch.Elapsed.TotalSeconds;
+            double customersPerSecond = map.customers.Length / totalTimeInSeconds;
+
+            Console.WriteLine($"Simulated annealing total time taken: {totalTimeInSeconds} seconds");
+            Console.WriteLine($"Customers processed per second: {customersPerSecond}");
+
+            return details.ToList();
         }
     }
 }

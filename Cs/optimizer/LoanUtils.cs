@@ -7,6 +7,49 @@ namespace optimizer
 {
     internal class LoanUtils
     {
+        public static GameInput CreateGameInput(string mapName, int gameLengthInMonths, List<CustomerPropositionDetails> propositionDetails)
+        {
+            var proposals = new List<CustomerLoanRequestProposal>();
+            foreach (var proposition in propositionDetails)
+            {
+                var proposal = new CustomerLoanRequestProposal()
+                {
+                    CustomerName = proposition.CustomerName,
+                    YearlyInterestRate = proposition.OptimalInterestRate,
+                    MonthsToPayBackLoan = proposition.OptimalMonthsPayBack
+                };
+
+                proposals.Add(proposal);
+            }
+
+            var iterations = new List<Dictionary<string, CustomerAction>>();
+            for (int i = 0; i < gameLengthInMonths; i++)
+            {
+                var custActions = new Dictionary<string, CustomerAction>();
+
+                //TODO don't use the variable name customer, it's something else. Also above
+                foreach (var proposition in propositionDetails)
+                {
+                    custActions[proposition.CustomerName] = new CustomerAction
+                    {
+                        Type = "Skip",
+                        Award = "None"
+                    };
+                }
+
+                iterations.Add(custActions);
+            }
+
+            GameInput input = new()
+            {
+                MapName = mapName,
+                Proposals = proposals,
+                Iterations = iterations
+            };
+
+            return input;
+        }
+
 
         public static GameInput CreateSingleCustomerGameInput(string mapName, int gameLengthInMonths, string customerName, double yearlyInterestRate, int monthsToPayBackLoan)
         {

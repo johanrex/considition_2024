@@ -16,12 +16,12 @@ namespace optimizer
         private int MaxMonthsToPayBackLoan;
         private double YearlyInterestRate;
         private int MonthsToPayBackLoan;
-        private GameUtils GameUtils;
+        private ServerUtils ServerUtils;
 
         private SimulatedAnnealing()
         {}
 
-        public SimulatedAnnealing(GameUtils gameUtils, string mapName, int gameLengthInMonths, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
+        public SimulatedAnnealing(ServerUtils serverUtils, string mapName, int gameLengthInMonths, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
         {
             // Set the properties
             MapName = mapName;
@@ -30,7 +30,7 @@ namespace optimizer
             AcceptedMinInterest = acceptedMinInterest;
             AcceptedMaxInterest = acceptedMaxInterest;
             MaxMonthsToPayBackLoan = maxMonthsToPayBackLoan;
-            GameUtils = gameUtils;
+            ServerUtils = serverUtils;
 
             // Set the optimization parameters
             YearlyInterestRate = startYearlyInterestRate;
@@ -40,7 +40,8 @@ namespace optimizer
         private double ScoreFunction(double yearlyInterestRate, int monthsToPayBackLoan)
         {
             var input = LoanUtils.CreateSingleCustomerGameInput(MapName, GameLengthInMonths, CustomerName, yearlyInterestRate, monthsToPayBackLoan);
-            var score = GameUtils.ScoreGame(input);
+            var gameResponse = ServerUtils.SubmitGameAsync(input).Result;
+            var score = GameUtils.GetTotalScore(gameResponse);
             return score;
         }
 
