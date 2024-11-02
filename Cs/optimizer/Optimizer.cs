@@ -83,7 +83,6 @@ Console.WriteLine("Done.");
 
 
 //TODO labba med Award.NoInterestRate 
-//TODO logga ut i scoring vad som händer och exportera till csv
 //TODO inspect the scoring code for performance bottlenecks. Extract it if necessary. Ask copilot for help. 
 //TODO calculate how much budget we have left after granting all the loans. So we know how much we can spend on awards.
 //TODO where does the final OptimalInterestRate get rounded to nice decial places? 

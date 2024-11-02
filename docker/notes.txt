@@ -8,3 +8,8 @@ docker pull sywor/considition2024:latest
 docker compose up -d 
 
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' considition-2024-db-1
+
+
+# Get a bash prompt on the running container
+docker exec -it $id /bin/bash
+
