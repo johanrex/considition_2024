@@ -11,10 +11,7 @@ namespace optimizer
     {
         public static List<CustomerPropositionDetails> Select(MapData map, List<CustomerPropositionDetails> customerDetails)
         {
-            Console.WriteLine("All customers count: " + customerDetails.Count.ToString());
-
-            //TODO verify that customer names are unique when reading the map.
-
+            Console.WriteLine("Selecting customers with dp+backtrack.");
             //TODO how do we select the most profitable customers within our budget?
             //Is this a knapsack problem? Are there other approaches?
 
@@ -59,7 +56,7 @@ namespace optimizer
                 }
             }
 
-            Console.WriteLine("Selected customers count: " + selectedCustomers.Count.ToString());
+            Console.WriteLine("Customers selected: " + selectedCustomers.Count.ToString());
 
             Console.WriteLine("These customers were selected:");
             foreach (var customer in selectedCustomers)
@@ -75,7 +72,6 @@ namespace optimizer
 
             Console.WriteLine("Total predicted score: ");
             Console.WriteLine(selectedCustomers.Sum(c => c.ScoreContribution));
-
 
             return selectedCustomers;
         }

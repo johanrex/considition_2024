@@ -8,7 +8,7 @@ string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 //string mapFile = "map_10000.json";
-string mapFile = "map.json";
+string mapFile = "Maps/map.json";
 
 /*
 ///////////////////////////////////////////////////////////////////
@@ -24,23 +24,19 @@ var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
 MapData map = GameUtils.GetMap(mapFile);
 
 Console.WriteLine("Map name: " + map.name);
+Console.WriteLine("Customer count: " + map.customers.Length.ToString());
 
 if (!GameUtils.IsCustomerNamesUnique(map))
-{
-    //Do we actually need customer names to be unique?
     throw new Exception("Customer names are not unique. This was promised during training.");
-}
+
 
 //TODO infer personalities instead.
 var personalities = PersonalityUtils.GetHardcodedPersonalities();
 if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
-{
     throw new Exception("Map contains unknown personalities.");
-}
+
 if (!PersonalityUtils.HasKnownInterestRates(personalities))
-{
     throw new Exception("Some personalities have unknown interest rates.");
-}
 
 var customerDetails = SimulatedAnnealingFacade.Run(serverUtilsLocal, map, personalities);
 //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
@@ -55,24 +51,15 @@ var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
 //Console.WriteLine(inputJson);
 File.WriteAllText("finalGameInput.json", inputJson);
 
-//Submit to remote server. 
-var gameResponse = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
+//Score the game locally.
+var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
+var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
 
-//Log output
-var responseJson = JsonConvert.SerializeObject(gameResponse, Formatting.Indented);
-Console.WriteLine("Final submission response:");
-Console.WriteLine(responseJson);
-File.WriteAllText("finalGameOutput.json", responseJson);
+//Score the game remotely.
+var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
+var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
 
-double totalScore = GameUtils.GetTotalScore(gameResponse);
-Console.WriteLine("Final submission total score:");
-Console.WriteLine(totalScore.ToString());
-
-//Paranoid check that if we submit to local server we should get the same result.
-var gameResponseLocal = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
-double totalScore2 = GameUtils.GetTotalScore(gameResponse);
-
-if (totalScore != totalScore2)
+if (totalScore != totalScoreRemote)
 {
     throw new Exception("Local and remote server gave different scores.");
 }

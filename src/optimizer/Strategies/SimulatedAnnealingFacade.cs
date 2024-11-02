@@ -15,7 +15,6 @@ namespace optimizer.Strategies
         public static List<CustomerPropositionDetails> Run(ServerUtils serverUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
             Console.WriteLine("Starting simulated annealing.");
-            Console.WriteLine("Customer count: " + map.customers.Length.ToString());
 
             // Start the stopwatch
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -73,7 +72,7 @@ namespace optimizer.Strategies
                 };
                 details.Add(detail);
 
-                Console.WriteLine(detail.ToString());
+                //Console.WriteLine(detail.ToString());
             });
 
             // Stop the stopwatch

@@ -30,5 +30,17 @@ namespace optimizer
             //Consider throwing an exception.
             return gameResponse.Score.TotalScore;
         }
+
+        public static double LogGameResponse(GameResponse gameResponse, string filename)
+        {
+            double totalScore = GetTotalScore(gameResponse);
+            Console.WriteLine("Game response total score:");
+            Console.WriteLine(totalScore.ToString());
+
+            var responseJson = JsonConvert.SerializeObject(gameResponse, Formatting.Indented);
+            File.WriteAllText(filename, responseJson);
+
+            return totalScore;
+        }
     }
 }
