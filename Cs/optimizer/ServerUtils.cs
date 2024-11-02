@@ -26,14 +26,6 @@ namespace optimizer
 
         async public Task<GameResponse> SubmitGameAsync(GameInput input)
         {
-            //Console.WriteLine("Request payload:");
-            //PrettyPrintJson(input);
-
-            ////TODO this kills performance.
-            ////write the json to file
-            //string prettyJson = JsonConvert.SerializeObject(input, Formatting.Indented);
-            //File.WriteAllText("gameInput.json", prettyJson);
-
             HttpRequestMessage request = new()
             {
                 Method = HttpMethod.Post,
@@ -43,18 +35,9 @@ namespace optimizer
             request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
 
             HttpClient client = new();
-
             var res = client.Send(request);
-            //Console.WriteLine("Response:");
-            //Console.WriteLine("");
-            //Console.WriteLine(res.StatusCode);
-
             var responsePayload = await res.Content.ReadAsStringAsync();
-
-            //PrettyPrintJson(JsonConvert.DeserializeObject(responsePayload));
-
-            GameResponse gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
-
+            var gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
             return gameResponse;
         }
     }

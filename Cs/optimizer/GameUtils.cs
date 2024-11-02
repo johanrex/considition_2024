@@ -11,12 +11,6 @@ namespace optimizer
 {
     internal class GameUtils
     {
-        public static void PrettyPrintJson(object obj)
-        {
-            string prettyJson = JsonConvert.SerializeObject(obj, Formatting.Indented);
-            Console.WriteLine(prettyJson);
-        }
-
         public static MapData GetMap(string mapFilename)
         {
             string mapDataText = File.ReadAllText(mapFilename);

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace optimizer
+namespace optimizer.Strategies
 {
     internal class SimulatedAnnealingFacade
     {
@@ -22,6 +22,12 @@ namespace optimizer
 
             var details = new ConcurrentBag<CustomerPropositionDetails>();
 
+            var startMonthsToPayBackLoan = map.gameLengthInMonths / 2;
+            var maxMonthsToPayBackLoan = 50 * 12;
+            var initialTemperature = 1000.0;
+            var coolingRate = 0.95;
+            var maxIterations = 700;
+
             // TODO since we're IO bound by network traffic it's possible to use an async/await with Task instead of Parallel.For. Might be more efficient.
             // From copilot: When dealing with I/O-bound operations, using parallelism with Parallel.For might not be the most efficient approach. Instead, you should consider using asynchronous programming to handle I/O-bound tasks more effectively.
             Parallel.For(0, map.customers.Length, i =>
@@ -34,11 +40,6 @@ namespace optimizer
                 var acceptedMaxInterest = personalitySpec.AcceptedMaxInterest ?? 0.0;
                 var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
                 var startYearlyInterestRate = (acceptedMaxInterest - acceptedMinInterest) / 2 + acceptedMinInterest;
-                var startMonthsToPayBackLoan = map.gameLengthInMonths / 2;
-                var maxMonthsToPayBackLoan = 50 * 12;
-                var initialTemperature = 1000.0;
-                var coolingRate = 0.95;
-                var maxIterations = 1000;
 
                 SimulatedAnnealing anneal = new SimulatedAnnealing(
                     serverUtils,
@@ -82,8 +83,15 @@ namespace optimizer
             double totalTimeInSeconds = stopwatch.Elapsed.TotalSeconds;
             double customersPerSecond = map.customers.Length / totalTimeInSeconds;
 
+
+            Console.WriteLine($"maxMonthsToPayBackLoan: {maxMonthsToPayBackLoan}");
+            Console.WriteLine($"initialTemperature: {initialTemperature}");
+            Console.WriteLine($"coolingRate: {coolingRate}");
+            Console.WriteLine($"maxIterations: {maxIterations}");
             Console.WriteLine($"Simulated annealing total time taken: {totalTimeInSeconds} seconds");
             Console.WriteLine($"Customers processed per second: {customersPerSecond}");
+
+
 
             return details.ToList();
         }

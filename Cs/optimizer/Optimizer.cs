@@ -2,6 +2,7 @@
 using optimizer;
 using optimizer.Models.Pocos;
 using optimizer.Models.Simulation;
+using optimizer.Strategies;
 using System.Text;
 
 string gameUrlRemote = "https://api.considition.com/";
@@ -44,6 +45,7 @@ if (!PersonalityUtils.HasKnownInterestRates(personalities))
 }
 
 var customerDetails = SimulatedAnnealingFacade.Run(serverUtilsLocal, map, personalities);
+//var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
 
 var selectedCustomers = CustomerSelector.Select(map, customerDetails);
 
@@ -52,7 +54,7 @@ var gameInput = LoanUtils.CreateGameInput(map.name, map.gameLengthInMonths, sele
 //Log input 
 Console.WriteLine("Final game input:");
 var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
-Console.WriteLine(inputJson);
+//Console.WriteLine(inputJson);
 File.WriteAllText("finalGameInput.json", inputJson);
 
 //Submit to remote server. 
@@ -68,8 +70,20 @@ double totalScore = GameUtils.GetTotalScore(gameResponse);
 Console.WriteLine("Final submission total score:");
 Console.WriteLine(totalScore.ToString());
 
+//Paranoid check that if we submit to local server we should get the same result.
+var gameResponseLocal = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
+double totalScore2 = GameUtils.GetTotalScore(gameResponse);
+
+if (totalScore != totalScore2)
+{
+    throw new Exception("Local and remote server gave different scores.");
+}
+
 Console.WriteLine("Done.");
 
+
+//TODO labba med Award.NoInterestRate 
+//TODO logga ut i scoring vad som händer och exportera till csv
 //TODO inspect the scoring code for performance bottlenecks. Extract it if necessary. Ask copilot for help. 
 //TODO calculate how much budget we have left after granting all the loans. So we know how much we can spend on awards.
 //TODO where does the final OptimalInterestRate get rounded to nice decial places? 
@@ -78,3 +92,10 @@ Console.WriteLine("Done.");
 //TODO maybe use TotalProfit instead of TotalScore
 //TODO perhaps a genetic algorithm to explore awards. 
 
+
+/*
+ * Changelog
+Score               Action
+284599,9999999999   SA maxIterations: 1000, coolingRate: 0.95, initialTemp: 1000.0, maxMonthsToPayBackLoan = 50 * 12, Time: 18s, Customers processed per second: 0,27689783951679064 
+
+*/
