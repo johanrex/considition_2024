@@ -8,7 +8,7 @@ string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 //string mapFile = "map_10000.json";
-string mapFile = "Maps/map.json";
+string mapFile = "Config/map.json";
 
 /*
 ///////////////////////////////////////////////////////////////////
@@ -43,13 +43,24 @@ var customerDetails = SimulatedAnnealingFacade.Run(serverUtilsLocal, map, person
 
 var selectedCustomers = CustomerSelector.Select(map, customerDetails);
 
+Console.WriteLine("Customers selected: " + selectedCustomers.Count.ToString());
+
+Console.WriteLine("These customers were selected:");
+Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
+
+Console.WriteLine("These customers were NOT selected:");
+Console.WriteLine(DataFrameHelper.ToDataFrame(customerDetails.Except(selectedCustomers)).ToString());
+
+Console.WriteLine("Predicted score from selection process: ");
+Console.WriteLine(selectedCustomers.Sum(c => c.ScoreContribution));
+
 var gameInput = LoanUtils.CreateGameInput(map.name, map.gameLengthInMonths, selectedCustomers);
 
 //Log input 
-Console.WriteLine("Final game input:");
 var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
-//Console.WriteLine(inputJson);
 File.WriteAllText("finalGameInput.json", inputJson);
+//Console.WriteLine("Final game input:");
+//Console.WriteLine(inputJson);
 
 //Score the game locally.
 var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
@@ -66,7 +77,7 @@ if (totalScore != totalScoreRemote)
 
 Console.WriteLine("Done.");
 
-
+//TODO find out if any of the proposals result in someone going bankrupt.
 //TODO labba med Award.NoInterestRate 
 //TODO inspect the scoring code for performance bottlenecks. Extract it if necessary. Ask copilot for help. 
 //TODO calculate how much budget we have left after granting all the loans. So we know how much we can spend on awards.

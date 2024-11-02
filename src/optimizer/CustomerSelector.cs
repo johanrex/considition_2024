@@ -56,23 +56,6 @@ namespace optimizer
                 }
             }
 
-            Console.WriteLine("Customers selected: " + selectedCustomers.Count.ToString());
-
-            Console.WriteLine("These customers were selected:");
-            foreach (var customer in selectedCustomers)
-            {
-                Console.WriteLine(customer.ToString());
-            }
-
-            Console.WriteLine("These customers were NOT selected:");
-            foreach (var customer in customerDetails.Except(selectedCustomers))
-            {
-                Console.WriteLine(customer.ToString());
-            }
-
-            Console.WriteLine("Total predicted score: ");
-            Console.WriteLine(selectedCustomers.Sum(c => c.ScoreContribution));
-
             return selectedCustomers;
         }
     }

@@ -18,7 +18,7 @@ namespace optimizer
         internal static Dictionary<Personality, PersonalitySpecification> GetHardcodedPersonalities()
         {
             // Read the JSON file
-            string jsonFilePath = "personalities.json";
+            string jsonFilePath = "Config/personalities.json";
             string jsonData = File.ReadAllText(jsonFilePath);
 
             var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, PersonalitySpecification>>>(jsonData);
