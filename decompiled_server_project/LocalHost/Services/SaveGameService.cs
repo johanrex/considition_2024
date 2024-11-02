@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.SaveGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 37D09AE0-70E5-46F8-B3D7-80D789257673
+// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using Dapper;

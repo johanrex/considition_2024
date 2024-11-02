@@ -1,10 +1,9 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.DataContext
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 37D09AE0-70E5-46F8-B3D7-80D789257673
+// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
 // Assembly location: C:\temp\app\LocalHost.dll
 
-using Considition.Entities;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -45,11 +44,10 @@ namespace LocalHost
                 int num1 = await conn.ExecuteAsync(interpolatedStringHandler.ToStringAndClear(), commandTimeout: new int?(10));
                 await conn.ChangeDatabaseAsync(database);
                 int num2 = await conn.ExecuteAsync("    IF NOT EXISTS (\r\n        SELECT * \r\n        FROM INFORMATION_SCHEMA.TABLES \r\n        WHERE TABLE_NAME = 'Teams'\r\n    )\r\n    BEGIN\r\n        CREATE TABLE Teams (\r\n            Id UNIQUEIDENTIFIER PRIMARY KEY,\r\n            Name NVARCHAR(255) NOT NULL,\r\n            Venue NVARCHAR(255) NULL,\r\n            ApiKey UNIQUEIDENTIFIER NOT NULL UNIQUE\r\n        );\r\n   END;\r\n    \r\n   IF NOT EXISTS (\r\n       SELECT * \r\n       FROM INFORMATION_SCHEMA.TABLES \r\n       WHERE TABLE_NAME = 'SavedGame'\r\n   )\r\n   BEGIN\r\n       CREATE TABLE SavedGame (\r\n           Id UNIQUEIDENTIFIER PRIMARY KEY,\r\n           TeamId UNIQUEIDENTIFIER NOT NULL,\r\n           GameData NVARCHAR(MAX) NOT NULL,\r\n           CONSTRAINT FK_SavedGame_Team FOREIGN KEY (TeamId) REFERENCES Teams(Id)\r\n       );\r\n   END;\r\n    \r\n     IF NOT EXISTS (\r\n     SELECT * \r\n     FROM INFORMATION_SCHEMA.TABLES \r\n     WHERE TABLE_NAME = 'Leaderboard'\r\n     )\r\n     BEGIN\r\n         CREATE TABLE Leaderboard (\r\n             Id UNIQUEIDENTIFIER PRIMARY KEY,\r\n             GameId UNIQUEIDENTIFIER NOT NULL,\r\n             TeamId UNIQUEIDENTIFIER NOT NULL,\r\n             City NVARCHAR(255) NOT NULL,\r\n             TotalScore BIGINT NOT NULL,\r\n             Happiness BIGINT NOT NULL,\r\n             EnvironmentalScore BIGINT NOT NULL,\r\n             CONSTRAINT FK_Leaderboard_Team FOREIGN KEY (TeamId) REFERENCES Teams(Id),\r\n             CONSTRAINT FK_Leaderboard_SavedGame FOREIGN KEY (GameId) REFERENCES SavedGame(Id)\r\n         );\r\n    END;", commandTimeout: new int?(10));
-                List<Team> list = (await conn.QueryAsync<Team>("select count(*) from Teams where ApiKey = @ApiKey", (object)new
+                if (await conn.ExecuteScalarAsync<int>("select count(*) from Teams where ApiKey = @ApiKey", (object)new
                 {
                     ApiKey = apiKey
-                })).ToList<Team>();
-                if (list.Count != 0 && list.First<Team>().ApiKey == apiKey)
+                }) > 0)
                     return;
                 int num3 = await conn.ExecuteAsync("insert into Teams(id, name, venue, apikey) values (newid(), 'DevelopmentTeam', 'Local', @ApiKey);", (object)new
                 {

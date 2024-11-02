@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.LocalGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 37D09AE0-70E5-46F8-B3D7-80D789257673
+// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -87,12 +87,20 @@ namespace LocalHost.Services
             {
                 Customer customer = map.Customers.FirstOrDefault<Customer>((Func<Customer, bool>)(y => y.Name == x.CustomerName));
                 return (object)customer == null ? 0.0 : customer.Loan.Amount;
-            })) <= map.Budget)
-                return (string)null;
-            DefaultInterpolatedStringHandler interpolatedStringHandler = new DefaultInterpolatedStringHandler(54, 1);
-            interpolatedStringHandler.AppendLiteral("Tried starting game without sufficient funds, budget: ");
-            interpolatedStringHandler.AppendFormatted<double>(map.Budget);
-            return interpolatedStringHandler.ToStringAndClear();
+            })) > map.Budget)
+            {
+                DefaultInterpolatedStringHandler interpolatedStringHandler = new DefaultInterpolatedStringHandler(54, 1);
+                interpolatedStringHandler.AppendLiteral("Tried starting game without sufficient funds, budget: ");
+                interpolatedStringHandler.AppendFormatted<double>(map.Budget);
+                return interpolatedStringHandler.ToStringAndClear();
+            }
+            HashSet<string> stringSet = new HashSet<string>();
+            foreach (CustomerLoanRequestProposal proposal in gameInput.Proposals)
+            {
+                if (!stringSet.Add(proposal.CustomerName))
+                    return "Customer '" + proposal.CustomerName + "' is already on the chosen map!";
+            }
+            return (string)null;
         }
 
         private void HandleIterations(
