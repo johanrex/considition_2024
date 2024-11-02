@@ -19,7 +19,7 @@ namespace optimizer
         private ServerUtils ServerUtils;
 
         private SimulatedAnnealing()
-        {}
+        { }
 
         public SimulatedAnnealing(ServerUtils serverUtils, string mapName, int gameLengthInMonths, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
         {

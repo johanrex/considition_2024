@@ -18,7 +18,7 @@ void WriteMap(MapData map, string mapFilename)
 void GenerateMap(int customerCount)
 {
     var personalities = new List<string>
-    { 
+    {
         "Conservative",
         "RiskTaker",
         "Innovative",
