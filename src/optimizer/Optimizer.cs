@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using optimizer;
 using optimizer.Models.Pocos;
-using optimizer.Models.Simulation;
 using optimizer.Strategies;
-using System.Text;
 
 string gameUrlRemote = "https://api.considition.com/";
 string gameUrlLocal = "http://localhost:8080/";
