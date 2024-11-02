@@ -4,7 +4,7 @@ using optimizer.Models.Simulation;
 
 namespace optimizer
 {
-    internal class PersonalityUtils
+    public class PersonalityUtils
     {
         public static Personality StringToEnum(string personalityString)
         {
@@ -32,17 +32,11 @@ namespace optimizer
             return personalitiesDict;
         }
 
-        public static bool HasKnownPersonalities(MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public static bool HasKnownPersonalities(Map map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
-            foreach (var customer in map.customers)
+            foreach (var customer in map.Customers)
             {
-                // Convert the string to the Personality enum
-                if (!Enum.TryParse(customer.personality, out Personality personalityEnum))
-                {
-                    return false;
-                }
-
-                if (!personalities.ContainsKey(personalityEnum))
+                if (!personalities.ContainsKey(customer.Personality))
                 {
                     return false;
                 }

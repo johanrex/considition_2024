@@ -1,15 +1,7 @@
 ﻿using Newtonsoft.Json;
-using optimizer.Models.Pocos;
 using System;
 
-MapData GetMap(string mapFilename)
-{
-    string mapDataText = File.ReadAllText(mapFilename);
-    var map = JsonConvert.DeserializeObject<MapData>(mapDataText);
-    return map;
-}
-
-void WriteMap(MapData map, string mapFilename)
+void WriteMap(Map map, string mapFilename)
 {
     string prettyJson = JsonConvert.SerializeObject(map, Formatting.Indented);
     File.WriteAllText(mapFilename, prettyJson);
@@ -51,8 +43,8 @@ void GenerateMap(int customerCount)
         customers.Add(customer);
     }
 
-    //create a new MapData object
-    MapData map = new MapData
+    //create a new Map object
+    Map map = new Map
     {
         name = $"{customerCount} customers",
         budget = 100_000_000, // 100,000,000

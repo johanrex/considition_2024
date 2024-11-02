@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pocos\Pocos.csproj" />
+    <ProjectReference Include="..\optimizer\optimizer.csproj" />
   </ItemGroup>
 
 </Project>

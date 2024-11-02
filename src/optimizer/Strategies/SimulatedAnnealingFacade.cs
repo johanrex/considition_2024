@@ -12,7 +12,7 @@ namespace optimizer.Strategies
 {
     internal class SimulatedAnnealingFacade
     {
-        public static List<CustomerPropositionDetails> Run(ServerUtils serverUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public static List<CustomerPropositionDetails> Run(ServerUtils serverUtils, Map map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
             Console.WriteLine("Starting simulated annealing.");
 
@@ -21,20 +21,20 @@ namespace optimizer.Strategies
 
             var details = new ConcurrentBag<CustomerPropositionDetails>();
 
-            var startMonthsToPayBackLoan = map.gameLengthInMonths / 2;
+            var startMonthsToPayBackLoan = map.GameLengthInMonths / 2;
             var maxMonthsToPayBackLoan = 50 * 12;
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 700;
+            var maxIterations = 1000;
 
             // TODO since we're IO bound by network traffic it's possible to use an async/await with Task instead of Parallel.For. Might be more efficient.
             // From copilot: When dealing with I/O-bound operations, using parallelism with Parallel.For might not be the most efficient approach. Instead, you should consider using asynchronous programming to handle I/O-bound tasks more effectively.
-            Parallel.For(0, map.customers.Length, i =>
+            Parallel.For(0, map.Customers.Count, i =>
             {
                 // Let's test simulated annealing
-                var customer = map.customers[i];
-                var customerName = customer.name;
-                var personality = PersonalityUtils.StringToEnum(customer.personality);
+                var customer = map.Customers[i];
+                var customerName = customer.Name;
+                var personality = customer.Personality;
                 var personalitySpec = personalities[personality];
                 var acceptedMaxInterest = personalitySpec.AcceptedMaxInterest ?? 0.0;
                 var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
@@ -42,8 +42,8 @@ namespace optimizer.Strategies
 
                 SimulatedAnnealing anneal = new SimulatedAnnealing(
                     serverUtils,
-                    map.name,
-                    map.gameLengthInMonths,
+                    map.Name,
+                    map.GameLengthInMonths,
                     customerName,
                     startYearlyInterestRate,
                     startMonthsToPayBackLoan,
@@ -66,7 +66,7 @@ namespace optimizer.Strategies
                 {
                     CustomerName = customerName,
                     ScoreContribution = bestScore,
-                    LoanAmount = customer.loan.amount,
+                    LoanAmount = customer.Loan.Amount,
                     OptimalInterestRate = optimalInterestRate,
                     OptimalMonthsPayBack = optimalMonthsToPayBackLoan
                 };
@@ -80,7 +80,7 @@ namespace optimizer.Strategies
 
             // Calculate total time and customers per second
             double totalTimeInSeconds = stopwatch.Elapsed.TotalSeconds;
-            double customersPerSecond = map.customers.Length / totalTimeInSeconds;
+            double customersPerSecond = map.Customers.Count / totalTimeInSeconds;
 
 
             Console.WriteLine($"maxMonthsToPayBackLoan: {maxMonthsToPayBackLoan}");

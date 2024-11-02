@@ -6,8 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "optimizer", "optimizer\optimizer.csproj", "{E1782A42-7AB5-449D-B295-890D7315B11B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapGenerator", "MapGenerator\MapGenerator.csproj", "{15088F28-965E-4867-BD63-8ADC3E8092F9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E1782A42-7AB5-449D-B295-890D7315B11B} = {E1782A42-7AB5-449D-B295-890D7315B11B}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocos", "Pocos\Pocos.csproj", "{7D9E05D1-0EC5-4B94-A3C0-2301BDBC6650}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pocos", "Pocos\Pocos.csproj", "{7D9E05D1-0EC5-4B94-A3C0-2301BDBC6650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

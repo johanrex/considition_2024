@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using optimizer;
-using optimizer.Models.Pocos;
+using optimizer.Models.Simulation;
 using optimizer.Strategies;
 
 string gameUrlRemote = "https://api.considition.com/";
@@ -21,10 +21,10 @@ var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
 var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
 
 //Read the map with all the customers
-MapData map = GameUtils.GetMap(mapFile);
+Map map = GameUtils.GetMap(mapFile);
 
-Console.WriteLine("Map name: " + map.name);
-Console.WriteLine("Customer count: " + map.customers.Length.ToString());
+Console.WriteLine("Map name: " + map.Name);
+Console.WriteLine("Customer count: " + map.Customers.Count.ToString());
 
 if (!GameUtils.IsCustomerNamesUnique(map))
     throw new Exception("Customer names are not unique. This was promised during training.");
@@ -54,7 +54,7 @@ Console.WriteLine(DataFrameHelper.ToDataFrame(customerDetails.Except(selectedCus
 Console.WriteLine("Predicted score from selection process: ");
 Console.WriteLine(selectedCustomers.Sum(c => c.ScoreContribution));
 
-var gameInput = LoanUtils.CreateGameInput(map.name, map.gameLengthInMonths, selectedCustomers);
+var gameInput = LoanUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
 //Log input 
 var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
@@ -91,6 +91,13 @@ Console.WriteLine("Done.");
 /*
  * Changelog
 Score               Action
+After Simulation Map+Customer:
+284599,9999999999   SA maxIterations: 1000, coolingRate: 0.95, initialTemp: 1000.0, maxMonthsToPayBackLoan = 50 * 12, Time: 31s, Customers processed per second: 0,15703386989419763
+
+Baseline:
 284599,9999999999   SA maxIterations: 1000, coolingRate: 0.95, initialTemp: 1000.0, maxMonthsToPayBackLoan = 50 * 12, Time: 18s, Customers processed per second: 0,27689783951679064 
+
+
+
 
 */

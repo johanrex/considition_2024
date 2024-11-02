@@ -10,25 +10,25 @@ namespace optimizer.Strategies
 {
     internal class BruteForce
     {
-        public List<CustomerPropositionDetails> Run(ServerUtils serverUtils, MapData map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public List<CustomerPropositionDetails> Run(ServerUtils serverUtils, Map map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
             Console.WriteLine("Starting brute force.");
 
             var details = new List<CustomerPropositionDetails>();
 
-            for (int i = 0; i < map.customers.Length; i++)
+            for (int i = 0; i < map.Customers.Count; i++)
             {
-                var customer = map.customers[i];
+                var customer = map.Customers[i];
 
-                if (customer.name == "Glenn")
+                if (customer.Name == "Glenn")
                 {
                     Console.WriteLine("Skipping Glenn (the retard).");
                     continue;
                 }
 
-                Console.WriteLine($"Brute forcing {customer.name}. {i+1}/{map.customers.Length}.");
+                Console.WriteLine($"Brute forcing {customer.Name}. {i+1}/{map.Customers.Count}.");
 
-                var personality = PersonalityUtils.StringToEnum(customer.personality);
+                var personality = customer.Personality;
                 var personalitySpec = personalities[personality];
                 var acceptedMaxInterest = personalitySpec.AcceptedMaxInterest ?? 0.0;
                 var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
@@ -42,7 +42,7 @@ namespace optimizer.Strategies
                 {
                     for (int monthsToPayBackLoan = 1; monthsToPayBackLoan <= maxMonthsToPayBackLoan; monthsToPayBackLoan++)
                     {
-                        var input = LoanUtils.CreateSingleCustomerGameInput(map.name, map.gameLengthInMonths, customer.name, yearlyInterestRate, monthsToPayBackLoan);
+                        var input = LoanUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customer.Name, yearlyInterestRate, monthsToPayBackLoan);
                         var gameResponse = serverUtils.SubmitGameAsync(input).Result;
                         var score = GameUtils.GetTotalScore(gameResponse);
 
@@ -57,9 +57,9 @@ namespace optimizer.Strategies
 
                 var detail = new CustomerPropositionDetails
                 {
-                    CustomerName = customer.name,
+                    CustomerName = customer.Name,
                     ScoreContribution = bestScore,
-                    LoanAmount = customer.loan.amount,
+                    LoanAmount = customer.Loan.Amount,
                     OptimalInterestRate = optimalInterestRate,
                     OptimalMonthsPayBack = optimalMonthsToPayBackLoan
                 };

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using optimizer.Models.Pocos;
+using optimizer.Models.Simulation;
 
 namespace optimizer
 {
     internal class CustomerSelector
     {
-        public static List<CustomerPropositionDetails> Select(MapData map, List<CustomerPropositionDetails> customerDetails)
+        public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails)
         {
             Console.WriteLine("Selecting customers with dp+backtrack.");
             //TODO how do we select the most profitable customers within our budget?
@@ -24,7 +24,7 @@ namespace optimizer
             */
 
             int n = customerDetails.Count;
-            double budget = map.budget;
+            double budget = map.Budget;
 
             // Create a DP table
             double[,] dp = new double[n + 1, (int)budget + 1];
