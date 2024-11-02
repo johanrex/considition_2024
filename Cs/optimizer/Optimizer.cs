@@ -9,7 +9,7 @@ string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 //string mapFile = "map_10000.json";
-string mapFile = "map50.json";
+string mapFile = "map.json";
 
 /*
 ///////////////////////////////////////////////////////////////////
@@ -23,6 +23,9 @@ var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
 
 //Read the map with all the customers
 MapData map = GameUtils.GetMap(mapFile);
+
+Console.WriteLine("Map name: " + map.name);
+
 if (!GameUtils.IsCustomerNamesUnique(map))
 {
     //Do we actually need customer names to be unique?
@@ -46,17 +49,20 @@ var selectedCustomers = CustomerSelector.Select(map, customerDetails);
 
 var gameInput = LoanUtils.CreateGameInput(map.name, map.gameLengthInMonths, selectedCustomers);
 
+//Log input 
 Console.WriteLine("Final game input:");
-var prettyJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
-File.WriteAllText("finalGameInput.json", prettyJson);
-Console.WriteLine(prettyJson);
+var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
+Console.WriteLine(inputJson);
+File.WriteAllText("finalGameInput.json", inputJson);
 
 //Submit to remote server. 
 var gameResponse = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
 
+//Log output
+var responseJson = JsonConvert.SerializeObject(gameResponse, Formatting.Indented);
 Console.WriteLine("Final submission response:");
-Console.WriteLine(gameResponse.ToString());
-
+Console.WriteLine(responseJson);
+File.WriteAllText("finalGameOutput.json", responseJson);
 
 double totalScore = GameUtils.GetTotalScore(gameResponse);
 Console.WriteLine("Final submission total score:");
@@ -64,7 +70,8 @@ Console.WriteLine(totalScore.ToString());
 
 Console.WriteLine("Done.");
 
-//TODO calculate how much budget we have left after granting all the loans. 
+//TODO inspect the scoring code for performance bottlenecks. Extract it if necessary. Ask copilot for help. 
+//TODO calculate how much budget we have left after granting all the loans. So we know how much we can spend on awards.
 //TODO where does the final OptimalInterestRate get rounded to nice decial places? 
 //TODO Extract docker image dlls to run scoring on native code. 
 //TODO infer minAcceptedInterestRate, maxAcceptedInterestRate
