@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using optimizer.Models.Simulation;
+using optimizer.Models.Pocos;
 
 namespace optimizer
 {
@@ -16,7 +17,7 @@ namespace optimizer
     {
         public static Map GetMap(string mapFilename)
         {
-            JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions()
+            var jsonSerializerOptions = new JsonSerializerOptions()
             {
                 PropertyNameCaseInsensitive = true
             };
@@ -25,6 +26,31 @@ namespace optimizer
 
             return map;
         }
+
+
+        public static Dictionary<AwardType, AwardSpecification> GetAwards(string awardsFilename)
+        {
+            string json = File.ReadAllText(awardsFilename);
+
+            var jsonSerializerOptions = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            Dictionary<AwardType, AwardSpecification> awards;
+
+            using (JsonDocument document = JsonDocument.Parse(json))
+            {
+                JsonElement root = document.RootElement;
+                JsonElement awardsElement = root.GetProperty("Awards");
+
+                awards = JsonSerializer.Deserialize<Dictionary<AwardType, AwardSpecification>>(awardsElement.GetRawText(), jsonSerializerOptions);
+            }
+
+            return awards;
+        }
+
+
 
         public static bool IsCustomerNamesUnique(Map map)
         {

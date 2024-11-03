@@ -12,7 +12,10 @@ namespace optimizer.Strategies
 {
     internal class SimulatedAnnealingFacade
     {
-        public static List<CustomerPropositionDetails> Run(ServerUtils serverUtils, Map map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public static List<CustomerPropositionDetails> Run(
+            Map map, Dictionary<Personality, 
+            PersonalitySpecification> personalities,
+            Dictionary<AwardType, AwardSpecification> awards)
         {
             Console.WriteLine("Starting simulated annealing.");
 
@@ -41,9 +44,9 @@ namespace optimizer.Strategies
                 var startYearlyInterestRate = (acceptedMaxInterest - acceptedMinInterest) / 2 + acceptedMinInterest;
 
                 SimulatedAnnealing anneal = new SimulatedAnnealing(
-                    serverUtils,
-                    map.Name,
-                    map.GameLengthInMonths,
+                    map,
+                    personalities,
+                    awards,
                     customerName,
                     startYearlyInterestRate,
                     startMonthsToPayBackLoan,

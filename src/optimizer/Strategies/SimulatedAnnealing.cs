@@ -1,4 +1,6 @@
-﻿using System;
+﻿using optimizer.Models.Pocos;
+using optimizer.Models.Simulation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,29 +10,29 @@ namespace optimizer.Strategies
 {
     internal class SimulatedAnnealing
     {
-        private string MapName;
-        private int GameLengthInMonths;
-        private string CustomerName;
-        private double AcceptedMinInterest;
-        private double AcceptedMaxInterest;
-        private int MaxMonthsToPayBackLoan;
+        private Map map;
+        private Dictionary<Personality, PersonalitySpecification> personalities;
+        private Dictionary<AwardType, AwardSpecification> awards;
+        private string customerName;
+        private double acceptedMinInterest;
+        private double acceptedMaxInterest;
+        private int maxMonthsToPayBackLoan;
         private double YearlyInterestRate;
         private int MonthsToPayBackLoan;
-        private ServerUtils ServerUtils;
 
         private SimulatedAnnealing()
         { }
 
-        public SimulatedAnnealing(ServerUtils serverUtils, string mapName, int gameLengthInMonths, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
+        public SimulatedAnnealing(Map map, Dictionary<Personality, PersonalitySpecification> personalities, Dictionary<AwardType, AwardSpecification> awards, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
         {
             // Set the properties
-            MapName = mapName;
-            GameLengthInMonths = gameLengthInMonths;
-            CustomerName = customerName;
-            AcceptedMinInterest = acceptedMinInterest;
-            AcceptedMaxInterest = acceptedMaxInterest;
-            MaxMonthsToPayBackLoan = maxMonthsToPayBackLoan;
-            ServerUtils = serverUtils;
+            this.map = map;
+            this.personalities = personalities;
+            this.awards = awards;
+            this.customerName = customerName;
+            this.acceptedMinInterest = acceptedMinInterest;
+            this.acceptedMaxInterest = acceptedMaxInterest;
+            this.maxMonthsToPayBackLoan = maxMonthsToPayBackLoan;
 
             // Set the optimization parameters
             YearlyInterestRate = startYearlyInterestRate;
@@ -39,8 +41,11 @@ namespace optimizer.Strategies
 
         private double ScoreFunction(double yearlyInterestRate, int monthsToPayBackLoan)
         {
-            var input = LoanUtils.CreateSingleCustomerGameInput(MapName, GameLengthInMonths, CustomerName, yearlyInterestRate, monthsToPayBackLoan);
-            var gameResponse = ServerUtils.SubmitGameAsync(input).Result;
+            var input = LoanUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customerName, yearlyInterestRate, monthsToPayBackLoan);
+            //var gameResponse = ServerUtils.SubmitGameAsync(input).Result;
+
+            var scorer = new NativeScorer(personalities, awards);
+            var gameResponse = scorer.RunGame(input, map);
             var score = GameUtils.GetTotalScore(gameResponse);
             return score;
         }
