@@ -8,7 +8,7 @@ string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 //string mapFile = "map_10000.json";
-string mapFile = "Config/map.json";
+string mapFile = "Config/map_100.json";
 string awardsFile = "Config/awards.json";
 /*
 ///////////////////////////////////////////////////////////////////
@@ -16,6 +16,7 @@ string awardsFile = "Config/awards.json";
 ///////////////////////////////////////////////////////////////////
 */
 
+Console.WriteLine("-----------------------------------------------------------");
 
 var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
 var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
@@ -42,10 +43,21 @@ if (awards.Count <= 0)
     throw new Exception("No awards found in file.");
 
 
-var customerDetails = SimulatedAnnealingFacade.Run(map, personalities, awards);
-//var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
 
-var selectedCustomers = CustomerSelector.Select(map, customerDetails);
+/*
+ * Simulate!
+ */
+//var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
+Console.WriteLine("-----------------------------------------------------------");
+var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(map, personalities, awards);
+
+Console.WriteLine("-----------------------------------------------------------");
+/*
+ * Select best customers for our budget.
+ */
+//var selectedCustomers = SelectCustomersDpBackTrack.Select(map, customerDetails);
+var selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+Console.WriteLine("-----------------------------------------------------------");
 
 Console.WriteLine("Customers selected: " + selectedCustomers.Count.ToString());
 
@@ -54,6 +66,8 @@ Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
 
 Console.WriteLine("These customers were NOT selected:");
 Console.WriteLine(DataFrameHelper.ToDataFrame(customerDetails.Except(selectedCustomers)).ToString());
+
+Console.WriteLine("-----------------------------------------------------------");
 
 var predictedScore = selectedCustomers.Sum(c => c.ScoreContribution);
 Console.WriteLine("Predicted score from selection process: ");

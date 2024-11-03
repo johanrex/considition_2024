@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace optimizer.Strategies
 {
-    internal class BruteForce
+    internal class IndividualScoreBruteForce
     {
         public List<CustomerPropositionDetails> Run(ServerUtils serverUtils, Map map, Dictionary<Personality, PersonalitySpecification> personalities)
         {

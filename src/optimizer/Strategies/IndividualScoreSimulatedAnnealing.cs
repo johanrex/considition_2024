@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace optimizer.Strategies
 {
-    internal class SimulatedAnnealing
+    internal class IndividualScoreSimulatedAnnealing
     {
         private Map map;
         private Dictionary<Personality, PersonalitySpecification> personalities;
@@ -20,10 +20,10 @@ namespace optimizer.Strategies
         private double YearlyInterestRate;
         private int MonthsToPayBackLoan;
 
-        private SimulatedAnnealing()
+        private IndividualScoreSimulatedAnnealing()
         { }
 
-        public SimulatedAnnealing(Map map, Dictionary<Personality, PersonalitySpecification> personalities, Dictionary<AwardType, AwardSpecification> awards, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
+        public IndividualScoreSimulatedAnnealing(Map map, Dictionary<Personality, PersonalitySpecification> personalities, Dictionary<AwardType, AwardSpecification> awards, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
         {
             // Set the properties
             this.map = map;

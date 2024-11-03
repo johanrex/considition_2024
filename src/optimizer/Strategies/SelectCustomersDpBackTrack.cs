@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using optimizer.Models.Simulation;
 
-namespace optimizer
+namespace optimizer.Strategies
 {
-    internal class CustomerSelector
+    internal class SelectCustomersDpBackTrack
     {
         public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails)
         {

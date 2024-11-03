@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace optimizer.Strategies
 {
-    internal class SimulatedAnnealingFacade
+    internal class IndividualScoreSimulatedAnnealingFacade
     {
         public static List<CustomerPropositionDetails> Run(
             Map map, Dictionary<Personality, 
@@ -43,7 +43,7 @@ namespace optimizer.Strategies
                 var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
                 var startYearlyInterestRate = (acceptedMaxInterest - acceptedMinInterest) / 2 + acceptedMinInterest;
 
-                SimulatedAnnealing anneal = new SimulatedAnnealing(
+                IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
                     map,
                     personalities,
                     awards,
