@@ -3,16 +3,19 @@ using optimizer;
 using optimizer.Models.Simulation;
 using optimizer.Strategies;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 
 string gameUrlRemote = "https://api.considition.com/";
 string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-string mapFile = "Config/map.json";
+//string mapFile = "Config/map.json";
 //string mapFile = "Config/map_100.json";
+string mapFile = "Config/map_1000.json";
 string awardsFile = "Config/awards.json";
 string personalitiesFile = "Config/personalities.json";
 string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
+bool useCompetitionPersonalities = false;
 /*
 ///////////////////////////////////////////////////////////////////
 //Here comes the meat.
@@ -32,16 +35,26 @@ if (!GameUtils.IsCustomerNamesUnique(map))
     throw new Exception("Customer names are not unique. This was promised during training.");
 
 
+
 Dictionary<Personality, PersonalitySpecification> personalities;
-if (!File.Exists(personalitiesFileCompetition))
+
+if (useCompetitionPersonalities)
 {
-    Console.WriteLine("Inferring personalities from api.");
-    personalities = PersonalityUtils.InferPersonalityInterestRatesBounds(serverUtilsLocal, map, personalitiesFile);
+    if (!File.Exists(personalitiesFileCompetition))
+    {
+        Console.WriteLine("Inferring personalities from api.");
+        personalities = PersonalityInferenceHelper.InferPersonalityInterestRatesBounds(serverUtilsLocal, map, personalitiesFile);
+    }
+    else
+    {
+        Console.WriteLine("Reading personalities file: " + personalitiesFileCompetition);
+        personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFileCompetition);
+    }
 }
 else
 {
-    Console.WriteLine("Reading personalities file: " + personalitiesFileCompetition);
-    personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFileCompetition);
+    Console.WriteLine("Reading personalities file: " + personalitiesFile);
+    personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFile);
 }
 
 Console.WriteLine("-----------------------------------------------------------");

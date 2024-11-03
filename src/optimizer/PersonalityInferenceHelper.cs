@@ -50,51 +50,12 @@ namespace optimizer
                     throw new Exception($"Bad score {score}. The starting interest rate ({startInterestRate}) was probably bad.");
                 }
 
-                //binary search for the max accepted interest rate
-                int ubRequestCount = 0;
-                double lowerBound = startInterestRate;
-                double upperBound = 10.0;
-                double maxAcceptedInterestRate = -1.0;
-                while (upperBound - lowerBound > 0.001)
-                {
-                    double mid = (lowerBound + upperBound) / 2;
-                    gameInput = LoanUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customer.Name, mid, monthsToPayBackLoan);
-                    gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
-                    score = GameUtils.GetTotalScore(gameResponse);
-                    ubRequestCount++;
-                    if (score > 0)
-                    {
-                        lowerBound = mid;
-                        maxAcceptedInterestRate = mid;
-                    }
-                    else
-                    {
-                        upperBound = mid;
-                    }
-                }
+                // Perform binary search for the max accepted interest rate
+                double maxAcceptedInterestRate = BoundedContinuousBinarySearch(serverUtils, map, customer, startInterestRate, 10.0, monthsToPayBackLoan, true);
 
-                //binary search for the min accepted interest rate
-                int lbRequestCount = 0;
-                lowerBound = 0.0;
-                upperBound = startInterestRate;
-                double minAcceptedInterestRate = -1.0;
-                while (upperBound - lowerBound > 0.001)
-                {
-                    double mid = (lowerBound + upperBound) / 2;
-                    gameInput = LoanUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customer.Name, mid, monthsToPayBackLoan);
-                    gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
-                    score = GameUtils.GetTotalScore(gameResponse);
-                    lbRequestCount++;
-                    if (score > 0)
-                    {
-                        upperBound = mid;
-                        minAcceptedInterestRate = mid;
-                    }
-                    else
-                    {
-                        lowerBound = mid;
-                    }
-                }
+                // Perform binary search for the min accepted interest rate
+                double minAcceptedInterestRate = BoundedContinuousBinarySearch(serverUtils, map, customer, 0.0, startInterestRate, monthsToPayBackLoan, false);
+
 
                 if (minAcceptedInterestRate == -1.0 || maxAcceptedInterestRate == -1.0)
                 {
@@ -109,5 +70,43 @@ namespace optimizer
 
             return personalities;
         }
+
+        private static double BoundedContinuousBinarySearch(ServerUtils serverUtils, Map map, Customer customer, double lowerBound, double upperBound, int monthsToPayBackLoan, bool findMax)
+        {
+            double result = -1.0;
+            while (upperBound - lowerBound > 0.001)
+            {
+                double mid = (lowerBound + upperBound) / 2;
+                var gameInput = LoanUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customer.Name, mid, monthsToPayBackLoan);
+                var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
+                var score = GameUtils.GetTotalScore(gameResponse);
+                if (score > 0)
+                {
+                    if (findMax)
+                    {
+                        lowerBound = mid;
+                        result = mid;
+                    }
+                    else
+                    {
+                        upperBound = mid;
+                        result = mid;
+                    }
+                }
+                else
+                {
+                    if (findMax)
+                    {
+                        upperBound = mid;
+                    }
+                    else
+                    {
+                        lowerBound = mid;
+                    }
+                }
+            }
+            return result;
+        }
+
     }
 }
