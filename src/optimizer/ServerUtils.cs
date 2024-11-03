@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace optimizer
 {
-    internal class ServerUtils
+    public class ServerUtils
     {
         public string GameUrl;
         public string ApiKey;

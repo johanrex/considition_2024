@@ -6,7 +6,7 @@ using System.Linq;
 using System.Diagnostics;
 namespace optimizer.Strategies
 {
-    public class SelectCustomersGenetic
+    public class SelectCustomersGeneticElitism
     {
         private static Random random = new Random();
 
@@ -20,7 +20,7 @@ namespace optimizer.Strategies
 
             for (int generation = 0; generation < generations; generation++)
             {
-                population = EvolvePopulation(population, budget, mutationRate);
+                population = EvolvePopulation(population, budget, mutationRate, elitismCount);
             }
 
             var selectedCustomers = population.OrderByDescending(ComputeFitness).First();
@@ -55,11 +55,21 @@ namespace optimizer.Strategies
             return population;
         }
 
-        private static List<List<CustomerPropositionDetails>> EvolvePopulation(List<List<CustomerPropositionDetails>> population, double budget, double mutationRate)
+        private static List<List<CustomerPropositionDetails>> EvolvePopulation(List<List<CustomerPropositionDetails>> population, double budget, double mutationRate, int elitismCount)
         {
             List<List<CustomerPropositionDetails>> newPopulation = new List<List<CustomerPropositionDetails>>();
 
-            for (int i = 0; i < population.Count; i++)
+            // Sort the population by fitness in descending order
+            var sortedPopulation = population.OrderByDescending(ComputeFitness).ToList();
+
+            // Add the top elites to the new population
+            for (int i = 0; i < elitismCount; i++)
+            {
+                newPopulation.Add(sortedPopulation[i]);
+            }
+
+            // Fill the rest of the new population with offspring
+            for (int i = elitismCount; i < population.Count; i++)
             {
                 var parent1 = SelectParent(population);
                 var parent2 = SelectParent(population);
@@ -75,6 +85,7 @@ namespace optimizer.Strategies
 
             return newPopulation;
         }
+
 
         private static List<CustomerPropositionDetails> SelectParent(List<List<CustomerPropositionDetails>> population)
         {

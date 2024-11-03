@@ -2,24 +2,27 @@
 using optimizer;
 using optimizer.Models.Simulation;
 using optimizer.Strategies;
+using System.Collections.Generic;
 
 string gameUrlRemote = "https://api.considition.com/";
 string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-//string mapFile = "map_10000.json";
-string mapFile = "Config/map_100.json";
+string mapFile = "Config/map.json";
+//string mapFile = "Config/map_100.json";
 string awardsFile = "Config/awards.json";
+string personalitiesFile = "Config/personalities.json";
+string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
 /*
 ///////////////////////////////////////////////////////////////////
 //Here comes the meat.
 ///////////////////////////////////////////////////////////////////
 */
 
-Console.WriteLine("-----------------------------------------------------------");
-
 var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
 var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
+
+Console.WriteLine("-----------------------------------------------------------");
 
 var map = GameUtils.GetMap(mapFile);
 Console.WriteLine("Map name: " + map.Name);
@@ -28,8 +31,20 @@ Console.WriteLine("Customer count: " + map.Customers.Count.ToString());
 if (!GameUtils.IsCustomerNamesUnique(map))
     throw new Exception("Customer names are not unique. This was promised during training.");
 
-//TODO infer personalities instead.
-var personalities = PersonalityUtils.GetHardcodedPersonalities();
+
+Dictionary<Personality, PersonalitySpecification> personalities;
+if (!File.Exists(personalitiesFileCompetition))
+{
+    Console.WriteLine("Inferring personalities from api.");
+    personalities = PersonalityUtils.InferPersonalityInterestRatesBounds(serverUtilsLocal, map, personalitiesFile);
+}
+else
+{
+    Console.WriteLine("Reading personalities file: " + personalitiesFileCompetition);
+    personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFileCompetition);
+}
+
+Console.WriteLine("-----------------------------------------------------------");
 
 if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
     throw new Exception("Map contains unknown personalities.");
@@ -56,9 +71,9 @@ Console.WriteLine("-----------------------------------------------------------")
  * SELECT best customers for our budget.
  */
 //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
-//var selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+var selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
 //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
-var selectedCustomers = SelectCustomersGenetic.Select(map, customerDetails);
+//var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
 
 
 Console.WriteLine("-----------------------------------------------------------");
@@ -105,8 +120,10 @@ if (totalScore != totalScoreRemote)
 
 Console.WriteLine("Done.");
 
-
-
+//TODO LivingStandardMultiplier kommer inte vara känd!!
+//TODO Kanske logga ut i en databas vilka betalningar som kommer in och hur man kan förutspå bankrupt. 
+//TODO undersök hur många som blir bankrupt. Ge award för att hindra att det händer. Jämför kostnaden för award vs Happiness -500 bankrupt. 
+//TODO selection: Do greedy first and use that as seed for genetic approach.
 //TODO make as high interest as possible that is both acceptable and not going bankrupt. Perhaps just binary search until interest rate is found. <-------------------
 //TODO find out if any of the proposals result in someone going bankrupt.
 //TODO labba med Award.NoInterestRate 
