@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace optimizer
 {
-    internal record CustomerPropositionDetails
+    public record CustomerPropositionDetails
     {
         public string CustomerName { get; set; }
         public double ScoreContribution { get; set; }

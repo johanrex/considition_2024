@@ -45,7 +45,7 @@ if (awards.Count <= 0)
 
 
 /*
- * Simulate!
+ * SIMULATE
  */
 //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
 Console.WriteLine("-----------------------------------------------------------");
@@ -53,10 +53,14 @@ var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(map, personali
 
 Console.WriteLine("-----------------------------------------------------------");
 /*
- * Select best customers for our budget.
+ * SELECT best customers for our budget.
  */
-//var selectedCustomers = SelectCustomersDpBackTrack.Select(map, customerDetails);
-var selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+//var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
+//var selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+//var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
+var selectedCustomers = SelectCustomersGenetic.Select(map, customerDetails);
+
+
 Console.WriteLine("-----------------------------------------------------------");
 
 Console.WriteLine("Customers selected: " + selectedCustomers.Count.ToString());
@@ -101,6 +105,8 @@ if (totalScore != totalScoreRemote)
 
 Console.WriteLine("Done.");
 
+
+
 //TODO make as high interest as possible that is both acceptable and not going bankrupt. Perhaps just binary search until interest rate is found. <-------------------
 //TODO find out if any of the proposals result in someone going bankrupt.
 //TODO labba med Award.NoInterestRate 
@@ -112,6 +118,11 @@ Console.WriteLine("Done.");
 //TODO maybe use TotalProfit instead of TotalScore
 //TODO perhaps a genetic algorithm to explore awards. 
 
+//Approaches to Solve the Knapsack Problem
+//1.	Dynamic Programming (DP): Provides an exact solution but can be memory-intensive.
+//2.	Greedy Algorithm: Provides an approximate solution and is more memory-efficient.
+//3.	Branch and Bound: Another exact method that can be more efficient than DP in some cases.
+//4.	Heuristic and Metaheuristic Algorithms: Such as Genetic Algorithms, Simulated Annealing, etc., which provide good approximations.
 
 /*
  * Changelog

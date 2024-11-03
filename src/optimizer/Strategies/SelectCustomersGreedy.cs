@@ -13,8 +13,6 @@ namespace optimizer.Strategies
         public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails)
         {
             Console.WriteLine("Selecting customers: Greedy.");
-
-            // Start the stopwatch
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             double budget = map.Budget;
