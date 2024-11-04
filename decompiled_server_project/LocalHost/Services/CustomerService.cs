@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.CustomerService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
+// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -26,12 +26,13 @@ namespace LocalHost.Services
         public List<Customer> RequestCustomers(GameInput gameInput, Map map)
         {
             List<Customer> customerList = new List<Customer>();
+            // ISSUE: reference to a compiler-generated field
+            Dictionary<Personality, PersonalitySpecification> personalitySpecifications = this.\u003CconfigService\u003EP.GetPersonalitySpecifications(map.Name);
             foreach (CustomerLoanRequestProposal proposal1 in gameInput.Proposals)
             {
                 CustomerLoanRequestProposal proposal = proposal1;
                 Customer customer = map.Customers.FirstOrDefault<Customer>((Func<Customer, bool>)(c => c.Name.Equals(proposal.CustomerName)));
-                // ISSUE: reference to a compiler-generated field
-                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.\u003CconfigService\u003EP.Personalities))
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalitySpecifications))
                     customerList.Add(customer);
             }
             return customerList;

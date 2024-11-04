@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.AwardSpecificationConverter
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
+// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;

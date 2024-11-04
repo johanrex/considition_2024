@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.IterationService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
+// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -28,6 +28,11 @@ namespace LocalHost.Services
           List<Customer> customers,
           Map map)
         {
+            string name = map.Name;
+            // ISSUE: reference to a compiler-generated field
+            Dictionary<Personality, PersonalitySpecification> personalitySpecifications = this.\u003CconfigService\u003EP.GetPersonalitySpecifications(name);
+            // ISSUE: reference to a compiler-generated field
+            Dictionary<AwardType, AwardSpecification> awardSpecifications = this.\u003CconfigService\u003EP.GetAwardSpecifications(name);
             foreach (Customer customer in customers)
             {
                 if (map.Budget <= 0.0)
@@ -36,15 +41,14 @@ namespace LocalHost.Services
                 {
                     CustomerAction customerAction = iteration.CustomerActions[customer.Name];
                     customer.Payday();
-                    // ISSUE: reference to a compiler-generated field
-                    customer.PayBills(month, this.\u003CconfigService\u003EP.Personalities);
+                    customer.PayBills(month, personalitySpecifications);
                     if (customer.CanPayLoan())
                         map.Budget += customer.PayLoan();
                     else
                         customer.IncrementMark();
                     if (customerAction.Type == CustomerActionType.Award)
                     {
-                        double num = this.Award(customer, customerAction.Award);
+                        double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         map.Budget -= num;
                     }
@@ -55,7 +59,11 @@ namespace LocalHost.Services
             return (string)null;
         }
 
-        private double Award(Customer customer, AwardType award)
+        private double Award(
+          Customer customer,
+          AwardType award,
+          Dictionary<AwardType, AwardSpecification> awardSpecs,
+          Dictionary<Personality, PersonalitySpecification> personalitySpecs)
         {
             double num = Math.Round((100.0 - (double)customer.AwardsInRow * 20.0) / 100.0, 1);
             if (customer.AwardsInRow < 5)
@@ -63,41 +71,29 @@ namespace LocalHost.Services
             switch (award)
             {
                 case AwardType.IkeaCheck:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award1 = this.\u003CconfigService\u003EP.Awards[AwardType.IkeaCheck];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award1.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier * num;
-                    return award1.Cost;
+                    AwardSpecification awardSpec1 = awardSpecs[AwardType.IkeaCheck];
+                    customer.Happiness += awardSpec1.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec1.Cost;
                 case AwardType.IkeaFoodCoupon:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award2 = this.\u003CconfigService\u003EP.Awards[AwardType.IkeaFoodCoupon];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award2.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier * num;
-                    return award2.Cost;
+                    AwardSpecification awardSpec2 = awardSpecs[AwardType.IkeaFoodCoupon];
+                    customer.Happiness += awardSpec2.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec2.Cost;
                 case AwardType.IkeaDeliveryCheck:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award3 = this.\u003CconfigService\u003EP.Awards[AwardType.IkeaDeliveryCheck];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award3.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier * num;
-                    return award3.Cost;
+                    AwardSpecification awardSpec3 = awardSpecs[AwardType.IkeaDeliveryCheck];
+                    customer.Happiness += awardSpec3.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec3.Cost;
                 case AwardType.NoInterestRate:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award4 = this.\u003CconfigService\u003EP.Awards[AwardType.NoInterestRate];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award4.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier * num;
-                    return customer.Loan.GetInterestPayment() + award4.Cost;
+                    AwardSpecification awardSpec4 = awardSpecs[AwardType.NoInterestRate];
+                    customer.Happiness += awardSpec4.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return customer.Loan.GetInterestPayment() + awardSpec4.Cost;
                 case AwardType.GiftCard:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award5 = this.\u003CconfigService\u003EP.Awards[AwardType.GiftCard];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award5.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier * num;
-                    return award5.Cost;
+                    AwardSpecification awardSpec5 = awardSpecs[AwardType.GiftCard];
+                    customer.Happiness += awardSpec5.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec5.Cost;
                 case AwardType.HalfInterestRate:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award6 = this.\u003CconfigService\u003EP.Awards[AwardType.HalfInterestRate];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award6.BaseHappiness * this.\u003CconfigService\u003EP.Personalities[customer.Personality].HappinessMultiplier * num;
-                    return customer.Loan.GetInterestPayment() / 2.0 + award6.Cost;
+                    AwardSpecification awardSpec6 = awardSpecs[AwardType.HalfInterestRate];
+                    customer.Happiness += awardSpec6.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return customer.Loan.GetInterestPayment() / 2.0 + awardSpec6.Cost;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(award), (object)award, (string)null);
             }

@@ -1,17 +1,13 @@
 ﻿// Decompiled with JetBrains decompiler
-// Type: LocalHost.Interfaces.ICustomerService
+// Type: LocalHost.Services.PersonalityKey
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 // MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Models;
-using System.Collections.Generic;
 
 #nullable enable
-namespace LocalHost.Interfaces
+namespace LocalHost.Services
 {
-    public interface ICustomerService
-    {
-        List<Customer> RequestCustomers(GameInput gameInput, Map map);
-    }
+    public record PersonalityKey(string MapName, Personality Personality);
 }

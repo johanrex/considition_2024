@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.ConfigService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
+// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -23,11 +23,14 @@ namespace LocalHost.Services
         {
             PropertyNameCaseInsensitive = true
         };
-        private Dictionary<string, Map> maps = new Dictionary<string, Map>();
-
-        public Dictionary<AwardType, AwardSpecification> Awards { get; private set; } = new Dictionary<AwardType, AwardSpecification>();
-
-        public Dictionary<Personality, PersonalitySpecification> Personalities { get; private set; } = new Dictionary<Personality, PersonalitySpecification>();
+        private readonly string[] cities = new string[2]
+        {
+      "gothenburg",
+      "nottingham"
+        };
+        private readonly Dictionary<string, Map> maps = new Dictionary<string, Map>();
+        private readonly Dictionary<PersonalityKey, PersonalitySpecification> personalities = new Dictionary<PersonalityKey, PersonalitySpecification>();
+        private readonly Dictionary<AwardKey, AwardSpecification> awards = new Dictionary<AwardKey, AwardSpecification>();
 
         public ConfigService()
         {
@@ -58,19 +61,37 @@ namespace LocalHost.Services
 
         private void SetAwards(string assemblyName)
         {
-            using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assemblyName + ".Config.awards.json"))
+            foreach (string city in this.cities)
             {
-                using (StreamReader streamReader = new StreamReader(manifestResourceStream, Encoding.UTF8))
-                    this.Awards = JsonSerializer.Deserialize<LocalHost.Models.Awards>(streamReader.ReadToEnd(), this.jsonSerializerOptions)?.AwardSpecifications ?? throw new Exception("Count not parse awards.json");
+                using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assemblyName + ".Config." + city + ".awards.json"))
+                {
+                    using (StreamReader streamReader = new StreamReader(manifestResourceStream, Encoding.UTF8))
+                    {
+                        Awards awards = JsonSerializer.Deserialize<Awards>(streamReader.ReadToEnd(), this.jsonSerializerOptions);
+                        if ((object)awards == null)
+                            throw new Exception("Count not parse awards.json");
+                        foreach (KeyValuePair<AwardType, AwardSpecification> awardSpecification in awards.AwardSpecifications)
+                            this.awards.Add(new AwardKey(city, awardSpecification.Key), awardSpecification.Value);
+                    }
+                }
             }
         }
 
         private void SetPersonalities(string assemblyName)
         {
-            using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assemblyName + ".Config.personalities.json"))
+            foreach (string city in this.cities)
             {
-                using (StreamReader streamReader = new StreamReader(manifestResourceStream, Encoding.UTF8))
-                    this.Personalities = JsonSerializer.Deserialize<LocalHost.Models.Personalities>(streamReader.ReadToEnd(), this.jsonSerializerOptions)?.PersonalitySpecifications ?? throw new Exception("Count not parse personalities.json");
+                using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assemblyName + ".Config." + city + ".personalities.json"))
+                {
+                    using (StreamReader streamReader = new StreamReader(manifestResourceStream, Encoding.UTF8))
+                    {
+                        Personalities personalities = JsonSerializer.Deserialize<Personalities>(streamReader.ReadToEnd(), this.jsonSerializerOptions);
+                        if ((object)personalities == null)
+                            throw new Exception("Count not parse personalities.json");
+                        foreach (KeyValuePair<Personality, PersonalitySpecification> personalitySpecification in personalities.PersonalitySpecifications)
+                            this.personalities.Add(new PersonalityKey(city, personalitySpecification.Key), personalitySpecification.Value);
+                    }
+                }
             }
         }
 
@@ -86,6 +107,25 @@ namespace LocalHost.Services
                     Loan = x.Loan.\u003CClone\u003E\u0024()
                 })).ToList<Customer>()
             };
+        }
+
+        public Dictionary<Personality, PersonalitySpecification> GetPersonalitySpecifications(
+          string mapName)
+        {
+            return this.personalities.Where<KeyValuePair<PersonalityKey, PersonalitySpecification>>((Func<KeyValuePair<PersonalityKey, PersonalitySpecification>, bool>)(x => x.Key.MapName.Equals(mapName, StringComparison.InvariantCultureIgnoreCase))).Select(x => new
+            {
+                Key = x.Key.Personality,
+                Value = x.Value
+            }).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        public Dictionary<AwardType, AwardSpecification> GetAwardSpecifications(string mapName)
+        {
+            return this.awards.Where<KeyValuePair<AwardKey, AwardSpecification>>((Func<KeyValuePair<AwardKey, AwardSpecification>, bool>)(x => x.Key.MapName.Equals(mapName, StringComparison.InvariantCultureIgnoreCase))).Select(x => new
+            {
+                Key = x.Key.Award,
+                Value = x.Value
+            }).ToDictionary(x => x.Key, x => x.Value);
         }
     }
 }
