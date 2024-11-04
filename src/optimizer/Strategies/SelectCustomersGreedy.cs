@@ -22,6 +22,8 @@ namespace optimizer.Strategies
                 .OrderByDescending(c => c.ScoreContribution / c.LoanAmount)
                 .ToList();
 
+
+
             List<CustomerPropositionDetails> selectedCustomers = new List<CustomerPropositionDetails>();
 
             foreach (var customer in sortedCustomers)

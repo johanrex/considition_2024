@@ -9,9 +9,9 @@ string gameUrlRemote = "https://api.considition.com/";
 string gameUrlLocal = "http://localhost:8080/";
 
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-//string mapFile = "Config/map.json";
+string mapFile = "Config/map.json";
 //string mapFile = "Config/map_100.json";
-string mapFile = "Config/map_10000.json";
+//string mapFile = "Config/map_10000.json";
 string awardsFile = "Config/awards.json";
 string personalitiesFile = "Config/personalities.json";
 string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
@@ -79,10 +79,21 @@ if (awards.Count <= 0)
 Console.WriteLine("-----------------------------------------------------------");
 var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(map, personalities, awards);
 
+
+/*
+ * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
+ */
 Console.WriteLine("-----------------------------------------------------------");
+int cntBefore = customerDetails.Count;
+customerDetails = customerDetails.Where(c => c.ScoreContribution > 0).ToList();
+int cntAfter = customerDetails.Count;
+Console.WriteLine($"Removed {cntBefore-cntAfter} customers with negative ScoreContribution.");
+
+
 /*
  * SELECT best customers for our budget.
  */
+Console.WriteLine("-----------------------------------------------------------");
 //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
 List<CustomerPropositionDetails> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
 //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
@@ -95,9 +106,13 @@ Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):")
 Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
 
 var notSelectedCustomers = customerDetails.Except(selectedCustomers).ToList();
-var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
-Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
-Console.WriteLine(notSelectedDf.ToString());
+
+if (notSelectedCustomers.Count > 0)
+{
+    var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
+    Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
+    Console.WriteLine(notSelectedDf.ToString());
+}
 
 Console.WriteLine("-----------------------------------------------------------");
 
