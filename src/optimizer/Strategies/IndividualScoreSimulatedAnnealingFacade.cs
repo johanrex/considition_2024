@@ -22,6 +22,8 @@ namespace optimizer.Strategies
             // Start the stopwatch
             Stopwatch stopwatch = Stopwatch.StartNew();
 
+            var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
+
             var details = new ConcurrentBag<CustomerPropositionDetails>();
 
             var startMonthsToPayBackLoan = map.GameLengthInMonths / 2;
@@ -30,8 +32,6 @@ namespace optimizer.Strategies
             var coolingRate = 0.95;
             var maxIterations = 1000;
 
-            // TODO since we're IO bound by network traffic it's possible to use an async/await with Task instead of Parallel.For. Might be more efficient.
-            // From copilot: When dealing with I/O-bound operations, using parallelism with Parallel.For might not be the most efficient approach. Instead, you should consider using asynchronous programming to handle I/O-bound tasks more effectively.
             Parallel.For(0, map.Customers.Count, i =>
             {
                 // Let's test simulated annealing
@@ -45,6 +45,7 @@ namespace optimizer.Strategies
 
                 IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
                     map,
+                    mapCustomerLookup,
                     personalities,
                     awards,
                     customerName,

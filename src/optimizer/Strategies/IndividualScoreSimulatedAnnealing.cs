@@ -11,6 +11,7 @@ namespace optimizer.Strategies
     internal class IndividualScoreSimulatedAnnealing
     {
         private Map map;
+        private Dictionary<string, Customer> mapCustomerLookup;
         private Dictionary<Personality, PersonalitySpecification> personalities;
         private Dictionary<AwardType, AwardSpecification> awards;
         private string customerName;
@@ -23,10 +24,11 @@ namespace optimizer.Strategies
         private IndividualScoreSimulatedAnnealing()
         { }
 
-        public IndividualScoreSimulatedAnnealing(Map map, Dictionary<Personality, PersonalitySpecification> personalities, Dictionary<AwardType, AwardSpecification> awards, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
+        public IndividualScoreSimulatedAnnealing(Map map, Dictionary<string, Customer> mapCustomerLookup, Dictionary<Personality, PersonalitySpecification> personalities, Dictionary<AwardType, AwardSpecification> awards, string customerName, double startYearlyInterestRate, int startMonthsToPayBackLoan, double acceptedMinInterest, double acceptedMaxInterest, int maxMonthsToPayBackLoan)
         {
             // Set the properties
             this.map = map;
+            this.mapCustomerLookup = mapCustomerLookup;
             this.personalities = personalities;
             this.awards = awards;
             this.customerName = customerName;
@@ -45,7 +47,7 @@ namespace optimizer.Strategies
             //var gameResponse = ServerUtils.SubmitGameAsync(input).Result;
 
             var scorer = new NativeScorer(personalities, awards);
-            var gameResponse = scorer.RunGame(input, map);
+            var gameResponse = scorer.RunGame(input, map, mapCustomerLookup);
             var score = GameUtils.GetTotalScore(gameResponse);
             return score;
         }

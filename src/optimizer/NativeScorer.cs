@@ -28,10 +28,15 @@ namespace optimizer
             this.personalities = personalities;
             this.awards = awards;
         }
-
-        public GameResponse RunGame(GameInput gameInput, Map map)
+        public static T DeepCopy<T>(T record)
         {
-            List<Customer> customerList = RequestCustomers(gameInput, map);
+            var json = JsonSerializer.Serialize(record);
+            return JsonSerializer.Deserialize<T>(json);
+        }
+
+        public GameResponse RunGame(GameInput gameInput, Map map, Dictionary<string, Customer> mapCustomerLookup)
+        {
+            List<Customer> customerList = RequestCustomers(gameInput, map, mapCustomerLookup);
 
             budget = map.Budget;
 
@@ -47,12 +52,10 @@ namespace optimizer
             };
         }
 
-        public List<Customer> RequestCustomers(GameInput gameInput, Map map)
+        public List<Customer> RequestCustomers(GameInput gameInput, Map map, Dictionary<string, Customer> mapCustomerLookup)
         {
-            //Serialize to json and back to get a deep copy of the customers
-            string jsonString = JsonSerializer.Serialize(map.Customers, map.Customers.GetType());
-            var potentialCustomers = JsonSerializer.Deserialize<List<Customer>>(jsonString);
-            var potentialCustomersDict = potentialCustomers.ToDictionary(c => c.Name);
+            //ooof jag har bara en kund i min gameInput i normalfallet. Dvs jag behöver definitivt inte kopiera alla customers från map. 
+            //Behöver bara ett snabbt sätt att hitta kunden i map.
 
             List<Customer> acceptedCustomers = new List<Customer>();
 
@@ -60,7 +63,8 @@ namespace optimizer
             foreach (var proposal1 in gameInput.Proposals)
             {
                 CustomerLoanRequestProposal proposal = proposal1;
-                var customer = potentialCustomersDict[proposal.CustomerName];
+
+                var customer = DeepCopy(mapCustomerLookup[proposal.CustomerName]);
 
                 if (customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
                     acceptedCustomers.Add(customer);

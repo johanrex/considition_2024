@@ -11,7 +11,7 @@ string gameUrlLocal = "http://localhost:8080/";
 string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
 //string mapFile = "Config/map.json";
 //string mapFile = "Config/map_100.json";
-string mapFile = "Config/map_1000.json";
+string mapFile = "Config/map_10000.json";
 string awardsFile = "Config/awards.json";
 string personalitiesFile = "Config/personalities.json";
 string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
@@ -84,20 +84,20 @@ Console.WriteLine("-----------------------------------------------------------")
  * SELECT best customers for our budget.
  */
 //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
-var selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+List<CustomerPropositionDetails> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
 //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
 //var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
 
 
 Console.WriteLine("-----------------------------------------------------------");
 
-Console.WriteLine("Customers selected: " + selectedCustomers.Count.ToString());
-
-Console.WriteLine("These customers were selected:");
+Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
 Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
 
-Console.WriteLine("These customers were NOT selected:");
-Console.WriteLine(DataFrameHelper.ToDataFrame(customerDetails.Except(selectedCustomers)).ToString());
+var notSelectedCustomers = customerDetails.Except(selectedCustomers).ToList();
+var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
+Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
+Console.WriteLine(notSelectedDf.ToString());
 
 Console.WriteLine("-----------------------------------------------------------");
 
@@ -133,6 +133,7 @@ if (totalScore != totalScoreRemote)
 
 Console.WriteLine("Done.");
 
+//TODO GetTotalMonthlyPayment kan optimeras med en iterativ approach, för små n. 
 //TODO LivingStandardMultiplier kommer inte vara känd!!
 //TODO Kanske logga ut i en databas vilka betalningar som kommer in och hur man kan förutspå bankrupt. 
 //TODO undersök hur många som blir bankrupt. Ge award för att hindra att det händer. Jämför kostnaden för award vs Happiness -500 bankrupt. 
