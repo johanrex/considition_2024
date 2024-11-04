@@ -29,7 +29,8 @@ class Program
         string gameUrlLocal = "http://localhost:8080/";
 
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-        string mapFile = "Config/map.json";
+        //string mapFile = "Config/Maps/Map-Nottingham.json";
+        string mapFile = "Config/Maps/Map-Gothenburg.json";
         //string mapFile = "Config/map_100.json";
         //string mapFile = "Config/map_10000.json";
         string awardsFile = "Config/awards.json";
