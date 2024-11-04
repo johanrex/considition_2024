@@ -43,8 +43,8 @@ namespace optimizer
             double num = customerList.Sum<Customer>((Func<Customer, double>)(c => c.Loan.Amount));
             budget -= num;
 
-            HandleIterations(gameInput.Iterations, customerList, map);
-            GameResult gameResult = SaveGame(gameInput, customerList);
+            string errorMessage = this.HandleIterations(gameInput.Iterations, customerList, map);
+            GameResult gameResult = CalculateScoreAndSaveGame(gameInput, customerList);
             return new GameResponse()
             {
                 GameId = Guid.Empty,
@@ -66,98 +66,126 @@ namespace optimizer
 
                 var customer = DeepCopy(mapCustomerLookup[proposal.CustomerName]);
 
-                if (customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
+                //if (customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
                     acceptedCustomers.Add(customer);
             }
             return acceptedCustomers;
         }
 
-        private void HandleIterations(
+        private string? HandleIterations(
           List<Dictionary<string, CustomerAction>> iterations,
           List<Customer> customers,
           Map map)
         {
             for (int index = 0; index < iterations.Count; ++index)
             {
-                // ISSUE: reference to a compiler-generated field
-                CollectPayments(iterations[index], index, customers, map);
+                string str = CollectPayments(iterations[index], index, customers, map);
+                if (str != null)
+                    return str;
             }
+            return (string)null;
         }
 
-        public void CollectPayments(
-          Dictionary<string, CustomerAction> iteration,
-          int iterationIndex,
-          List<Customer> customers,
-          Map map)
+
+        public string? CollectPayments(
+            Dictionary<string, CustomerAction> iteration,
+            int month,
+            List<Customer> customers,
+            Map map)
         {
             foreach (Customer customer in customers)
             {
-                CustomerAction customerAction = iteration[customer.Name];
-                customer.Payday();
-                customer.PayBills(iterationIndex, personalities);
-                if (customer.CanPayLoan())
-                    budget += customer.PayLoan();
-                else
-                    customer.IncrementMark();
-
-                //TODO this is a performance bottleneck to do this every time. Should be done once in the beginning. Or the gameinput should have a type for it. 
-                //TODO maybe I should change the POCO to have the enum instead. 
-                if (!Enum.TryParse(customerAction.Type, out CustomerActionType actionType))
-                    throw new Exception($"Can't find matching enum for customer action {customerAction.Type}.");
-
-                if (actionType == CustomerActionType.Award)
+                if (map.Budget <= 0.0)
+                    return "Your bank went bankrupt";
+                if (!customer.IsBankrupt)
                 {
-                    //TODO another performance bottleneck. 
-                    if (!Enum.TryParse(customerAction.Award, out AwardType awardType))
-                        throw new Exception($"Can't find matching enum for award {customerAction.Award}.");
+                    CustomerAction customerAction = iteration[customer.Name];
+                    customer.Payday();
+                    customer.PayBills(month, this.personalities);
+                    if (customer.CanPayLoan())
+                        map.Budget += customer.PayLoan();
+                    else
+                        customer.IncrementMark();
 
-                    budget -= Award(customer, awardType);
+                    //TODO this is a performance bottleneck to do this every time. Should be done once in the beginning. Or the gameinput should have a type for it. 
+                    //TODO maybe I should change the POCO to have the enum instead. 
+                    if (!Enum.TryParse(customerAction.Type, out CustomerActionType actionType))
+                        throw new Exception($"Can't find matching enum for customer action {customerAction.Type}.");
+
+                    if (actionType == CustomerActionType.Award)
+                    {
+                        if (!Enum.TryParse(customerAction.Award, out AwardType awardType))
+                            throw new Exception($"Can't find matching enum for award {customerAction.Award}.");
+
+                        double num = this.Award(customer, awardType);
+                        customer.Profit -= num;
+                        map.Budget -= num;
+                    }
+                    else if (customer.AwardsInRow > 0)
+                        --customer.AwardsInRow;
                 }
             }
+            return (string)null;
         }
+
 
         private double Award(Customer customer, AwardType award)
         {
-
+            double num = Math.Round((100.0 - (double)customer.AwardsInRow * 20.0) / 100.0, 1);
+            if (customer.AwardsInRow < 5)
+                ++customer.AwardsInRow;
             switch (award)
             {
                 case AwardType.IkeaCheck:
+                    // ISSUE: reference to a compiler-generated field
                     AwardSpecification award1 = awards[AwardType.IkeaCheck];
-                    customer.Happiness += award1.BaseHappiness * personalities[customer.Personality].HappinessMultiplier;
+                    // ISSUE: reference to a compiler-generated field
+                    customer.Happiness += award1.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
                     return award1.Cost;
                 case AwardType.IkeaFoodCoupon:
+                    // ISSUE: reference to a compiler-generated field
                     AwardSpecification award2 = awards[AwardType.IkeaFoodCoupon];
-                    customer.Happiness += award2.BaseHappiness * personalities[customer.Personality].HappinessMultiplier;
+                    // ISSUE: reference to a compiler-generated field
+                    customer.Happiness += award2.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
                     return award2.Cost;
                 case AwardType.IkeaDeliveryCheck:
+                    // ISSUE: reference to a compiler-generated field
                     AwardSpecification award3 = awards[AwardType.IkeaDeliveryCheck];
-                    customer.Happiness += award3.BaseHappiness * personalities[customer.Personality].HappinessMultiplier;
+                    // ISSUE: reference to a compiler-generated field
+                    customer.Happiness += award3.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
                     return award3.Cost;
                 case AwardType.NoInterestRate:
+                    // ISSUE: reference to a compiler-generated field
                     AwardSpecification award4 = awards[AwardType.NoInterestRate];
-                    customer.Happiness += award4.BaseHappiness * personalities[customer.Personality].HappinessMultiplier;
-                    return customer.Loan.GetInterestPayment();
+                    // ISSUE: reference to a compiler-generated field
+                    customer.Happiness += award4.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
+                    return customer.Loan.GetInterestPayment() + award4.Cost;
                 case AwardType.GiftCard:
+                    // ISSUE: reference to a compiler-generated field
                     AwardSpecification award5 = awards[AwardType.GiftCard];
-                    customer.Happiness += award5.BaseHappiness * personalities[customer.Personality].HappinessMultiplier;
+                    // ISSUE: reference to a compiler-generated field
+                    customer.Happiness += award5.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
                     return award5.Cost;
                 case AwardType.HalfInterestRate:
+                    // ISSUE: reference to a compiler-generated field
                     AwardSpecification award6 = awards[AwardType.HalfInterestRate];
-                    customer.Happiness += award6.BaseHappiness * personalities[customer.Personality].HappinessMultiplier;
-                    return customer.Loan.GetInterestPayment() / 2.0;
+                    // ISSUE: reference to a compiler-generated field
+                    customer.Happiness += award6.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
+                    return customer.Loan.GetInterestPayment() / 2.0 + award6.Cost;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(award), (object)award, (string)null);
             }
-         }
+        }
 
-        public GameResult SaveGame(
+        public GameResult CalculateScoreAndSaveGame(
             GameInput gameInput,
             List<Customer> customers)
         {
             GameResult gameResult = new GameResult()
             {
                 TotalProfit = customers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
-                HappynessScore = customers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
+                HappinessScore = customers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
                 EnvironmentalImpact = customers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
                 MapName = gameInput.MapName
             };

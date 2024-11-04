@@ -20,7 +20,5 @@ namespace optimizer.Models.Simulation
         public GameResult? Score { get; init; }
 
         public string? Message { get; set; }
-
-        public List<string> AchievementsUnlocked { get; init; } = new List<string>();
     }
 }

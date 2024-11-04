@@ -14,15 +14,16 @@ namespace optimizer.Models.Simulation
 {
     public record GameResult
     {
+        public required string MapName { get; init; }
+
         public double TotalProfit { get; init; }
 
-        public double HappynessScore { get; init; }
+        public double HappinessScore { get; init; }
 
         public double EnvironmentalImpact { get; init; }
 
-        public double TotalScore => this.TotalProfit + this.HappynessScore + this.EnvironmentalImpact;
+        public double TotalScore => this.TotalProfit + this.HappinessScore + this.EnvironmentalImpact;
 
-        public required string MapName { get; set; }
 
     }
 }

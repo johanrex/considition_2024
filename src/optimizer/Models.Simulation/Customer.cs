@@ -8,9 +8,9 @@ namespace optimizer.Models.Simulation
 {
     public record Customer
     {
-        public required string Name { get; init; }
+        public string Name { get; init; }
 
-        public required Loan Loan { get; init; }
+        public Loan Loan { get; init; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Personality Personality { get; init; }
@@ -33,9 +33,9 @@ namespace optimizer.Models.Simulation
 
         public int Marks { get; private set; }
 
-        public int SuccessfulPaymentStreak { get; set; }
+        public int AwardsInRow { get; set; }
 
-        public double Profit { get; private set; }
+        public double Profit { get; set; }
 
         private int MarkLimit { get; }
 
@@ -54,9 +54,8 @@ namespace optimizer.Models.Simulation
         public double PayLoan()
         {
             this.Capital -= this.Loan.GetTotalMonthlyPayment();
-            this.Loan.LowerRemainingBalance(this.Loan.GetPrincipalPayment());
-            ++this.SuccessfulPaymentStreak;
             double interestPayment = this.Loan.GetInterestPayment();
+            this.Loan.LowerRemainingBalance();
             this.Profit += interestPayment;
             return interestPayment;
         }
@@ -64,7 +63,7 @@ namespace optimizer.Models.Simulation
         public void IncrementMark()
         {
             ++this.Marks;
-            this.SuccessfulPaymentStreak = 0;
+            this.Capital = 0.0;
             if (this.Marks >= this.MarkLimit)
             {
                 this.IsBankrupt = true;
@@ -97,6 +96,10 @@ namespace optimizer.Models.Simulation
                 }
             }
             return false;
+        }
+
+        public Customer()
+        {
         }
     }
 }
