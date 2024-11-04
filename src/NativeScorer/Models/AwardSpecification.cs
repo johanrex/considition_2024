@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace optimizer.Models.Simulation
+namespace NativeScorer.Models
 {
     public record AwardSpecification
     {

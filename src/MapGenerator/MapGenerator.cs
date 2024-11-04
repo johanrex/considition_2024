@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using Pocos;
 
 void WriteMap(Map map, string mapFilename)
 {

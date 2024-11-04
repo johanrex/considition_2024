@@ -1,6 +1,6 @@
 ﻿
 #nullable disable
-namespace optimizer.Models.Simulation
+namespace NativeScorer.Models
 {
     public enum Personality
     {

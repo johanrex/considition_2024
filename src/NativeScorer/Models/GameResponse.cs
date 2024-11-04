@@ -11,7 +11,7 @@ using System.Text;
 
 
 #nullable enable
-namespace optimizer.Models.Simulation
+namespace NativeScorer.Models
 {
     public record GameResponse
     {

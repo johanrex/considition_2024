@@ -1,7 +1,10 @@
 ﻿
 
 #nullable enable
-namespace optimizer.Models.Simulation
+using NativeScorer;
+using NativeScorer.Models;
+
+namespace NativeScorer.Services
 {
     public record PersonalityKey(string MapName, Personality Personality);
 }

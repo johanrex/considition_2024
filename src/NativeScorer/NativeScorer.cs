@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualBasic;
-using optimizer.Models.Pocos;
-using optimizer.Models.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +7,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 
 
-namespace optimizer
+namespace NativeScorer.Models
 {
     internal class NativeScorer
     {
@@ -18,7 +16,7 @@ namespace optimizer
         private readonly Dictionary<AwardType, AwardSpecification> awards;
 
         private NativeScorer()
-        {}
+        { }
 
         public NativeScorer(
             Dictionary<Personality, PersonalitySpecification> personalities,
@@ -34,16 +32,16 @@ namespace optimizer
             return JsonSerializer.Deserialize<T>(json);
         }
 
-        public GameResponse RunGame(GameInput gameInput, Map map, Dictionary<string, Customer> mapCustomerLookup)
+        public GameResponse RunGame(GameInput gameInput, Dictionary<string, Customer> mapCustomerLookup)
         {
             List<Customer> customerList = RequestCustomers(gameInput, map, mapCustomerLookup);
 
             budget = map.Budget;
 
-            double num = customerList.Sum<Customer>((Func<Customer, double>)(c => c.Loan.Amount));
+            double num = customerList.Sum(c => c.Loan.Amount);
             budget -= num;
 
-            string errorMessage = this.HandleIterations(gameInput.Iterations, customerList, map);
+            string errorMessage = HandleIterations(gameInput.Iterations, customerList, map);
             GameResult gameResult = CalculateScoreAndSaveGame(gameInput, customerList);
             return new GameResponse()
             {
@@ -67,13 +65,13 @@ namespace optimizer
                 var customer = DeepCopy(mapCustomerLookup[proposal.CustomerName]);
 
                 //if (customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
-                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities))
                     acceptedCustomers.Add(customer);
             }
             return acceptedCustomers;
         }
 
-        private string? HandleIterations(
+        private string HandleIterations(
           List<Dictionary<string, CustomerAction>> iterations,
           List<Customer> customers,
           Map map)
@@ -84,11 +82,11 @@ namespace optimizer
                 if (str != null)
                     return str;
             }
-            return (string)null;
+            return null;
         }
 
 
-        public string? CollectPayments(
+        public string CollectPayments(
             Dictionary<string, CustomerAction> iteration,
             int month,
             List<Customer> customers,
@@ -123,7 +121,7 @@ namespace optimizer
                         if (!Enum.TryParse(customerAction.Award, out AwardType awardType))
                             throw new Exception($"Can't find matching enum for award {customerAction.Award}.");
 
-                        double num = this.Award(customer, awardType, awardSpecifications, personalitySpecifications);
+                        double num = Award(customer, awardType, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         map.Budget -= num;
                     }
@@ -131,7 +129,7 @@ namespace optimizer
                         --customer.AwardsInRow;
                 }
             }
-            return (string)null;
+            return null;
         }
 
 
@@ -141,7 +139,7 @@ namespace optimizer
           Dictionary<AwardType, AwardSpecification> awardSpecs,
           Dictionary<Personality, PersonalitySpecification> personalitySpecs)
         {
-            double num = Math.Round((100.0 - (double)customer.AwardsInRow * 20.0) / 100.0, 1);
+            double num = Math.Round((100.0 - customer.AwardsInRow * 20.0) / 100.0, 1);
             if (customer.AwardsInRow < 5)
                 ++customer.AwardsInRow;
             switch (award)
@@ -171,7 +169,7 @@ namespace optimizer
                     customer.Happiness += awardSpec6.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
                     return customer.Loan.GetInterestPayment() / 2.0 + awardSpec6.Cost;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(award), (object)award, (string)null);
+                    throw new ArgumentOutOfRangeException(nameof(award), award, null);
             }
         }
 
@@ -181,9 +179,9 @@ namespace optimizer
         {
             GameResult gameResult = new GameResult()
             {
-                TotalProfit = customers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
-                HappinessScore = customers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
-                EnvironmentalImpact = customers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
+                TotalProfit = customers.Sum(x => x.Profit),
+                HappinessScore = customers.Sum(x => x.Happiness),
+                EnvironmentalImpact = customers.Sum(x => x.Loan.EnvironmentalImpact),
                 MapName = gameInput.MapName
             };
             return gameResult;

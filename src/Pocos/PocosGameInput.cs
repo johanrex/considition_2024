@@ -1,4 +1,4 @@
-﻿namespace optimizer.Models.Pocos;
+﻿namespace Pocos;
 
 public class GameInput
 {

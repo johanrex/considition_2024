@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 #nullable enable
-namespace optimizer.Models.Simulation
+namespace NativeScorer.Models
 {
     public record Customer
     {

@@ -1,4 +1,4 @@
-﻿
+﻿namespace Pocos;
 public class Map
 {
     public string name { get; set; }

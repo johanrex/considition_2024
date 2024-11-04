@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using optimizer;
-using optimizer.Models.Simulation;
 using optimizer.Strategies;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 
 class Program
 {
@@ -170,9 +167,32 @@ class Program
         Console.WriteLine("Done.");
     }
 }
+
+/*
+ * Unknown values:
+ * Personality:
+ *      happinessMultiplier
+ *      acceptedMinInterest
+ *      acceptedMaxInterest
+ *      livingStandardMultiplier
+ * Awards:
+ *      cost
+ *      baseHappiness
+ * 
+ * */
+
+/*
+ * Common types:
+ *  Personality, 
+ *  PersonalitySpecification
+ *  AwardType
+ *  AwardSpecification
+ * */
+
+//TODO skapa common lib projekt för att dela kod mellan optimizer och scorer. Kanske där man skall lägga service som läser filerna också. 
+
 //TODO passa in map som cmdline argument.
 //TODO passa in personalities som cmdline argument. Borde heta mapname_personalities.json
-
 
 //TODO GetTotalMonthlyPayment kan optimeras med en iterativ approach, för små n. 
 //TODO LivingStandardMultiplier kommer inte vara känd!!

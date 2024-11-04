@@ -4,10 +4,11 @@
 // MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
 // Assembly location: C:\temp\app\LocalHost.dll
 
-using optimizer.Models.Pocos;
-
 #nullable enable
-namespace optimizer.Models.Simulation
+using NativeScorer;
+using NativeScorer.Models;
+
+namespace NativeScorer.Services
 {
     public record AwardKey(string MapName, AwardType Award);
 }

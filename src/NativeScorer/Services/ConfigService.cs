@@ -7,10 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using optimizer.Models.Simulation;
+using NativeScorer.Models;
 
-
-namespace optimizer.Services
+namespace NativeScorer.Services
 {
     public class ConfigService
     {
