@@ -94,6 +94,11 @@ namespace optimizer
             List<Customer> customers,
             Map map)
         {
+            string name = map.Name;
+
+            Dictionary<Personality, PersonalitySpecification> personalitySpecifications = configService.GetPersonalitySpecifications(name);
+            Dictionary<AwardType, AwardSpecification> awardSpecifications = configService.GetAwardSpecifications(name);
+
             foreach (Customer customer in customers)
             {
                 if (map.Budget <= 0.0)
@@ -102,7 +107,7 @@ namespace optimizer
                 {
                     CustomerAction customerAction = iteration[customer.Name];
                     customer.Payday();
-                    customer.PayBills(month, this.personalities);
+                    customer.PayBills(month, personalitySpecifications);
                     if (customer.CanPayLoan())
                         map.Budget += customer.PayLoan();
                     else
@@ -118,7 +123,7 @@ namespace optimizer
                         if (!Enum.TryParse(customerAction.Award, out AwardType awardType))
                             throw new Exception($"Can't find matching enum for award {customerAction.Award}.");
 
-                        double num = this.Award(customer, awardType);
+                        double num = this.Award(customer, awardType, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         map.Budget -= num;
                     }
@@ -130,7 +135,11 @@ namespace optimizer
         }
 
 
-        private double Award(Customer customer, AwardType award)
+        private double Award(
+          Customer customer,
+          AwardType award,
+          Dictionary<AwardType, AwardSpecification> awardSpecs,
+          Dictionary<Personality, PersonalitySpecification> personalitySpecs)
         {
             double num = Math.Round((100.0 - (double)customer.AwardsInRow * 20.0) / 100.0, 1);
             if (customer.AwardsInRow < 5)
@@ -138,41 +147,29 @@ namespace optimizer
             switch (award)
             {
                 case AwardType.IkeaCheck:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award1 = awards[AwardType.IkeaCheck];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award1.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
-                    return award1.Cost;
+                    AwardSpecification awardSpec1 = awardSpecs[AwardType.IkeaCheck];
+                    customer.Happiness += awardSpec1.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec1.Cost;
                 case AwardType.IkeaFoodCoupon:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award2 = awards[AwardType.IkeaFoodCoupon];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award2.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
-                    return award2.Cost;
+                    AwardSpecification awardSpec2 = awardSpecs[AwardType.IkeaFoodCoupon];
+                    customer.Happiness += awardSpec2.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec2.Cost;
                 case AwardType.IkeaDeliveryCheck:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award3 = awards[AwardType.IkeaDeliveryCheck];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award3.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
-                    return award3.Cost;
+                    AwardSpecification awardSpec3 = awardSpecs[AwardType.IkeaDeliveryCheck];
+                    customer.Happiness += awardSpec3.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec3.Cost;
                 case AwardType.NoInterestRate:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award4 = awards[AwardType.NoInterestRate];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award4.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
-                    return customer.Loan.GetInterestPayment() + award4.Cost;
+                    AwardSpecification awardSpec4 = awardSpecs[AwardType.NoInterestRate];
+                    customer.Happiness += awardSpec4.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return customer.Loan.GetInterestPayment() + awardSpec4.Cost;
                 case AwardType.GiftCard:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award5 = awards[AwardType.GiftCard];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award5.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
-                    return award5.Cost;
+                    AwardSpecification awardSpec5 = awardSpecs[AwardType.GiftCard];
+                    customer.Happiness += awardSpec5.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return awardSpec5.Cost;
                 case AwardType.HalfInterestRate:
-                    // ISSUE: reference to a compiler-generated field
-                    AwardSpecification award6 = awards[AwardType.HalfInterestRate];
-                    // ISSUE: reference to a compiler-generated field
-                    customer.Happiness += award6.BaseHappiness * personalities[customer.Personality].HappinessMultiplier * num;
-                    return customer.Loan.GetInterestPayment() / 2.0 + award6.Cost;
+                    AwardSpecification awardSpec6 = awardSpecs[AwardType.HalfInterestRate];
+                    customer.Happiness += awardSpec6.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
+                    return customer.Loan.GetInterestPayment() / 2.0 + awardSpec6.Cost;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(award), (object)award, (string)null);
             }
