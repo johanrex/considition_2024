@@ -5,148 +5,158 @@ using optimizer.Strategies;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 
-string gameUrlRemote = "https://api.considition.com/";
-string gameUrlLocal = "http://localhost:8080/";
-
-string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-string mapFile = "Config/map.json";
-//string mapFile = "Config/map_100.json";
-//string mapFile = "Config/map_10000.json";
-string awardsFile = "Config/awards.json";
-string personalitiesFile = "Config/personalities.json";
-string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
-bool useCompetitionPersonalities = false;
-/*
-///////////////////////////////////////////////////////////////////
-//Here comes the meat.
-///////////////////////////////////////////////////////////////////
-*/
-
-var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
-var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
-
-Console.WriteLine("-----------------------------------------------------------");
-
-var map = GameUtils.GetMap(mapFile);
-Console.WriteLine("Map name: " + map.Name);
-Console.WriteLine("Customer count: " + map.Customers.Count.ToString());
-
-if (!GameUtils.IsCustomerNamesUnique(map))
-    throw new Exception("Customer names are not unique. This was promised during training.");
-
-
-
-Dictionary<Personality, PersonalitySpecification> personalities;
-
-if (useCompetitionPersonalities)
+class Program
 {
-    if (!File.Exists(personalitiesFileCompetition))
+    static void Main(string[] args)
     {
-        Console.WriteLine("Inferring personalities from api.");
-        personalities = PersonalityInferenceHelper.InferPersonalityInterestRatesBounds(serverUtilsLocal, map, personalitiesFile);
+
+        string gameUrlRemote = "https://api.considition.com/";
+        string gameUrlLocal = "http://localhost:8080/";
+
+        string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
+        string mapFile = "Config/map.json";
+        //string mapFile = "Config/map_100.json";
+        //string mapFile = "Config/map_10000.json";
+        string awardsFile = "Config/awards.json";
+        string personalitiesFile = "Config/personalities.json";
+        string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
+        bool useCompetitionPersonalities = false;
+        /*
+        ///////////////////////////////////////////////////////////////////
+        //Here comes the meat.
+        ///////////////////////////////////////////////////////////////////
+        */
+
+        var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
+        var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
+
+        Console.WriteLine("-----------------------------------------------------------");
+
+        var map = GameUtils.GetMap(mapFile);
+        Console.WriteLine("Map name: " + map.Name);
+        Console.WriteLine("Customer count: " + map.Customers.Count.ToString());
+
+        if (!GameUtils.IsCustomerNamesUnique(map))
+            throw new Exception("Customer names are not unique. This was promised during training.");
+
+
+
+        Dictionary<Personality, PersonalitySpecification> personalities;
+
+        if (useCompetitionPersonalities)
+        {
+            if (!File.Exists(personalitiesFileCompetition))
+            {
+                Console.WriteLine("Inferring personalities from api.");
+                personalities = PersonalityInferenceHelper.InferPersonalityInterestRatesBounds(serverUtilsLocal, map, personalitiesFile);
+            }
+            else
+            {
+                Console.WriteLine("Reading personalities file: " + personalitiesFileCompetition);
+                personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFileCompetition);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Reading personalities file: " + personalitiesFile);
+            personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFile);
+        }
+
+        Console.WriteLine("-----------------------------------------------------------");
+
+        if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
+            throw new Exception("Map contains unknown personalities.");
+
+        if (!PersonalityUtils.HasKnownInterestRates(personalities))
+            throw new Exception("Some personalities have unknown interest rates.");
+
+        var awards = GameUtils.GetAwards(awardsFile);
+
+        if (awards.Count <= 0)
+            throw new Exception("No awards found in file.");
+
+
+
+        /*
+         * SIMULATE
+         */
+        //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
+        Console.WriteLine("-----------------------------------------------------------");
+        var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(map, personalities, awards);
+
+
+        /*
+         * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
+         */
+        Console.WriteLine("-----------------------------------------------------------");
+        int cntBefore = customerDetails.Count;
+        customerDetails = customerDetails.Where(c => c.ScoreContribution > 0).ToList();
+        int cntAfter = customerDetails.Count;
+        Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
+
+
+        /*
+         * SELECT best customers for our budget.
+         */
+        Console.WriteLine("-----------------------------------------------------------");
+        //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
+        List<CustomerPropositionDetails> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+        //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
+        //var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
+
+
+        Console.WriteLine("-----------------------------------------------------------");
+
+        Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
+        Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
+
+        var notSelectedCustomers = customerDetails.Except(selectedCustomers).ToList();
+
+        if (notSelectedCustomers.Count > 0)
+        {
+            var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
+            Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
+            Console.WriteLine(notSelectedDf.ToString());
+        }
+
+        Console.WriteLine("-----------------------------------------------------------");
+
+        var predictedScore = selectedCustomers.Sum(c => c.ScoreContribution);
+        Console.WriteLine("Predicted score from selection process: ");
+        Console.WriteLine(predictedScore);
+
+        var gameInput = LoanUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
+
+        //Log input 
+        var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
+        File.WriteAllText("finalGameInput.json", inputJson);
+        //Console.WriteLine("Final game input:");
+        //Console.WriteLine(inputJson);
+
+        //Score the game locally.
+        var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
+        var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
+
+        if (totalScore != predictedScore)
+        {
+            throw new Exception("Predicted score and actual score do not match.");
+        }
+
+        //Score the game remotely.
+        var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
+        var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
+
+        if (totalScore != totalScoreRemote)
+        {
+            throw new Exception("Local and remote server gave different scores.");
+        }
+
+        Console.WriteLine("Done.");
     }
-    else
-    {
-        Console.WriteLine("Reading personalities file: " + personalitiesFileCompetition);
-        personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFileCompetition);
-    }
 }
-else
-{
-    Console.WriteLine("Reading personalities file: " + personalitiesFile);
-    personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFile);
-}
+//TODO passa in map som cmdline argument.
+//TODO passa in personalities som cmdline argument. Borde heta mapname_personalities.json
 
-Console.WriteLine("-----------------------------------------------------------");
-
-if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
-    throw new Exception("Map contains unknown personalities.");
-
-if (!PersonalityUtils.HasKnownInterestRates(personalities))
-    throw new Exception("Some personalities have unknown interest rates.");
-
-var awards = GameUtils.GetAwards(awardsFile);
-
-if (awards.Count <= 0)
-    throw new Exception("No awards found in file.");
-
-
-
-/*
- * SIMULATE
- */
-//var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
-Console.WriteLine("-----------------------------------------------------------");
-var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(map, personalities, awards);
-
-
-/*
- * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
- */
-Console.WriteLine("-----------------------------------------------------------");
-int cntBefore = customerDetails.Count;
-customerDetails = customerDetails.Where(c => c.ScoreContribution > 0).ToList();
-int cntAfter = customerDetails.Count;
-Console.WriteLine($"Removed {cntBefore-cntAfter} customers with negative ScoreContribution.");
-
-
-/*
- * SELECT best customers for our budget.
- */
-Console.WriteLine("-----------------------------------------------------------");
-//var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
-List<CustomerPropositionDetails> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
-//var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
-//var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
-
-
-Console.WriteLine("-----------------------------------------------------------");
-
-Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
-Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
-
-var notSelectedCustomers = customerDetails.Except(selectedCustomers).ToList();
-
-if (notSelectedCustomers.Count > 0)
-{
-    var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
-    Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
-    Console.WriteLine(notSelectedDf.ToString());
-}
-
-Console.WriteLine("-----------------------------------------------------------");
-
-var predictedScore = selectedCustomers.Sum(c => c.ScoreContribution);
-Console.WriteLine("Predicted score from selection process: ");
-Console.WriteLine(predictedScore);
-
-var gameInput = LoanUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
-
-//Log input 
-var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
-File.WriteAllText("finalGameInput.json", inputJson);
-//Console.WriteLine("Final game input:");
-//Console.WriteLine(inputJson);
-
-//Score the game locally.
-var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
-var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
-
-if (totalScore != predictedScore)
-{
-    throw new Exception("Predicted score and actual score do not match.");
-}
-
-//Score the game remotely.
-var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
-var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
-
-if (totalScore != totalScoreRemote)
-{
-    throw new Exception("Local and remote server gave different scores.");
-}
-
-Console.WriteLine("Done.");
 
 //TODO GetTotalMonthlyPayment kan optimeras med en iterativ approach, för små n. 
 //TODO LivingStandardMultiplier kommer inte vara känd!!
