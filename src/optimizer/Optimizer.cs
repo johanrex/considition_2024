@@ -7,8 +7,23 @@ using System.Diagnostics.Metrics;
 
 class Program
 {
+    static void parseCommandLineArguments(string[] args)
+    {
+        if (args.Length == 0)
+        {
+            Console.WriteLine("No command line arguments found.");
+            return;
+        }
+
+        for (int i = 0; i < args.Length; i++)
+        {
+            Console.WriteLine($"Argument {i}: {args[i]}");
+        }
+    }
+
     static void Main(string[] args)
     {
+        parseCommandLineArguments(args);
 
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
