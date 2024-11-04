@@ -1,11 +1,10 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.GameResponse
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
+// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -20,8 +19,6 @@ namespace LocalHost.Models
 
         public string? Message { get; set; }
 
-        public List<string> AchievementsUnlocked { get; init; }
-
         [CompilerGenerated]
         protected virtual bool PrintMembers(StringBuilder builder)
         {
@@ -32,8 +29,6 @@ namespace LocalHost.Models
             builder.Append((object)this.Score);
             builder.Append(", Message = ");
             builder.Append((object)this.Message);
-            builder.Append(", AchievementsUnlocked = ");
-            builder.Append((object)this.AchievementsUnlocked);
             return true;
         }
 

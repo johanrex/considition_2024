@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.CustomerService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
+// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -31,7 +31,7 @@ namespace LocalHost.Services
                 CustomerLoanRequestProposal proposal = proposal1;
                 Customer customer = map.Customers.FirstOrDefault<Customer>((Func<Customer, bool>)(c => c.Name.Equals(proposal.CustomerName)));
                 // ISSUE: reference to a compiler-generated field
-                if (customer?.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.\u003CconfigService\u003EP.Personalities).HasValue)
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.\u003CconfigService\u003EP.Personalities))
                     customerList.Add(customer);
             }
             return customerList;

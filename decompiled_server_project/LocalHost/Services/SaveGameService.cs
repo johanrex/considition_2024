@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.SaveGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
+// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using Dapper;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -37,34 +37,56 @@ namespace LocalHost.Services
             this.dbDisabled = result;
         }
 
-        public async Task<GameResult> SaveGame(
+        public async Task SaveGame(
           GameInput gameInput,
+          GameResult gameResult,
           List<Customer> customers,
           Guid apiKey,
           Guid gameId)
         {
-            GameResult gameResult = new GameResult()
-            {
-                TotalProfit = customers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
-                HappynessScore = customers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
-                EnvironmentalImpact = customers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
-                MapName = gameInput.MapName
-            };
+            SqlConnection connection;
             if (this.dbDisabled)
-                return gameResult;
-            Guid teamId;
-            await using (SqlConnection connection = new SqlConnection(this.GetDbConnectionString()))
             {
-                teamId = await SaveGameService.GetTeamId(connection, apiKey);
-                await SaveGameService.SaveGame(connection, teamId, new LocalHost.Models.SaveGame(gameInput, customers, gameResult), gameId);
-                await this.SaveTopScore(connection, teamId, gameResult, gameId);
-                return gameResult;
+                connection = (SqlConnection)null;
             }
-            gameResult = (GameResult)null;
-            connection = (SqlConnection)null;
-            teamId = new Guid();
-            GameResult gameResult1;
-            return gameResult1;
+            else
+            {
+                connection = new SqlConnection(this.GetDbConnectionString());
+                object obj = (object)null;
+                int num = 0;
+                Guid teamId;
+                try
+                {
+                    teamId = await SaveGameService.GetTeamId(connection, apiKey);
+                    await SaveGameService.SaveGame(connection, teamId, new LocalHost.Models.SaveGame(gameInput, customers, gameResult), gameId);
+                    await this.SaveTopScore(connection, teamId, gameResult, gameId);
+                    num = 1;
+                }
+                catch (object ex)
+                {
+                    obj = ex;
+                }
+                if (connection != null)
+                    await connection.DisposeAsync();
+                object obj1 = obj;
+                if (obj1 != null)
+                {
+                    if (!(obj1 is Exception source))
+                        throw obj1;
+                    ExceptionDispatchInfo.Capture(source).Throw();
+                }
+                if (num == 1)
+                {
+                    connection = (SqlConnection)null;
+                }
+                else
+                {
+                    obj = (object)null;
+                    connection = (SqlConnection)null;
+                    teamId = new Guid();
+                    connection = (SqlConnection)null;
+                }
+            }
         }
 
         public async Task<LocalHost.Models.SaveGame?> GetGame(Guid gameId, Guid apiKey)
@@ -107,7 +129,7 @@ namespace LocalHost.Services
                 TeamId = teamId,
                 City = gameResult.MapName,
                 TotalScore = (long)gameResult.TotalScore,
-                Happiness = (long)gameResult.HappynessScore,
+                Happiness = (long)gameResult.HappinessScore,
                 EnviromentalScore = (long)gameResult.EnvironmentalImpact
             });
         }

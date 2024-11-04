@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Loan
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
+// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
@@ -37,35 +37,24 @@ namespace LocalHost.Models
             }
         }
 
-        internal void LowerRemainingBalance(double amountToLowerBy)
+        internal void LowerRemainingBalance()
         {
-            if (amountToLowerBy > 0.0)
-                return;
-            if (this.RemainingBalance - amountToLowerBy < 0.0)
+            double principalPayment = this.GetPrincipalPayment();
+            if (this.RemainingBalance - principalPayment < 0.0)
                 this.RemainingBalance = 0.0;
             else
-                this.RemainingBalance -= amountToLowerBy;
+                this.RemainingBalance -= principalPayment;
         }
 
         internal double GetTotalMonthlyPayment()
         {
-            double num1 = this.GetMonthlyInterestRate();
-            if (num1 == 0.0)
-                num1 = 0.0001;
-            double x = 1.0 + num1;
-            double num2 = num1 * Math.Pow(x, (double)this.MonthsToPayBack);
-            double num3 = Math.Pow(x, (double)this.MonthsToPayBack) - 1.0;
-            if (num3 == 0.0)
-                num3 = 0.0001;
-            return this.Amount * (num2 / num3);
+            double interestPayment = this.GetInterestPayment();
+            return this.GetPrincipalPayment() + interestPayment;
         }
 
         internal double GetInterestPayment() => this.RemainingBalance * this.GetMonthlyInterestRate();
 
-        internal double GetPrincipalPayment()
-        {
-            return this.GetTotalMonthlyPayment() - this.GetInterestPayment();
-        }
+        internal double GetPrincipalPayment() => this.Amount / (double)this.MonthsToPayBack;
 
         private double GetMonthlyInterestRate() => this.YearlyInterestRate / 12.0;
 

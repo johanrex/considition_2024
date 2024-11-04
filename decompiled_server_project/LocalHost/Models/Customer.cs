@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Customer
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
+// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System.Collections.Generic;
@@ -39,9 +39,9 @@ namespace LocalHost.Models
 
         public int Marks { get; private set; }
 
-        public int SuccessfulPaymentStreak { get; set; }
+        public int AwardsInRow { get; set; }
 
-        public double Profit { get; private set; }
+        public double Profit { get; set; }
 
         private int MarkLimit { get; }
 
@@ -60,9 +60,8 @@ namespace LocalHost.Models
         public double PayLoan()
         {
             this.Capital -= this.Loan.GetTotalMonthlyPayment();
-            this.Loan.LowerRemainingBalance(this.Loan.GetPrincipalPayment());
-            ++this.SuccessfulPaymentStreak;
             double interestPayment = this.Loan.GetInterestPayment();
+            this.Loan.LowerRemainingBalance();
             this.Profit += interestPayment;
             return interestPayment;
         }
@@ -70,7 +69,7 @@ namespace LocalHost.Models
         public void IncrementMark()
         {
             ++this.Marks;
-            this.SuccessfulPaymentStreak = 0;
+            this.Capital = 0.0;
             if (this.Marks >= this.MarkLimit)
             {
                 this.IsBankrupt = true;
@@ -133,8 +132,8 @@ namespace LocalHost.Models
             builder.Append(this.IsBankrupt.ToString());
             builder.Append(", Marks = ");
             builder.Append(this.Marks.ToString());
-            builder.Append(", SuccessfulPaymentStreak = ");
-            builder.Append(this.SuccessfulPaymentStreak.ToString());
+            builder.Append(", AwardsInRow = ");
+            builder.Append(this.AwardsInRow.ToString());
             builder.Append(", Profit = ");
             builder.Append(this.Profit.ToString());
             return true;

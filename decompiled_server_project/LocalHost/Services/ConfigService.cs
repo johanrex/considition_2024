@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.ConfigService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BC78B9DA-9821-4404-BDBA-C98E63F84698
+// MVID: 1678F578-689D-4062-BED4-DD7ABDE09D6A
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 #nullable enable
@@ -29,20 +31,21 @@ namespace LocalHost.Services
 
         public ConfigService()
         {
-            string str = Path.Join(Environment.CurrentDirectory, "Config");
-            if (!Directory.Exists(str))
-                throw new Exception("\tCouldn't find 'Config' directory.");
-            this.SetMaps(str);
-            this.SetAwards(str);
-            this.SetPersonalities(str);
+            this.SetMaps();
+            string name = (Assembly.GetExecutingAssembly().GetName() ?? throw new Exception("Couldn't get assembly info.")).Name;
+            if (name == null)
+                throw new Exception("Couldn't get assembly name.");
+            this.SetAwards(name);
+            this.SetPersonalities(name);
         }
 
-        private void SetMaps(string directoryPath)
+        private void SetMaps()
         {
-            string[] files = Directory.GetFiles(Path.Join(directoryPath, "Maps"));
-            if (files.Length == 0)
-                throw new Exception("\tNo 'Maps' available in directory.");
-            foreach (string path in files)
+            string str = Path.Join(Environment.CurrentDirectory, "Config");
+            string[] strArray = Directory.Exists(str) ? Directory.GetFiles(Path.Join(str, "Maps")) : throw new Exception("Couldn't find 'Config' directory.");
+            if (strArray.Length == 0)
+                throw new Exception("No 'Maps' available in directory.");
+            foreach (string path in strArray)
             {
                 if (Path.GetFileName(path).StartsWith("map", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -53,14 +56,22 @@ namespace LocalHost.Services
             }
         }
 
-        private void SetAwards(string directoryPath)
+        private void SetAwards(string assemblyName)
         {
-            this.Awards = JsonSerializer.Deserialize<LocalHost.Models.Awards>(File.ReadAllText(Path.Join(directoryPath, "awards.json")), this.jsonSerializerOptions)?.AwardSpecifications ?? throw new Exception("Count not parse awards.json");
+            using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assemblyName + ".Config.awards.json"))
+            {
+                using (StreamReader streamReader = new StreamReader(manifestResourceStream, Encoding.UTF8))
+                    this.Awards = JsonSerializer.Deserialize<LocalHost.Models.Awards>(streamReader.ReadToEnd(), this.jsonSerializerOptions)?.AwardSpecifications ?? throw new Exception("Count not parse awards.json");
+            }
         }
 
-        private void SetPersonalities(string directoryPath)
+        private void SetPersonalities(string assemblyName)
         {
-            this.Personalities = JsonSerializer.Deserialize<LocalHost.Models.Personalities>(File.ReadAllText(Path.Join(directoryPath, "personalities.json")), this.jsonSerializerOptions)?.PersonalitySpecifications ?? throw new Exception("Count not parse personalities.json");
+            using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assemblyName + ".Config.personalities.json"))
+            {
+                using (StreamReader streamReader = new StreamReader(manifestResourceStream, Encoding.UTF8))
+                    this.Personalities = JsonSerializer.Deserialize<LocalHost.Models.Personalities>(streamReader.ReadToEnd(), this.jsonSerializerOptions)?.PersonalitySpecifications ?? throw new Exception("Count not parse personalities.json");
+            }
         }
 
         public Map? GetMap(string mapName)
