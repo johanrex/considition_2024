@@ -5,24 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using Common.Services;
+using Common.Models;
 
 
-namespace NativeScorer.Models
+namespace NativeScorer
 {
-    internal class NativeScorer
+    public class NativeScorer
     {
         private readonly Dictionary<Personality, PersonalitySpecification> personalities;
         private double budget;
         private readonly Dictionary<AwardType, AwardSpecification> awards;
 
+        private ConfigService configService;
+
         private NativeScorer()
         { }
 
         public NativeScorer(
+            ConfigService configService,
             Dictionary<Personality, PersonalitySpecification> personalities,
             Dictionary<AwardType, AwardSpecification> awards
             )
         {
+            this.configService = configService;
             this.personalities = personalities;
             this.awards = awards;
         }
@@ -34,6 +40,7 @@ namespace NativeScorer.Models
 
         public GameResponse RunGame(GameInput gameInput, Dictionary<string, Customer> mapCustomerLookup)
         {
+            var map = configService.GetMap(gameInput.MapName);
             List<Customer> customerList = RequestCustomers(gameInput, map, mapCustomerLookup);
 
             budget = map.Budget;
@@ -72,7 +79,7 @@ namespace NativeScorer.Models
         }
 
         private string HandleIterations(
-          List<Dictionary<string, CustomerAction>> iterations,
+          List<CustomerActionIteration> iterations,
           List<Customer> customers,
           Map map)
         {
@@ -87,7 +94,7 @@ namespace NativeScorer.Models
 
 
         public string CollectPayments(
-            Dictionary<string, CustomerAction> iteration,
+            CustomerActionIteration iteration,
             int month,
             List<Customer> customers,
             Map map)
@@ -103,30 +110,22 @@ namespace NativeScorer.Models
                     return "Your bank went bankrupt";
                 if (!customer.IsBankrupt)
                 {
-                    CustomerAction customerAction = iteration[customer.Name];
+                    CustomerAction customerAction = iteration.CustomerActions[customer.Name];
                     customer.Payday();
                     customer.PayBills(month, personalitySpecifications);
                     if (customer.CanPayLoan())
                         map.Budget += customer.PayLoan();
                     else
                         customer.IncrementMark();
-
-                    //TODO this is a performance bottleneck to do this every time. Should be done once in the beginning. Or the gameinput should have a type for it. 
-                    //TODO maybe I should change the POCO to have the enum instead. 
-                    if (!Enum.TryParse(customerAction.Type, out CustomerActionType actionType))
-                        throw new Exception($"Can't find matching enum for customer action {customerAction.Type}.");
-
-                    if (actionType == CustomerActionType.Award)
+                    if (customerAction.Type == CustomerActionType.Award)
                     {
-                        if (!Enum.TryParse(customerAction.Award, out AwardType awardType))
-                            throw new Exception($"Can't find matching enum for award {customerAction.Award}.");
-
-                        double num = Award(customer, awardType, awardSpecifications, personalitySpecifications);
+                        double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         map.Budget -= num;
                     }
                     else if (customer.AwardsInRow > 0)
                         --customer.AwardsInRow;
+
                 }
             }
             return null;

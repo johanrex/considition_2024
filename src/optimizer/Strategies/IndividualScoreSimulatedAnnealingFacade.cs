@@ -1,5 +1,4 @@
-﻿using optimizer.Models.Pocos;
-using optimizer.Models.Simulation;
+﻿
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,12 +6,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Models;
+using Common.Services;
 
 namespace optimizer.Strategies
 {
     internal class IndividualScoreSimulatedAnnealingFacade
     {
         public static List<CustomerPropositionDetails> Run(
+            ConfigService configService,
             Map map, Dictionary<Personality, 
             PersonalitySpecification> personalities,
             Dictionary<AwardType, AwardSpecification> awards)
@@ -44,6 +46,7 @@ namespace optimizer.Strategies
                 var startYearlyInterestRate = (acceptedMaxInterest - acceptedMinInterest) / 2 + acceptedMinInterest;
 
                 IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
+                    configService,
                     map,
                     mapCustomerLookup,
                     personalities,

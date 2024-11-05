@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using optimizer;
 using optimizer.Strategies;
+using Common.Models;
+using Common.Services;
 
 class Program
 {
@@ -24,58 +26,34 @@ class Program
 
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
-
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-        //string mapFile = "Config/Maps/Map-Nottingham.json";
-        string mapFile = "Config/Maps/Map-Gothenburg.json";
-        //string mapFile = "Config/map_100.json";
-        //string mapFile = "Config/map_10000.json";
-        string awardsFile = "Config/awards.json";
-        string personalitiesFile = "Config/personalities.json";
-        string personalitiesFileCompetition = "Config/personalitiesCompetition.json";
-        bool useCompetitionPersonalities = false;
+        string mapname = "gothenburg";
+
         /*
         ///////////////////////////////////////////////////////////////////
         //Here comes the meat.
         ///////////////////////////////////////////////////////////////////
         */
 
+        ConfigService configService = new();
+        var map = configService.GetMap(mapname);
+        var personalities = configService.GetPersonalitySpecifications(mapname);
+        var awards = configService.GetAwardSpecifications(mapname);
+
+
+
         var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
         var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
 
         Console.WriteLine("-----------------------------------------------------------");
-
-        var map = GameUtils.GetMap(mapFile);
         Console.WriteLine("Map name: " + map.Name);
         Console.WriteLine("Customer count: " + map.Customers.Count.ToString());
 
+        Console.WriteLine("-----------------------------------------------------------");
+        Console.WriteLine("Doing sanity checks...");
+
         if (!GameUtils.IsCustomerNamesUnique(map))
             throw new Exception("Customer names are not unique. This was promised during training.");
-
-
-
-        Dictionary<Personality, PersonalitySpecification> personalities;
-
-        if (useCompetitionPersonalities)
-        {
-            if (!File.Exists(personalitiesFileCompetition))
-            {
-                Console.WriteLine("Inferring personalities from api.");
-                personalities = PersonalityInferenceHelper.InferPersonalityInterestRatesBounds(serverUtilsLocal, map, personalitiesFile);
-            }
-            else
-            {
-                Console.WriteLine("Reading personalities file: " + personalitiesFileCompetition);
-                personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFileCompetition);
-            }
-        }
-        else
-        {
-            Console.WriteLine("Reading personalities file: " + personalitiesFile);
-            personalities = PersonalityUtils.ReadPersonalitiesFile(personalitiesFile);
-        }
-
-        Console.WriteLine("-----------------------------------------------------------");
 
         if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
             throw new Exception("Map contains unknown personalities.");
@@ -83,19 +61,17 @@ class Program
         if (!PersonalityUtils.HasKnownInterestRates(personalities))
             throw new Exception("Some personalities have unknown interest rates.");
 
-        var awards = GameUtils.GetAwards(awardsFile);
-
         if (awards.Count <= 0)
             throw new Exception("No awards found in file.");
 
-
+        Console.WriteLine("Done.");
 
         /*
          * SIMULATE
          */
         //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
         Console.WriteLine("-----------------------------------------------------------");
-        var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(map, personalities, awards);
+        var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(configService, map, personalities, awards);
 
 
         /*
@@ -138,7 +114,7 @@ class Program
         Console.WriteLine("Predicted score from selection process: ");
         Console.WriteLine(predictedScore);
 
-        var gameInput = LoanUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
+        var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
         //Log input 
         var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
@@ -187,9 +163,20 @@ class Program
  *  PersonalitySpecification
  *  AwardType
  *  AwardSpecification
+ *  GameResult
+ *  GameResponse
  * */
 
+// TODO investigate:
+// Execute ConfigService.GetAwardSpecifications on the docker container built binaries and see if we can get the values from there. 
+
+
+//TODO maybe just skip the poco classes and use the native classes directly. Put them all in a common lib.
+//      make sure to copy customers before doing calculation on them.     
+
 //TODO skapa common lib projekt för att dela kod mellan optimizer och scorer. Kanske där man skall lägga service som läser filerna också. 
+//          common lib har också en translator som översätter mellan Poco.Personality och NativeScorer.Personality
+
 
 //TODO passa in map som cmdline argument.
 //TODO passa in personalities som cmdline argument. Borde heta mapname_personalities.json

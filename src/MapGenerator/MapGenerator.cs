@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿Console.WriteLine("foo");
+
+/*
+using Newtonsoft.Json;
 using System;
-using Pocos;
+using Common.Models;
 
 void WriteMap(Map map, string mapFilename)
 {
@@ -26,26 +29,26 @@ void GenerateMap(int customerCount)
     {
         var customer = new Customer
         {
-            name = "Customer" + i,
-            personality = personalities[random.Next(personalities.Count)],
-            capital = random.Next(1_000_001), // 1,000,001
-            income = random.Next(50_000), // 50,000
-            monthlyExpenses = random.Next(50_000), // 50,000
-            numberOfKids = random.Next(8),
-            homeMortgage = random.Next(100_000, 10_000_000), // 100,000 to 10,000,000
-            hasStudentLoan = random.Next(2) == 1,
-            loan = new Loan
+            Name = "Customer" + i,
+            Personality = personalities[random.Next(personalities.Count)],
+            Capital = random.Next(1_000_001), // 1,000,001
+            Income = random.Next(50_000), // 50,000
+            MonthlyExpenses = random.Next(50_000), // 50,000
+            NumberOfKids = random.Next(8),
+            HomeMortgage = random.Next(100_000, 10_000_000), // 100,000 to 10,000,000
+            HasStudentLoan = random.Next(2) == 1,
+            Loan = new Loan
             {
-                product = "Home Mortgage",
-                amount = random.Next(5_000_000), // 5,000,000
-                environmentalImpact = random.Next(200) // 200
+                Product = "Home Mortgage",
+                Amount = random.Next(5_000_000), // 5,000,000
+                EnvironmentalImpact = random.Next(200) // 200
             }
         };
         customers.Add(customer);
     }
 
     //create a new Map object
-    Map map = new Map
+    MapData map = new MapData
     {
         name = $"{customerCount} customers",
         budget = 100_000_000, // 100,000,000
@@ -67,3 +70,5 @@ GenerateMap(10000);
 
 
 Console.WriteLine("Done.");
+
+*/

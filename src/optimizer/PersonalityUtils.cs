@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
-using optimizer.Models.Pocos;
-using optimizer.Models.Simulation;
+using Common.Models;
+
 using System.Collections.Generic;
 
 namespace optimizer
 {
     public class PersonalityUtils
     {
+        /*
         public static Personality StringToEnum(string personalityString)
         {
             if (!Enum.TryParse(personalityString, out Personality personalityEnum))
@@ -30,6 +31,7 @@ namespace optimizer
             var personalitiesDict = JsonConvert.DeserializeObject<Dictionary<Personality, PersonalitySpecification>>(personalitiesJson);
             return personalitiesDict;
         }
+        */
 
         public static bool HasKnownPersonalities(Map map, Dictionary<Personality, PersonalitySpecification> personalities)
         {

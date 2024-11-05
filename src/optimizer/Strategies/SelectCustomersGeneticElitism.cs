@@ -1,9 +1,10 @@
-﻿using optimizer.Models.Simulation;
-using optimizer;
+﻿using optimizer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using Common.Models;
+
 namespace optimizer.Strategies
 {
     public class SelectCustomersGeneticElitism

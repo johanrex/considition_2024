@@ -1,5 +1,5 @@
-﻿using optimizer.Models.Pocos;
-using optimizer.Models.Simulation;
+﻿using Common.Models;
+using Common.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +42,7 @@ namespace optimizer.Strategies
                 {
                     for (int monthsToPayBackLoan = 1; monthsToPayBackLoan <= maxMonthsToPayBackLoan; monthsToPayBackLoan++)
                     {
-                        var input = LoanUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customer.Name, yearlyInterestRate, monthsToPayBackLoan);
+                        var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customer.Name, yearlyInterestRate, monthsToPayBackLoan);
                         var gameResponse = serverUtils.SubmitGameAsync(input).Result;
                         var score = GameUtils.GetTotalScore(gameResponse);
 
