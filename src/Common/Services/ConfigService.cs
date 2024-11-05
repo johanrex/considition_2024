@@ -69,7 +69,7 @@ namespace Common.Services
         {
             foreach (string city in this.cities)
             {
-                var filename = Path.Join(Environment.CurrentDirectory, "Config", $"LocalHost.Config.{city}.awards.json");
+                var filename = Path.Join(Environment.CurrentDirectory, "Config", $"LocalHost.Config.{city}.personalities.json");
                 var fileContent = File.ReadAllText(filename);
 
                 Personalities personalities = JsonSerializer.Deserialize<Personalities>(fileContent, this.jsonSerializerOptions);

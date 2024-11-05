@@ -5,8 +5,12 @@
 // Assembly location: C:\temp\app\LocalHost.dll
 
 #nullable disable
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace Common.Models
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum CustomerActionType
     {
         Skip,

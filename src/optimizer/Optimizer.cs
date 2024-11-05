@@ -27,7 +27,7 @@ class Program
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-        string mapname = "gothenburg";
+        string mapName = "Gothenburg";
 
         /*
         ///////////////////////////////////////////////////////////////////
@@ -36,9 +36,9 @@ class Program
         */
 
         ConfigService configService = new();
-        var map = configService.GetMap(mapname);
-        var personalities = configService.GetPersonalitySpecifications(mapname);
-        var awards = configService.GetAwardSpecifications(mapname);
+        var map = configService.GetMap(mapName);
+        var personalities = configService.GetPersonalitySpecifications(mapName);
+        var awards = configService.GetAwardSpecifications(mapName);
 
 
 
