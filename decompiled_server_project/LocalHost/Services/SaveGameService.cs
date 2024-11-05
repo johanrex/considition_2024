@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.SaveGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
+// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using Dapper;
@@ -22,7 +22,7 @@ namespace LocalHost.Services
     {
         private readonly IConfiguration mConfiguration;
         private const string GetTeamIdSql = "select Id from Teams where ApiKey = @ApiKey";
-        private const string GetTopScoreSql = "select Id, max(TotalScore) from Leaderboard where TeamId = @TeamId group by Id";
+        private const string GetTopScoreSql = "select Id, max(TotalScore) from Leaderboard where TeamId = @TeamId AND City = @City group by Id";
         private const string InsertTopScoreSql = "insert into Leaderboard(Id, GameId, TeamId, City, TotalScore, Happiness, EnvironmentalScore) values (newid(), @GameId, @TeamId, @City, @TotalScore, @Happiness, @EnviromentalScore);";
         private const string SaveGameSql = "insert into SavedGame(Id, TeamId, GameData) values (@Id, @TeamId, @GameData);";
         private const string GetGameSql = "select GameData from SavedGame where Id = @Id and TeamId = @TeamId;";
@@ -116,11 +116,12 @@ namespace LocalHost.Services
           GameResult gameResult,
           Guid gameId)
         {
-            (Guid, long)? nullable = await connection.QueryFirstOrDefaultAsync<(Guid, long)?>("select Id, max(TotalScore) from Leaderboard where TeamId = @TeamId group by Id", (object)new
+            (Guid, long)? nullable = await connection.QueryFirstOrDefaultAsync<(Guid, long)?>("select Id, max(TotalScore) from Leaderboard where TeamId = @TeamId AND City = @City group by Id", (object)new
             {
-                TeamId = teamId
+                TeamId = teamId,
+                City = gameResult.MapName
             });
-            if (nullable.HasValue && (double)nullable.Value.Item2 >= gameResult.TotalScore)
+            if (nullable.HasValue && nullable.Value.Item2 >= gameResult.TotalScore)
                 return;
             int num = await connection.ExecuteAsync("insert into Leaderboard(Id, GameId, TeamId, City, TotalScore, Happiness, EnvironmentalScore) values (newid(), @GameId, @TeamId, @City, @TotalScore, @Happiness, @EnviromentalScore);", (object)new
             {
@@ -128,9 +129,9 @@ namespace LocalHost.Services
                 GameId = gameId,
                 TeamId = teamId,
                 City = gameResult.MapName,
-                TotalScore = (long)gameResult.TotalScore,
-                Happiness = (long)gameResult.HappinessScore,
-                EnviromentalScore = (long)gameResult.EnvironmentalImpact
+                TotalScore = gameResult.TotalScore,
+                Happiness = gameResult.HappinessScore,
+                EnviromentalScore = gameResult.EnvironmentalImpact
             });
         }
 

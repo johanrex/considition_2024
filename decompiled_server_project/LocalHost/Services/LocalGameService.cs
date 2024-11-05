@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.LocalGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
+// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -156,9 +156,9 @@ namespace LocalHost.Services
         {
             GameResult gameResult = new GameResult()
             {
-                TotalProfit = acceptedCustomers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
-                HappinessScore = acceptedCustomers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
-                EnvironmentalImpact = acceptedCustomers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
+                TotalProfit = (long)acceptedCustomers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
+                HappinessScore = (long)acceptedCustomers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
+                EnvironmentalImpact = (long)acceptedCustomers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
                 MapName = gameInput.MapName
             };
             // ISSUE: reference to a compiler-generated field

@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Customer
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: AA0D6786-29C9-4DD4-9CA6-D5CCB27ABAAB
+// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System.Collections.Generic;
@@ -29,9 +29,9 @@ namespace LocalHost.Models
 
         public int NumberOfKids { get; init; }
 
-        public double Mortgage { get; init; }
+        public double HomeMortgage { get; init; }
 
-        public bool HasStudentLoans { get; init; }
+        public bool HasStudentLoan { get; init; }
 
         public double Happiness { get; set; }
 
@@ -52,7 +52,7 @@ namespace LocalHost.Models
           Dictionary<Personality, PersonalitySpecification> personalityDict)
         {
             bool flag = iteration % 3 == 0;
-            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (this.HasStudentLoans & flag ? 2000.0 : 0.0) - (double)(this.NumberOfKids * 2000) - this.Mortgage * 0.01;
+            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (this.HasStudentLoan & flag ? 2000.0 : 0.0) - (double)(this.NumberOfKids * 2000) - this.HomeMortgage * 0.01;
         }
 
         public bool CanPayLoan() => this.Capital >= this.Loan.GetTotalMonthlyPayment();
@@ -122,10 +122,10 @@ namespace LocalHost.Models
             builder.Append(this.MonthlyExpenses.ToString());
             builder.Append(", NumberOfKids = ");
             builder.Append(this.NumberOfKids.ToString());
-            builder.Append(", Mortgage = ");
-            builder.Append(this.Mortgage.ToString());
-            builder.Append(", HasStudentLoans = ");
-            builder.Append(this.HasStudentLoans.ToString());
+            builder.Append(", HomeMortgage = ");
+            builder.Append(this.HomeMortgage.ToString());
+            builder.Append(", HasStudentLoan = ");
+            builder.Append(this.HasStudentLoan.ToString());
             builder.Append(", Happiness = ");
             builder.Append(this.Happiness.ToString());
             builder.Append(", IsBankrupt = ");
