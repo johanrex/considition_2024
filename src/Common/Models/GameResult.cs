@@ -1,11 +1,10 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.GameResult
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 0E63F0E5-C165-45D8-B0A0-7E9412810D3A
+// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -16,14 +15,12 @@ namespace Common.Models
     {
         public required string MapName { get; init; }
 
-        public double TotalProfit { get; init; }
+        public long TotalProfit { get; init; }
 
-        public double HappinessScore { get; init; }
+        public long HappinessScore { get; init; }
 
-        public double EnvironmentalImpact { get; init; }
+        public long EnvironmentalImpact { get; init; }
 
-        public double TotalScore => this.TotalProfit + this.HappinessScore + this.EnvironmentalImpact;
-
-
+        public long TotalScore => this.TotalProfit + this.HappinessScore + this.EnvironmentalImpact;
     }
 }

@@ -178,9 +178,9 @@ namespace NativeScorer
         {
             GameResult gameResult = new GameResult()
             {
-                TotalProfit = customers.Sum(x => x.Profit),
-                HappinessScore = customers.Sum(x => x.Happiness),
-                EnvironmentalImpact = customers.Sum(x => x.Loan.EnvironmentalImpact),
+                TotalProfit = (long)customers.Sum<Customer>((Func<Customer, double>)(x => x.Profit)),
+                HappinessScore = (long)customers.Sum<Customer>((Func<Customer, double>)(x => x.Happiness)),
+                EnvironmentalImpact = (long)customers.Sum<Customer>((Func<Customer, double>)(x => x.Loan.EnvironmentalImpact)),
                 MapName = gameInput.MapName
             };
             return gameResult;

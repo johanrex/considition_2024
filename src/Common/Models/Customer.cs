@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿// Decompiled with JetBrains decompiler
+// Type: LocalHost.Models.Customer
+// Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
+// Assembly location: C:\temp\app\LocalHost.dll
+
+using Common.Models;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -23,9 +30,9 @@ namespace Common.Models
 
         public int NumberOfKids { get; init; }
 
-        public double Mortgage { get; init; }
+        public double HomeMortgage { get; init; }
 
-        public bool HasStudentLoans { get; init; }
+        public bool HasStudentLoan { get; init; }
 
         public double Happiness { get; set; }
 
@@ -46,7 +53,7 @@ namespace Common.Models
           Dictionary<Personality, PersonalitySpecification> personalityDict)
         {
             bool flag = iteration % 3 == 0;
-            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (this.HasStudentLoans & flag ? 2000.0 : 0.0) - (double)(this.NumberOfKids * 2000) - this.Mortgage * 0.01;
+            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (this.HasStudentLoan & flag ? 2000.0 : 0.0) - (double)(this.NumberOfKids * 2000) - this.HomeMortgage * 0.01;
         }
 
         public bool CanPayLoan() => this.Capital >= this.Loan.GetTotalMonthlyPayment();
