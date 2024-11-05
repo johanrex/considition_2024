@@ -66,8 +66,6 @@ namespace Common.Services
         public static double LogGameResponse(GameResponse gameResponse, string filename)
         {
             double totalScore = GetTotalScore(gameResponse);
-            Console.WriteLine("Game response total score:");
-            Console.WriteLine(totalScore.ToString());
 
             JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions()
             {

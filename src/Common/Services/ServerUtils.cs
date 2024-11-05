@@ -31,7 +31,7 @@ namespace Common.Services
                 RequestUri = new Uri(GameUrl + "game", UriKind.Absolute)
             };
             request.Headers.Add("x-api-key", ApiKey);
-            request.Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json");
+            request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(input), Encoding.UTF8, "application/json");
 
             HttpClient client = new();
             var res = client.Send(request);

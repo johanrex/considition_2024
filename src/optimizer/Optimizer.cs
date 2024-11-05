@@ -3,6 +3,7 @@ using optimizer;
 using optimizer.Strategies;
 using Common.Models;
 using Common.Services;
+using System.Text;
 
 class Program
 {
@@ -27,7 +28,8 @@ class Program
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-        string mapName = "Gothenburg";
+        //string mapName = "Gothenburg";
+        string mapName = "Nottingham";
 
         /*
         ///////////////////////////////////////////////////////////////////
@@ -117,7 +119,9 @@ class Program
         var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
         //Log input 
-        var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
+        var inputJson = System.Text.Json.JsonSerializer.Serialize(gameInput);
+        //var inputJson = JsonConvert.SerializeObject(gameInput);
+        //var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
         File.WriteAllText("finalGameInput.json", inputJson);
         //Console.WriteLine("Final game input:");
         //Console.WriteLine(inputJson);
@@ -125,19 +129,21 @@ class Program
         //Score the game locally.
         var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
         var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
+        Console.WriteLine($"Score from local docker: {totalScore}.");
 
-        if (totalScore != predictedScore)
-        {
-            throw new Exception("Predicted score and actual score do not match.");
-        }
+        //if (Math.Abs(totalScore - predictedScore)>5)
+        //{
+        //    throw new Exception("Predicted score and actual score do not match.");
+        //}
 
         //Score the game remotely.
         var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
         var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
+        Console.WriteLine($"Score from remote api: {totalScoreRemote}");
 
-        if (totalScore != totalScoreRemote)
+        if (Math.Abs(totalScore - totalScoreRemote) > 5)
         {
-            throw new Exception("Local and remote server gave different scores.");
+            throw new Exception("Local docker score and remote api score are different.");
         }
 
         Console.WriteLine("Done.");

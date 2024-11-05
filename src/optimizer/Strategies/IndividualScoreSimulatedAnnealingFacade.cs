@@ -29,7 +29,7 @@ namespace optimizer.Strategies
             var details = new ConcurrentBag<CustomerPropositionDetails>();
 
             var startMonthsToPayBackLoan = map.GameLengthInMonths / 2;
-            var maxMonthsToPayBackLoan = 50 * 12;
+            var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4;
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
             var maxIterations = 1000;
