@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: Program
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
+// MVID: 2E185BA7-B99B-4FD6-9E2E-A742DD973CDE
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost;

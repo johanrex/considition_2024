@@ -53,7 +53,7 @@ namespace Common.Models
           Dictionary<Personality, PersonalitySpecification> personalityDict)
         {
             bool flag = iteration % 3 == 0;
-            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier - (this.HasStudentLoan & flag ? 2000.0 : 0.0) - (double)(this.NumberOfKids * 2000) - this.HomeMortgage * 0.01;
+            this.Capital -= this.MonthlyExpenses * personalityDict[this.Personality].LivingStandardMultiplier + (this.HasStudentLoan & flag ? 2000.0 : 0.0) + (double)(this.NumberOfKids * 2000) + this.HomeMortgage * 0.001;
         }
 
         public bool CanPayLoan() => this.Capital >= this.Loan.GetTotalMonthlyPayment();
