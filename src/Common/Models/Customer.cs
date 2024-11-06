@@ -74,7 +74,7 @@ namespace Common.Models
             if (this.Marks >= this.MarkLimit)
             {
                 this.IsBankrupt = true;
-                this.Happiness -= 500.0;
+                this.Happiness = -500.0;
             }
             else
                 this.Happiness -= 50.0;
