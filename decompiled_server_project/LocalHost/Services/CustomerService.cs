@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.CustomerService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 2E185BA7-B99B-4FD6-9E2E-A742DD973CDE
+// MVID: DDC2938F-C917-4854-87EA-D677106BD5FA
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
