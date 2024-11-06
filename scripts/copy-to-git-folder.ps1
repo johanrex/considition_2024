@@ -5,4 +5,7 @@ $excludeItems = @("bin", "lib", "obj", "LocalHost.sln", "LocalHost.csproj")
 
 Get-ChildItem -Path $srcFodler -Recurse | Where-Object {
     $excludeItems -notcontains $_.Name -and $_.Extension -ne ".dll"
-} | Copy-Item -Destination $dstFolder -Recurse -Force
+} | ForEach-Object {
+    $destination = $_.FullName -replace [regex]::Escape($srcFodler), $dstFolder
+    Copy-Item -Path $_.FullName -Destination $destination -Recurse -Force -Container
+}
