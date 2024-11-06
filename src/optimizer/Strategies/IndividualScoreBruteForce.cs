@@ -32,7 +32,7 @@ namespace optimizer.Strategies
                 var personalitySpec = personalities[personality];
                 var acceptedMaxInterest = personalitySpec.AcceptedMaxInterest ?? 0.0;
                 var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
-                var maxMonthsToPayBackLoan = 30;
+                var maxMonthsToPayBackLoan = map.GameLengthInMonths*4;
 
                 var bestScore = 0.0;
                 var optimalInterestRate = 0.0;

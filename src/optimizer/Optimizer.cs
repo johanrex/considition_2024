@@ -118,6 +118,12 @@ class Program
 
         var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
+        //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
+        //var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
+        //var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
+        //var gameResponse = scorer.RunGame(gameInput, mapCustomerLookup);
+
+
         //Log input 
         var inputJson = System.Text.Json.JsonSerializer.Serialize(gameInput);
         //var inputJson = JsonConvert.SerializeObject(gameInput);

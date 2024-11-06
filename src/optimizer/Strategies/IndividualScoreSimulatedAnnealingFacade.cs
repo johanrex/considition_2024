@@ -32,7 +32,7 @@ namespace optimizer.Strategies
             var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4;
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 1000;
+            var maxIterations = 2000;
 
             Parallel.For(0, map.Customers.Count, i =>
             {

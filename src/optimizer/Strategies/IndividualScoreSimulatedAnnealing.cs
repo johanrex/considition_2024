@@ -58,8 +58,6 @@ namespace optimizer.Strategies
         private double ScoreFunction(double yearlyInterestRate, int monthsToPayBackLoan)
         {
             var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customerName, yearlyInterestRate, monthsToPayBackLoan);
-            //var gameResponse = ServerUtils.SubmitGameAsync(input).Result;
-
             var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
             var gameResponse = scorer.RunGame(input, mapCustomerLookup);
             var score = GameUtils.GetTotalScore(gameResponse);
