@@ -32,7 +32,8 @@ namespace optimizer.Strategies
             var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4;
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 2000;
+            var maxIterations = 1000;
+            var retries = 3;
 
             Parallel.For(0, map.Customers.Count, i =>
             {
@@ -45,29 +46,44 @@ namespace optimizer.Strategies
                 var acceptedMinInterest = personalitySpec.AcceptedMinInterest ?? 0.0;
                 var startYearlyInterestRate = (acceptedMaxInterest - acceptedMinInterest) / 2 + acceptedMinInterest;
 
-                IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
-                    configService,
-                    map,
-                    mapCustomerLookup,
-                    personalities,
-                    awards,
-                    customerName,
-                    startYearlyInterestRate,
-                    startMonthsToPayBackLoan,
-                    acceptedMinInterest,
-                    acceptedMaxInterest,
-                    maxMonthsToPayBackLoan);
+                double bestScore=double.MinValue;
+                double optimalInterestRate = double.MinValue;
+                int optimalMonthsToPayBackLoan = int.MinValue;
 
-                (var bestScore, var optimalInterestRate, var optimalMonthsToPayBackLoan) = anneal.Run(
-                    startYearlyInterestRate,
-                    startMonthsToPayBackLoan,
-                    initialTemperature,
-                    coolingRate,
-                    maxIterations,
-                    acceptedMinInterest,
-                    acceptedMaxInterest,
-                    0,
-                    maxMonthsToPayBackLoan);
+                for (int _ = 0; _ < retries; _++)
+                {
+                    IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
+                        configService,
+                        map,
+                        mapCustomerLookup,
+                        personalities,
+                        awards,
+                        customerName,
+                        startYearlyInterestRate,
+                        startMonthsToPayBackLoan,
+                        acceptedMinInterest,
+                        acceptedMaxInterest,
+                        maxMonthsToPayBackLoan);
+
+                    (var runScore, var runInterestRate, var runMonthsToPayBackLoan) = anneal.Run(
+                        startYearlyInterestRate,
+                        startMonthsToPayBackLoan,
+                        initialTemperature,
+                        coolingRate,
+                        maxIterations,
+                        acceptedMinInterest,
+                        acceptedMaxInterest,
+                        0,
+                        maxMonthsToPayBackLoan);
+
+                    if (runScore > bestScore)
+                    {
+                        bestScore = runScore;
+                        optimalInterestRate = runInterestRate;
+                        optimalMonthsToPayBackLoan = runMonthsToPayBackLoan;
+                    }
+                }
+
 
                 var detail = new CustomerPropositionDetails
                 {
@@ -79,7 +95,9 @@ namespace optimizer.Strategies
                 };
                 details.Add(detail);
 
-                //Console.WriteLine(detail.ToString());
+                //Log progress
+                string msg = $"({details.Count}/{map.Customers.Count})";
+                Console.WriteLine(msg);
             });
 
             // Stop the stopwatch
