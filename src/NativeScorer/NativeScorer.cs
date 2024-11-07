@@ -32,11 +32,6 @@ namespace NativeScorer
             this.personalities = personalities;
             this.awards = awards;
         }
-        public static T DeepCopy<T>(T record)
-        {
-            var json = JsonSerializer.Serialize(record);
-            return JsonSerializer.Deserialize<T>(json);
-        }
 
         public GameResponse RunGame(GameInput gameInput, Dictionary<string, Customer> mapCustomerLookup)
         {
@@ -69,7 +64,7 @@ namespace NativeScorer
             {
                 CustomerLoanRequestProposal proposal = proposal1;
 
-                var customer = DeepCopy(mapCustomerLookup[proposal.CustomerName]);
+                var customer = ObjectUtils.DeepCopyWithJson(mapCustomerLookup[proposal.CustomerName]);
 
                 //if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities))
                 if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities, map.GameLengthInMonths))

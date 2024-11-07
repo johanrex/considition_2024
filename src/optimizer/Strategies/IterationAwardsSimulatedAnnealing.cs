@@ -106,7 +106,7 @@ namespace optimizer.Strategies
         {
             //This function randomly changes two things.
 
-            List<CustomerActionIteration> neighbor = DeepCopy(currentState);
+            List<CustomerActionIteration> neighbor = ObjectUtils.DeepCopyWithJson(currentState);
 
             /////////////////////////////////////////////////////
             /// 1. Pick a random iteration (month) to change. ///
@@ -132,28 +132,6 @@ namespace optimizer.Strategies
             }
 
             return neighbor;
-        }
-
-        List<CustomerActionIteration> DeepCopy(List<CustomerActionIteration> currentObj)
-        {
-            List<CustomerActionIteration> newObj = new();
-            foreach (CustomerActionIteration iteration in currentObj)
-            {
-                Dictionary<string, CustomerAction> kvp = new();
-                foreach (KeyValuePair<string, CustomerAction> pair in iteration.CustomerActions)
-                {
-                    kvp[pair.Key] = new CustomerAction
-                    {
-                        Type = pair.Value.Type,
-                        Award = pair.Value.Award
-                    };
-                }
-                CustomerActionIteration newIteration = new();
-                newIteration.CustomerActions = kvp;
-                newObj.Add(newIteration);
-            }
-
-            return newObj;
         }
 
         private double ScoreFunction()

@@ -26,6 +26,7 @@ class Program
     {
         parseCommandLineArguments(args);
 
+
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
