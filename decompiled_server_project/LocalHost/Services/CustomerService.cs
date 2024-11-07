@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.CustomerService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: DDC2938F-C917-4854-87EA-D677106BD5FA
+// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -32,7 +32,7 @@ namespace LocalHost.Services
             {
                 CustomerLoanRequestProposal proposal = proposal1;
                 Customer customer = map.Customers.FirstOrDefault<Customer>((Func<Customer, bool>)(c => c.Name.Equals(proposal.CustomerName)));
-                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalitySpecifications))
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalitySpecifications, map.GameLengthInMonths))
                     customerList.Add(customer);
             }
             return customerList;

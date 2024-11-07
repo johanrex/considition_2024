@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.IterationService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: DDC2938F-C917-4854-87EA-D677106BD5FA
+// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -48,12 +48,20 @@ namespace LocalHost.Services
                         customer.IncrementMark();
                     if (customerAction.Type == CustomerActionType.Award)
                     {
+                        customer.MonthsWithoutAwardsInRow = 0;
+                        customer.AwardsReceived.Add(customerAction.Award);
                         double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         map.Budget -= num;
                     }
-                    else if (customer.AwardsInRow > 0)
-                        --customer.AwardsInRow;
+                    else
+                    {
+                        ++customer.MonthsWithoutAwardsInRow;
+                        if (customer.MonthsWithoutAwardsInRow > 3)
+                            customer.Happiness -= (double)(500 * customer.MonthsWithoutAwardsInRow);
+                        if (customer.AwardsInRow > 0)
+                            --customer.AwardsInRow;
+                    }
                 }
             }
             return (string)null;
@@ -68,6 +76,17 @@ namespace LocalHost.Services
             double num = Math.Round((100.0 - (double)customer.AwardsInRow * 20.0) / 100.0, 1);
             if (customer.AwardsInRow < 5)
                 ++customer.AwardsInRow;
+            if (customer.AwardsReceived.Count >= 3)
+            {
+                List<AwardType> awardsReceived1 = customer.AwardsReceived;
+                AwardType awardType1 = awardsReceived1[awardsReceived1.Count - 1];
+                List<AwardType> awardsReceived2 = customer.AwardsReceived;
+                AwardType awardType2 = awardsReceived2[awardsReceived2.Count - 2];
+                List<AwardType> awardsReceived3 = customer.AwardsReceived;
+                AwardType awardType3 = awardsReceived3[awardsReceived3.Count - 3];
+                if (awardType1 == awardType2 && awardType2 == awardType3)
+                    num = -1.0;
+            }
             switch (award)
             {
                 case AwardType.IkeaCheck:

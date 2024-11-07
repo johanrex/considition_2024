@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Customer
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: DDC2938F-C917-4854-87EA-D677106BD5FA
+// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using System.Collections.Generic;
@@ -15,6 +15,8 @@ namespace LocalHost.Models
     public record Customer
     {
         public string Name { get; init; }
+
+        public Gender Gender { get; set; }
 
         public Loan Loan { get; init; }
 
@@ -40,6 +42,10 @@ namespace LocalHost.Models
         public int Marks { get; private set; }
 
         public int AwardsInRow { get; set; }
+
+        public List<AwardType> AwardsReceived { get; set; }
+
+        public int MonthsWithoutAwardsInRow { get; set; }
 
         public double Profit { get; set; }
 
@@ -69,7 +75,6 @@ namespace LocalHost.Models
         public void IncrementMark()
         {
             ++this.Marks;
-            this.Capital = 0.0;
             if (this.Marks >= this.MarkLimit)
             {
                 this.IsBankrupt = true;
@@ -82,7 +87,8 @@ namespace LocalHost.Models
         public bool Propose(
           double yearlyInterestRate,
           int monthsToPayBack,
-          Dictionary<Personality, PersonalitySpecification> personalityDict)
+          Dictionary<Personality, PersonalitySpecification> personalityDict,
+          int mapLength)
         {
             double? acceptedMinInterest = personalityDict[this.Personality].AcceptedMinInterest;
             double? acceptedMaxInterest = personalityDict[this.Personality].AcceptedMaxInterest;
@@ -94,7 +100,7 @@ namespace LocalHost.Models
                 double num2 = yearlyInterestRate;
                 double? nullable2 = acceptedMaxInterest;
                 double valueOrDefault2 = nullable2.GetValueOrDefault();
-                if (!(num2 > valueOrDefault2 & nullable2.HasValue))
+                if (!(num2 > valueOrDefault2 & nullable2.HasValue) && (int)(1 + this.Personality) * mapLength >= monthsToPayBack)
                 {
                     this.Loan.YearlyInterestRate = yearlyInterestRate;
                     this.Loan.MonthsToPayBack = monthsToPayBack;
@@ -110,6 +116,8 @@ namespace LocalHost.Models
             RuntimeHelpers.EnsureSufficientExecutionStack();
             builder.Append("Name = ");
             builder.Append((object)this.Name);
+            builder.Append(", Gender = ");
+            builder.Append(this.Gender.ToString());
             builder.Append(", Loan = ");
             builder.Append((object)this.Loan);
             builder.Append(", Personality = ");
@@ -134,6 +142,10 @@ namespace LocalHost.Models
             builder.Append(this.Marks.ToString());
             builder.Append(", AwardsInRow = ");
             builder.Append(this.AwardsInRow.ToString());
+            builder.Append(", AwardsReceived = ");
+            builder.Append((object)this.AwardsReceived);
+            builder.Append(", MonthsWithoutAwardsInRow = ");
+            builder.Append(this.MonthsWithoutAwardsInRow.ToString());
             builder.Append(", Profit = ");
             builder.Append(this.Profit.ToString());
             return true;

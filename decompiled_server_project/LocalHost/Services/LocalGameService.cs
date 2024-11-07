@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.LocalGameService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: DDC2938F-C917-4854-87EA-D677106BD5FA
+// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -72,8 +72,6 @@ namespace LocalHost.Services
                 return "You must provide customer actions for each month of the designated game lenght!";
             if (gameInput.Proposals.Any<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, bool>)(proposal => proposal.MonthsToPayBackLoan < 0)))
                 return "Customers need at least one month to pay back loan";
-            if (gameInput.Proposals.Any<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, bool>)(proposal => proposal.MonthsToPayBackLoan > map.GameLengthInMonths * 4)))
-                return "Months to pay back loan can not exceed four times the game lenght";
             IEnumerable<string> mapCustomerNames = map.Customers.Select<Customer, string>((Func<Customer, string>)(c => c.Name));
             if (gameInput.Proposals.Any<CustomerLoanRequestProposal>((Func<CustomerLoanRequestProposal, bool>)(proposal => !mapCustomerNames.Contains<string>(proposal.CustomerName))))
                 return "All requested customers must exist on the chosen map!";

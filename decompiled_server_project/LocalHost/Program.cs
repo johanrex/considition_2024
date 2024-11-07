@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: Program
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: DDC2938F-C917-4854-87EA-D677106BD5FA
+// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost;
@@ -32,14 +32,6 @@ EndpointRouteBuilderExtensions.MapPost(app, "/game", (Delegate)(async (gameServi
         return unauthorized2;
     GameResponse gameResponse = await gameService.RunGame(gameInput, apiKey2);
     return gameResponse.Message != null ? Results.BadRequest<string>(gameResponse.Message) : Results.Ok<GameResponse>(gameResponse);
-}));
-EndpointRouteBuilderExtensions.MapGet(app, "/game", (Delegate)(async (gameService, httpContext, [FromQuery] gameId) =>
-{
-    (Guid apiKey4, IResult unauthorized4) = CheckAuth(httpContext);
-    if (unauthorized4 != null)
-        return unauthorized4;
-    SaveGame game = await gameService.GetGame(gameId, apiKey4);
-    return (object)game != null ? Results.Ok<SaveGame>(game) : Results.NotFound();
 }));
 app.Run();
 app = (WebApplication)null;
