@@ -106,6 +106,8 @@ namespace NativeScorer
 
             foreach (Customer customer in customers)
             {
+                //TODO han fuckar med map.Budget. Det borde vi väl inte?
+
                 if (map.Budget <= 0.0)
                     return "Your bank went bankrupt";
                 if (!customer.IsBankrupt)
@@ -119,16 +121,23 @@ namespace NativeScorer
                         customer.IncrementMark();
                     if (customerAction.Type == CustomerActionType.Award)
                     {
+                        customer.MonthsWithoutAwardsInRow = 0;
+                        customer.AwardsReceived.Add(customerAction.Award);
                         double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         map.Budget -= num;
                     }
-                    else if (customer.AwardsInRow > 0)
-                        --customer.AwardsInRow;
-
+                    else
+                    {
+                        ++customer.MonthsWithoutAwardsInRow;
+                        if (customer.MonthsWithoutAwardsInRow > 3)
+                            customer.Happiness -= (double)(500 * customer.MonthsWithoutAwardsInRow);
+                        if (customer.AwardsInRow > 0)
+                            --customer.AwardsInRow;
+                    }
                 }
             }
-            return null;
+            return (string)null;
         }
 
 
@@ -138,9 +147,20 @@ namespace NativeScorer
           Dictionary<AwardType, AwardSpecification> awardSpecs,
           Dictionary<Personality, PersonalitySpecification> personalitySpecs)
         {
-            double num = Math.Round((100.0 - customer.AwardsInRow * 20.0) / 100.0, 1);
+            double num = Math.Round((100.0 - (double)customer.AwardsInRow * 20.0) / 100.0, 1);
             if (customer.AwardsInRow < 5)
                 ++customer.AwardsInRow;
+            if (customer.AwardsReceived.Count >= 3)
+            {
+                List<AwardType> awardsReceived1 = customer.AwardsReceived;
+                AwardType awardType1 = awardsReceived1[awardsReceived1.Count - 1];
+                List<AwardType> awardsReceived2 = customer.AwardsReceived;
+                AwardType awardType2 = awardsReceived2[awardsReceived2.Count - 2];
+                List<AwardType> awardsReceived3 = customer.AwardsReceived;
+                AwardType awardType3 = awardsReceived3[awardsReceived3.Count - 3];
+                if (awardType1 == awardType2 && awardType2 == awardType3)
+                    num = -1.0;
+            }
             switch (award)
             {
                 case AwardType.IkeaCheck:
@@ -168,7 +188,7 @@ namespace NativeScorer
                     customer.Happiness += awardSpec6.BaseHappiness * personalitySpecs[customer.Personality].HappinessMultiplier * num;
                     return customer.Loan.GetInterestPayment() / 2.0 + awardSpec6.Cost;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(award), award, null);
+                    throw new ArgumentOutOfRangeException(nameof(award), (object)award, (string)null);
             }
         }
 
