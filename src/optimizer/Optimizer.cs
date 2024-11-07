@@ -42,6 +42,10 @@ class Program
 
         ConfigService configService = new();
         var map = configService.GetMap(mapName);
+        Dictionary<string, Customer> mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
+
+
+
         var personalities = configService.GetPersonalitySpecifications(mapName);
         var awards = configService.GetAwardSpecifications(mapName);
 
@@ -73,21 +77,27 @@ class Program
 
         while (true)
         {
+            List<CustomerLoanRequestProposalEx> customerDetails;
 
             /*
-             * SIMULATE
+             * SIMULATE: INDIVIDUAL CUSTOMERS WITH NO AWARDS
              */
             //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
             Console.WriteLine("-----------------------------------------------------------");
-            var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(configService, map, personalities, awards);
+            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(configService, map, mapCustomerLookup, personalities, awards);
 
+            /*
+             * SIMULATE: INDIVIDUAL CUSTOMERS ONLY AWARDS
+             */
+            Console.WriteLine("-----------------------------------------------------------");
+            customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(map, customerDetails, configService, mapCustomerLookup, personalities, awards);
 
             /*
              * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
              */
             Console.WriteLine("-----------------------------------------------------------");
             int cntBefore = customerDetails.Count;
-            customerDetails = customerDetails.Where(c => c.ScoreContribution > 0).ToList();
+            customerDetails = customerDetails.Where(c => c.TotalScore > 0).ToList();
             int cntAfter = customerDetails.Count;
             Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
 
@@ -118,14 +128,14 @@ class Program
 
             Console.WriteLine("-----------------------------------------------------------");
 
-            var predictedScore = selectedCustomers.Sum(c => c.ScoreContribution);
+            var predictedScore = selectedCustomers.Sum(c => c.TotalScore);
             Console.WriteLine("Predicted score from selection process: ");
             Console.WriteLine(predictedScore);
 
             var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
             //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
-            var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
+            //var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
             //var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
             //var gameResponse = scorer.RunGame(gameInput, mapCustomerLookup);
 

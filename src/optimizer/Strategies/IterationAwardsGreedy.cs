@@ -45,25 +45,25 @@ namespace optimizer.Strategies
         private static double CalculateHappinessImpact(CustomerLoanRequestProposalEx customer)
         {
             // Implement logic to calculate the impact of an award on customer happiness
-            return customer.ScoreContribution * 0.1; // Example calculation
+            return customer.TotalScore * 0.1; // Example calculation
         }
 
         private static double CalculateBankruptcyRisk(CustomerLoanRequestProposalEx customer)
         {
             // Implement logic to calculate the risk of bankruptcy without an award
-            return customer.LoanAmount > 1000 ? 0.5 : 0.1; // Example calculation
+            return customer.Cost > 1000 ? 0.5 : 0.1; // Example calculation
         }
 
         private static double CalculateProfitabilityImpact(CustomerLoanRequestProposalEx customer)
         {
             // Implement logic to calculate the impact of an award on profitability
-            return customer.ScoreContribution * 0.2; // Example calculation
+            return customer.TotalScore * 0.2; // Example calculation
         }
 
         private static bool CalculateLoanPaymentAbility(CustomerLoanRequestProposalEx customer)
         {
             // Implement logic to determine if the customer can pay their loan without the award
-            return customer.LoanAmount < 500; // Example calculation
+            return customer.Cost < 500; // Example calculation
         }
 
         private static bool ShouldAward(dynamic customerMetric)

@@ -15,16 +15,15 @@ namespace optimizer.Strategies
     {
         public static List<CustomerLoanRequestProposalEx> Run(
             ConfigService configService,
-            Map map, Dictionary<Personality, 
-            PersonalitySpecification> personalities,
+            Map map,
+            Dictionary<string, Customer> mapCustomerLookup,
+            Dictionary<Personality, PersonalitySpecification> personalities,
             Dictionary<AwardType, AwardSpecification> awards)
         {
-            Console.WriteLine("Starting simulated annealing.");
+            Console.WriteLine("Starting simulated annealing. Only loan and length.");
 
             // Start the stopwatch
             Stopwatch stopwatch = Stopwatch.StartNew();
-
-            var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
 
             var details = new ConcurrentBag<CustomerLoanRequestProposalEx>();
             
@@ -90,8 +89,8 @@ namespace optimizer.Strategies
                 var detail = new CustomerLoanRequestProposalEx
                 {
                     CustomerName = customerName,
-                    ScoreContribution = bestScore,
-                    LoanAmount = customer.Loan.Amount,
+                    TotalScore = bestScore,
+                    Cost = customer.Loan.Amount,
                     YearlyInterestRate = optimalInterestRate,
                     MonthsToPayBackLoan = optimalMonthsToPayBackLoan
                 };
@@ -116,8 +115,6 @@ namespace optimizer.Strategies
             Console.WriteLine($"maxIterations: {maxIterations}");
             Console.WriteLine($"Simulated annealing total time taken: {totalTimeInSeconds} seconds");
             Console.WriteLine($"Customers processed per second: {customersPerSecond}");
-
-
 
             return details.ToList();
         }

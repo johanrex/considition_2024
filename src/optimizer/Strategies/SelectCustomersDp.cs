@@ -28,9 +28,9 @@ namespace optimizer.Strategies
             // Fill the DP array
             for (int i = 0; i < n; i++)
             {
-                for (int w = intBudget; w >= (int)customerDetails[i].LoanAmount; w--)
+                for (int w = intBudget; w >= (int)customerDetails[i].Cost; w--)
                 {
-                    double newValue = dp[w - (int)customerDetails[i].LoanAmount] + customerDetails[i].ScoreContribution;
+                    double newValue = dp[w - (int)customerDetails[i].Cost] + customerDetails[i].TotalScore;
                     if (newValue > dp[w])
                     {
                         dp[w] = newValue;
@@ -44,10 +44,10 @@ namespace optimizer.Strategies
             for (int w = intBudget; w > 0;)
             {
                 int i = selected[w];
-                if (dp[w] != dp[w - (int)customerDetails[i].LoanAmount])
+                if (dp[w] != dp[w - (int)customerDetails[i].Cost])
                 {
                     selectedCustomers.Add(customerDetails[i]);
-                    w -= (int)customerDetails[i].LoanAmount;
+                    w -= (int)customerDetails[i].Cost;
                 }
                 else
                 {

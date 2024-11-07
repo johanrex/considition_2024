@@ -14,7 +14,8 @@ namespace NativeScorer
     public class NativeScorer
     {
         private readonly Dictionary<Personality, PersonalitySpecification> personalities;
-        private double budget;
+        public double budget;
+        public double expenses;
         private readonly Dictionary<AwardType, AwardSpecification> awards;
 
         private ConfigService configService;
@@ -39,9 +40,11 @@ namespace NativeScorer
             List<Customer> customerList = RequestCustomers(gameInput, map, mapCustomerLookup);
 
             budget = map.Budget;
+            expenses = 0;
 
             double num = customerList.Sum(c => c.Loan.Amount);
             budget -= num;
+            expenses -= num;
 
             string errorMessage = HandleIterations(gameInput.Iterations, customerList, map);
             GameResult gameResult = CalculateScoreAndSaveGame(gameInput, customerList);
@@ -119,6 +122,7 @@ namespace NativeScorer
                         double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
                         this.budget -= num;
+                        this.expenses -= num;
                     }
                     else
                     {

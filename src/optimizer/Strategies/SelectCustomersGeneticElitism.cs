@@ -43,10 +43,10 @@ namespace optimizer.Strategies
 
                 foreach (var customer in customerDetails.OrderBy(x => random.Next()))
                 {
-                    if (totalWeight + customer.LoanAmount <= budget)
+                    if (totalWeight + customer.Cost <= budget)
                     {
                         individual.Add(customer);
-                        totalWeight += customer.LoanAmount;
+                        totalWeight += customer.Cost;
                     }
                 }
 
@@ -100,10 +100,10 @@ namespace optimizer.Strategies
 
             foreach (var customer in parent1.Concat(parent2).OrderBy(x => random.Next()))
             {
-                if (totalWeight + customer.LoanAmount <= budget && !offspring.Contains(customer))
+                if (totalWeight + customer.Cost <= budget && !offspring.Contains(customer))
                 {
                     offspring.Add(customer);
-                    totalWeight += customer.LoanAmount;
+                    totalWeight += customer.Cost;
                 }
             }
 
@@ -123,7 +123,7 @@ namespace optimizer.Strategies
 
         private static double ComputeFitness(List<CustomerLoanRequestProposalEx> individual)
         {
-            return individual.Sum(c => c.ScoreContribution);
+            return individual.Sum(c => c.TotalScore);
         }
     }
 }

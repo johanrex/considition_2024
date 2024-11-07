@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace optimizer.Strategies
 {
@@ -17,6 +18,9 @@ namespace optimizer.Strategies
         private Dictionary<Personality, PersonalitySpecification> personalities;
         private Dictionary<AwardType, AwardSpecification> awards;
         private Random random;
+        private double temperature;
+        private double coolingRate;
+        private int maxIterations;
 
         public IterationAwardsSimulatedAnnealing(
             Map map, 
@@ -24,7 +28,10 @@ namespace optimizer.Strategies
             ConfigService configService,
             Dictionary<string, Customer> mapCustomerLookup,
             Dictionary<Personality, PersonalitySpecification> personalities,
-            Dictionary<AwardType, AwardSpecification> awards
+            Dictionary<AwardType, AwardSpecification> awards,
+            double temperature,
+            double coolingRate,
+            int maxIterations
             )
         {
             this.map = map;
@@ -33,45 +40,64 @@ namespace optimizer.Strategies
             this.mapCustomerLookup = mapCustomerLookup;
             this.personalities = personalities;
             this.awards = awards;
+            this.temperature = temperature;
+            this.coolingRate = coolingRate;
+            this.maxIterations = maxIterations;
+
             this.random = new Random();
         }
 
-        public List<CustomerActionIteration> Run()
+        public CustomerLoanRequestProposalEx Run()
         {
             var initialState = GetInitialState(map.GameLengthInMonths, proposalEx.CustomerName);
             var currentState = initialState;
             var bestState = initialState;
-            double currentScore = ScoreFunction();
+
+            (double currentScore, double currentTotalCost) = ScoreFunction(currentState);
+            
             double bestScore = currentScore;
+            double bestTotalCost = currentTotalCost;
 
             double temperature = 1.0;
             double coolingRate = 0.003;
 
-            int maxIterations = 1000; // Set your desired number of iterations here
+            int maxIterations = 1000; 
             int iteration = 0;
 
             while (temperature > 0.1 && iteration < maxIterations)
             {
                 var neighbor = GetNeighbor(currentState, proposalEx.CustomerName);
-                double neighborScore = ScoreFunction();
+                (double neighborScore, double neighborTotalCost) = ScoreFunction(neighbor);
 
                 if (AcceptanceProbability(currentScore, neighborScore, temperature) > random.NextDouble())
                 {
                     currentState = neighbor;
                     currentScore = neighborScore;
+                    currentTotalCost = neighborTotalCost;
                 }
 
                 if (currentScore > bestScore)
                 {
                     bestState = currentState;
                     bestScore = currentScore;
+                    bestTotalCost = currentTotalCost;
                 }
 
                 temperature *= 1 - coolingRate;
                 iteration++;
             }
 
-            return bestState;
+            CustomerLoanRequestProposalEx bestProposalEx = new CustomerLoanRequestProposalEx
+            {
+                CustomerName = proposalEx.CustomerName,
+                YearlyInterestRate = proposalEx.YearlyInterestRate,
+                MonthsToPayBackLoan = proposalEx.MonthsToPayBackLoan,
+                TotalScore = bestScore,
+                Cost = bestTotalCost,
+                Iterations = bestState
+            };
+
+            return bestProposalEx;
         }
 
         private double AcceptanceProbability(double currentScore, double neighborScore, double temperature)
@@ -97,7 +123,7 @@ namespace optimizer.Strategies
 
                 CustomerActionIteration iteration = new();
                 iteration.CustomerActions = kvp;
-                iterations.Add(new CustomerActionIteration());
+                iterations.Add(iteration);
             }
             return iterations;
         }
@@ -134,13 +160,15 @@ namespace optimizer.Strategies
             return neighbor;
         }
 
-        private double ScoreFunction()
+        private (double, double) ScoreFunction(List<CustomerActionIteration> currentState)
         {
-            var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, proposalEx.CustomerName, proposalEx.YearlyInterestRate, proposalEx.MonthsToPayBackLoan);
+            var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, proposalEx.CustomerName, proposalEx.YearlyInterestRate, proposalEx.MonthsToPayBackLoan, currentState);
             var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
             var gameResponse = scorer.RunGame(input, mapCustomerLookup);
             var score = GameUtils.GetTotalScore(gameResponse);
-            return score;
+            var totalCost = -scorer.expenses;
+
+            return (score, totalCost);
         }
 
 

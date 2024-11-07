@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
 namespace optimizer.Strategies
 {
     internal class IndividualScoreBruteForce
@@ -71,3 +72,4 @@ namespace optimizer.Strategies
         }
     }
 }
+*/

@@ -125,27 +125,30 @@ namespace Common.Services
         }
 
 
-        public static GameInput CreateSingleCustomerGameInput(string mapName, int gameLengthInMonths, string customerName, double yearlyInterestRate, int monthsToPayBackLoan)
+        public static GameInput CreateSingleCustomerGameInput(string mapName, int gameLengthInMonths, string customerName, double yearlyInterestRate, int monthsToPayBackLoan, List<CustomerActionIteration> iterations = null)
         {
             //Create proposal
             var proposal = CreateCustomerProposal(customerName, yearlyInterestRate, monthsToPayBackLoan, gameLengthInMonths);
 
-            //Create actions.
-            List<CustomerActionIteration> iterations = new();
-
-            for (int i = 0; i < gameLengthInMonths; i++)
+            if (iterations == null)
             {
-                CustomerActionIteration customerActionIteration = new();
-                Dictionary<string, CustomerAction> custActions = new();
-                customerActionIteration.CustomerActions = custActions;
+                //Create actions.
+                iterations = new();
 
-                custActions[customerName] = new CustomerAction
+                for (int i = 0; i < gameLengthInMonths; i++)
                 {
-                    Type = CustomerActionType.Skip,
-                    Award = AwardType.None
-                };
+                    CustomerActionIteration customerActionIteration = new();
+                    Dictionary<string, CustomerAction> custActions = new();
+                    customerActionIteration.CustomerActions = custActions;
 
-                iterations.Add(customerActionIteration);
+                    custActions[customerName] = new CustomerAction
+                    {
+                        Type = CustomerActionType.Skip,
+                        Award = AwardType.None
+                    };
+
+                    iterations.Add(customerActionIteration);
+                }
             }
 
             GameInput input = new()

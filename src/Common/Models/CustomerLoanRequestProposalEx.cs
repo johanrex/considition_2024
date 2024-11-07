@@ -9,7 +9,9 @@ namespace Common.Models
 {
     public record CustomerLoanRequestProposalEx : CustomerLoanRequestProposal
     {
-        public double ScoreContribution { get; set; }
-        public double LoanAmount { get; set; }
+        public double TotalScore { get; set; }
+        public double Cost { get; set; }
+
+        public List<CustomerActionIteration>? Iterations;
     }
 }

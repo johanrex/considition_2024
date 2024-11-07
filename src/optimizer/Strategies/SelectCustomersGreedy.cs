@@ -19,7 +19,7 @@ namespace optimizer.Strategies
 
             // Sort customers by the ratio of ScoreContribution to LoanAmount in descending order
             var sortedCustomers = customerDetails
-                .OrderByDescending(c => c.ScoreContribution / c.LoanAmount)
+                .OrderByDescending(c => c.TotalScore / c.Cost)
                 .ToList();
 
 
@@ -28,10 +28,10 @@ namespace optimizer.Strategies
 
             foreach (var customer in sortedCustomers)
             {
-                if (customer.LoanAmount <= budget)
+                if (customer.Cost <= budget)
                 {
                     selectedCustomers.Add(customer);
-                    budget -= customer.LoanAmount;
+                    budget -= customer.Cost;
                 }
             }
 

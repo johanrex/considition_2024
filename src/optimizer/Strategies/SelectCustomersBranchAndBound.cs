@@ -19,7 +19,7 @@ namespace optimizer.Strategies
 
             // Sort customers by the ratio of ScoreContribution to LoanAmount in descending order
             var sortedCustomers = customerDetails
-                .OrderByDescending(c => c.ScoreContribution / c.LoanAmount)
+                .OrderByDescending(c => c.TotalScore / c.Cost)
                 .ToList();
 
             // Initialize the best solution
@@ -43,8 +43,8 @@ namespace optimizer.Strategies
                     var nextNode = new Node
                     {
                         Level = node.Level + 1,
-                        Weight = node.Weight + sortedCustomers[node.Level].LoanAmount,
-                        Score = node.Score + sortedCustomers[node.Level].ScoreContribution,
+                        Weight = node.Weight + sortedCustomers[node.Level].Cost,
+                        Score = node.Score + sortedCustomers[node.Level].TotalScore,
                         Items = new List<CustomerLoanRequestProposalEx>(node.Items)
                     };
                     nextNode.Items.Add(sortedCustomers[node.Level]);
@@ -102,16 +102,16 @@ namespace optimizer.Strategies
             double totalWeight = node.Weight;
             int level = node.Level;
 
-            while (level < customers.Count && totalWeight + customers[level].LoanAmount <= budget)
+            while (level < customers.Count && totalWeight + customers[level].Cost <= budget)
             {
-                totalWeight += customers[level].LoanAmount;
-                bound += customers[level].ScoreContribution;
+                totalWeight += customers[level].Cost;
+                bound += customers[level].TotalScore;
                 level++;
             }
 
             if (level < customers.Count)
             {
-                bound += (budget - totalWeight) * (customers[level].ScoreContribution / customers[level].LoanAmount);
+                bound += (budget - totalWeight) * (customers[level].TotalScore / customers[level].Cost);
             }
 
             return bound;

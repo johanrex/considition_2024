@@ -1,7 +1,9 @@
 ﻿using Common.Models;
 using Common.Services;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,6 @@ namespace optimizer.Strategies
 {
     internal class IterationAwardsSimulatedAnnealingFacade
     {
-        /*
         public static List<CustomerLoanRequestProposalEx> Run(
             Map map, 
             List<CustomerLoanRequestProposalEx> proposalExs,
@@ -20,14 +21,21 @@ namespace optimizer.Strategies
             Dictionary<AwardType, AwardSpecification> awards
             )
         {
+            Console.WriteLine("Starting simulated annealing. Awards for single customer.");
+
+            // Start the stopwatch
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            var bestProposalExs = new ConcurrentBag<CustomerLoanRequestProposalEx>();
+
             double temperature = 1.0;
             double coolingRate = 0.003;
 
-            int maxIterations = 1000; // Set your desired number of iterations here
-            int iteration = 0;
+            int maxIterations = 1000; 
 
-            List<CustomerLoanRequestProposalEx> bestProposalExs = new();
-            for(int i = 0; i < 0; i++)
+            //TODO parallel for
+
+            for(int i = 0;i < proposalExs.Count; i++)
             {
                 var proposalEx = proposalExs[i];
                 IterationAwardsSimulatedAnnealing annealing = new IterationAwardsSimulatedAnnealing(
@@ -36,18 +44,29 @@ namespace optimizer.Strategies
                     configService,
                     mapCustomerLookup,
                     personalities,
-                    awards
+                    awards,
+                    temperature,
+                    coolingRate,
+                    maxIterations
                     );
 
                 var bestProposal = annealing.Run();
                 bestProposalExs.Add(bestProposal);
             }
 
-            //TODO should the output of the facade perhaps be a GameInput object instead?
-            //TODO perhaps CustomerLoanRequestProposalEx isn't even needed, I can just extend GameInput.
+            // Stop the stopwatch
+            stopwatch.Stop();
 
-            return bestProposals;
+            // Calculate total time and customers per second
+            double totalTimeInSeconds = stopwatch.Elapsed.TotalSeconds;
+            double customersPerSecond = map.Customers.Count / totalTimeInSeconds;
+
+            Console.WriteLine($"coolingRate: {coolingRate}");
+            Console.WriteLine($"maxIterations: {maxIterations}");
+            Console.WriteLine($"Simulated annealing total time taken: {totalTimeInSeconds} seconds");
+            Console.WriteLine($"Customers processed per second: {customersPerSecond}");
+
+            return bestProposalExs.ToList();
         }
-        */
     }
 }
