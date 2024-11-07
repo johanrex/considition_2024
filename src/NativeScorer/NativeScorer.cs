@@ -71,8 +71,8 @@ namespace NativeScorer
 
                 var customer = DeepCopy(mapCustomerLookup[proposal.CustomerName]);
 
-                //if (customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, this.personalities))
-                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities))
+                //if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities))
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities, map.GameLengthInMonths))
                     acceptedCustomers.Add(customer);
             }
             return acceptedCustomers;

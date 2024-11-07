@@ -90,7 +90,8 @@ namespace Common.Services
             {
                 Customers = map.Customers.Select((Customer x) => x with
                 {
-                    Loan = x.Loan with { }
+                    Loan = x.Loan with { },
+                    AwardsReceived = new List<AwardType>()
                 }).ToList()
             };
         }

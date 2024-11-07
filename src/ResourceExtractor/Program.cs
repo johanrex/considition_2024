@@ -16,17 +16,20 @@ void WriteResourceToString(Assembly assembly, string resourceName, string filena
     }
 }
 
-var filename = "C:/temp/app/LocalHost.dll";
+var assemblyFilename = "C:/temp/app/LocalHost.dll";
 var outputDirectory = "C:/temp/assemblyresources/";
 
-var assembly = Assembly.LoadFile(filename);
+var assembly = Assembly.LoadFile(assemblyFilename);
 string assemblyName = assembly.GetName().Name;
 
 var resources = assembly.GetManifestResourceNames();
 
 foreach (var resourceName in resources)
 {
-    WriteResourceToString(assembly, resourceName, outputDirectory + resourceName);
+    string resourceFilename = outputDirectory + resourceName;
+    Console.WriteLine($"Writing {resourceName} to {resourceFilename}");
+    WriteResourceToString(assembly, resourceName, resourceFilename);
+    Console.WriteLine("Done.");
 }
 
 //string[] cities = new string[]

@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Models.Customer
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 79D8B4B1-4F4D-4A0C-BFF7-A27C4AB10C69
+// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using Common.Models;
@@ -16,6 +16,8 @@ namespace Common.Models
     public record Customer
     {
         public string Name { get; init; }
+
+        public Gender Gender { get; set; }
 
         public Loan Loan { get; init; }
 
@@ -41,6 +43,10 @@ namespace Common.Models
         public int Marks { get; private set; }
 
         public int AwardsInRow { get; set; }
+
+        public List<AwardType> AwardsReceived { get; set; }
+
+        public int MonthsWithoutAwardsInRow { get; set; }
 
         public double Profit { get; set; }
 
@@ -70,7 +76,6 @@ namespace Common.Models
         public void IncrementMark()
         {
             ++this.Marks;
-            this.Capital = 0.0;
             if (this.Marks >= this.MarkLimit)
             {
                 this.IsBankrupt = true;
@@ -83,7 +88,8 @@ namespace Common.Models
         public bool Propose(
           double yearlyInterestRate,
           int monthsToPayBack,
-          Dictionary<Personality, PersonalitySpecification> personalityDict)
+          Dictionary<Personality, PersonalitySpecification> personalityDict,
+          int mapLength)
         {
             double? acceptedMinInterest = personalityDict[this.Personality].AcceptedMinInterest;
             double? acceptedMaxInterest = personalityDict[this.Personality].AcceptedMaxInterest;
@@ -95,7 +101,7 @@ namespace Common.Models
                 double num2 = yearlyInterestRate;
                 double? nullable2 = acceptedMaxInterest;
                 double valueOrDefault2 = nullable2.GetValueOrDefault();
-                if (!(num2 > valueOrDefault2 & nullable2.HasValue))
+                if (!(num2 > valueOrDefault2 & nullable2.HasValue) && (int)(1 + this.Personality) * mapLength >= monthsToPayBack)
                 {
                     this.Loan.YearlyInterestRate = yearlyInterestRate;
                     this.Loan.MonthsToPayBack = monthsToPayBack;
@@ -104,6 +110,7 @@ namespace Common.Models
             }
             return false;
         }
+
 
         public Customer()
         {

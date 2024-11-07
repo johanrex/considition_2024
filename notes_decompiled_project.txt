@@ -1,0 +1,12 @@
+docker-down-pull-up.ps1
+manually make backup of c:\temp\app folder
+manually remove c:\temp\app folder
+manually delete c:\temp\project
+docker-copy-from-container-to-local.ps1
+dotpeek decompile dll <-- make sure to c:\temp\app\localhost.dll
+delete files in C:\git\considition_2024\decompiled_server_project\LocalHost
+copy-to-git-folder-ps1
+restore sln + csproj files
+.\dotnet-format-generated-in-git-folder.ps1
+
+run program that extracts personality resources from dll.
