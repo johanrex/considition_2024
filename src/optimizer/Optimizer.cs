@@ -30,9 +30,9 @@ class Program
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
-        //string mapName = "Almhult";
+        string mapName = "Almhult";
         //string mapName = "Gothenburg";
-        string mapName = "Nottingham";
+        //string mapName = "Nottingham";
 
         /*
         ///////////////////////////////////////////////////////////////////
