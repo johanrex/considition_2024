@@ -10,7 +10,7 @@ namespace optimizer.Strategies
 {
     internal class SelectCustomersGreedy
     {
-        public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails)
+        public static List<CustomerLoanRequestProposalEx> Select(Map map, List<CustomerLoanRequestProposalEx> customerDetails)
         {
             Console.WriteLine("Selecting customers: Greedy.");
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -24,7 +24,7 @@ namespace optimizer.Strategies
 
 
 
-            List<CustomerPropositionDetails> selectedCustomers = new List<CustomerPropositionDetails>();
+            List<CustomerLoanRequestProposalEx> selectedCustomers = new List<CustomerLoanRequestProposalEx>();
 
             foreach (var customer in sortedCustomers)
             {

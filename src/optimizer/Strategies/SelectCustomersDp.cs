@@ -10,7 +10,7 @@ namespace optimizer.Strategies
 {
     internal class SelectCustomersDp
     {
-        public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails)
+        public static List<CustomerLoanRequestProposalEx> Select(Map map, List<CustomerLoanRequestProposalEx> customerDetails)
         {
             Console.WriteLine("Selecting customers: Dynamic Programming.");
 
@@ -40,7 +40,7 @@ namespace optimizer.Strategies
             }
 
             // Backtrack to find the selected items
-            List<CustomerPropositionDetails> selectedCustomers = new List<CustomerPropositionDetails>();
+            List<CustomerLoanRequestProposalEx> selectedCustomers = new List<CustomerLoanRequestProposalEx>();
             for (int w = intBudget; w > 0;)
             {
                 int i = selected[w];

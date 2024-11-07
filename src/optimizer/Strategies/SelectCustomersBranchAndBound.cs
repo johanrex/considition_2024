@@ -8,7 +8,7 @@ namespace optimizer.Strategies
 {
     internal class SelectCustomersBranchAndBound
     {
-        public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails)
+        public static List<CustomerLoanRequestProposalEx> Select(Map map, List<CustomerLoanRequestProposalEx> customerDetails)
         {
             Console.WriteLine("Selecting customers: Branch and Bound.");
 
@@ -24,7 +24,7 @@ namespace optimizer.Strategies
 
             // Initialize the best solution
             double maxScore = 0;
-            List<CustomerPropositionDetails> bestSolution = new List<CustomerPropositionDetails>();
+            List<CustomerLoanRequestProposalEx> bestSolution = new List<CustomerLoanRequestProposalEx>();
 
             // Create a priority queue for the nodes
             var pq = new PriorityQueue<Node, double>();
@@ -45,7 +45,7 @@ namespace optimizer.Strategies
                         Level = node.Level + 1,
                         Weight = node.Weight + sortedCustomers[node.Level].LoanAmount,
                         Score = node.Score + sortedCustomers[node.Level].ScoreContribution,
-                        Items = new List<CustomerPropositionDetails>(node.Items)
+                        Items = new List<CustomerLoanRequestProposalEx>(node.Items)
                     };
                     nextNode.Items.Add(sortedCustomers[node.Level]);
 
@@ -71,7 +71,7 @@ namespace optimizer.Strategies
                         Level = node.Level + 1,
                         Weight = node.Weight,
                         Score = node.Score,
-                        Items = new List<CustomerPropositionDetails>(node.Items)
+                        Items = new List<CustomerLoanRequestProposalEx>(node.Items)
                     };
 
                     // Calculate the bound for the next node
@@ -91,7 +91,7 @@ namespace optimizer.Strategies
             return bestSolution;
         }
 
-        private static double CalculateBound(Node node, List<CustomerPropositionDetails> customers, double budget)
+        private static double CalculateBound(Node node, List<CustomerLoanRequestProposalEx> customers, double budget)
         {
             if (node.Weight >= budget)
             {
@@ -123,7 +123,7 @@ namespace optimizer.Strategies
             public double Weight { get; set; }
             public double Score { get; set; }
             public double Bound { get; set; }
-            public List<CustomerPropositionDetails> Items { get; set; } = new List<CustomerPropositionDetails>();
+            public List<CustomerLoanRequestProposalEx> Items { get; set; } = new List<CustomerLoanRequestProposalEx>();
         }
     }
 }

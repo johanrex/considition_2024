@@ -79,7 +79,7 @@ namespace Common.Services
             return totalScore;
         }
 
-        public static GameInput CreateGameInput(string mapName, int gameLengthInMonths, List<CustomerPropositionDetails> propositionDetails)
+        public static GameInput CreateGameInput(string mapName, int gameLengthInMonths, List<CustomerLoanRequestProposalEx> propositionDetails)
         {
             var proposals = new List<CustomerLoanRequestProposal>();
             foreach (var proposition in propositionDetails)
@@ -87,8 +87,8 @@ namespace Common.Services
                 var proposal = new CustomerLoanRequestProposal()
                 {
                     CustomerName = proposition.CustomerName,
-                    YearlyInterestRate = proposition.OptimalInterestRate,
-                    MonthsToPayBackLoan = proposition.OptimalMonthsPayBack
+                    YearlyInterestRate = proposition.YearlyInterestRate,
+                    MonthsToPayBackLoan = proposition.MonthsToPayBackLoan
                 };
 
                 proposals.Add(proposal);

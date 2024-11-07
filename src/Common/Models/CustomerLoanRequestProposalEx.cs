@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    public record CustomerPropositionDetails
+    public record CustomerLoanRequestProposalEx : CustomerLoanRequestProposal
     {
-        public string CustomerName { get; set; }
         public double ScoreContribution { get; set; }
         public double LoanAmount { get; set; }
-        public double OptimalInterestRate { get; set; }
-        public int OptimalMonthsPayBack { get; set; }
-
     }
 }

@@ -10,11 +10,11 @@ namespace optimizer.Strategies
 {
     internal class IndividualScoreBruteForce
     {
-        public List<CustomerPropositionDetails> Run(ServerUtils serverUtils, Map map, Dictionary<Personality, PersonalitySpecification> personalities)
+        public List<CustomerLoanRequestProposalEx> Run(ServerUtils serverUtils, Map map, Dictionary<Personality, PersonalitySpecification> personalities)
         {
             Console.WriteLine("Starting brute force.");
 
-            var details = new List<CustomerPropositionDetails>();
+            var details = new List<CustomerLoanRequestProposalEx>();
 
             for (int i = 0; i < map.Customers.Count; i++)
             {
@@ -55,13 +55,13 @@ namespace optimizer.Strategies
                     }
                 }
 
-                var detail = new CustomerPropositionDetails
+                var detail = new CustomerLoanRequestProposalEx
                 {
                     CustomerName = customer.Name,
                     ScoreContribution = bestScore,
                     LoanAmount = customer.Loan.Amount,
-                    OptimalInterestRate = optimalInterestRate,
-                    OptimalMonthsPayBack = optimalMonthsToPayBackLoan
+                    YearlyInterestRate = optimalInterestRate,
+                    MonthsToPayBackLoan = optimalMonthsToPayBackLoan
                 };
                 details.Add(detail);
             }

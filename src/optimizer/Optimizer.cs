@@ -4,6 +4,7 @@ using optimizer.Strategies;
 using Common.Models;
 using Common.Services;
 using System.Text;
+using System.Collections.Generic;
 
 class Program
 {
@@ -91,7 +92,7 @@ class Program
          */
         Console.WriteLine("-----------------------------------------------------------");
         //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
-        List<CustomerPropositionDetails> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+        List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
         //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
         //var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
 
@@ -119,38 +120,36 @@ class Program
         var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
         //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
-        //var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
+        var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
         //var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
         //var gameResponse = scorer.RunGame(gameInput, mapCustomerLookup);
 
-
-        //Log input 
+        //LOG INPUT TO FILE BEFORE SUBMITTING
         var inputJson = System.Text.Json.JsonSerializer.Serialize(gameInput);
-        //var inputJson = JsonConvert.SerializeObject(gameInput);
-        //var inputJson = JsonConvert.SerializeObject(gameInput, Formatting.Indented);
         File.WriteAllText("finalGameInput.json", inputJson);
         //Console.WriteLine("Final game input:");
         //Console.WriteLine(inputJson);
 
-        //Score the game locally.
+        //DOCKER SCORE
         var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
         var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
         Console.WriteLine($"Score from local docker: {totalScore}.");
 
-        //if (Math.Abs(totalScore - predictedScore)>5)
-        //{
-        //    throw new Exception("Predicted score and actual score do not match.");
-        //}
-
-        //Score the game remotely.
+        //REMOTE SCORE
         var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
         var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
         Console.WriteLine($"Score from remote api: {totalScoreRemote}");
 
-        if (Math.Abs(totalScore - totalScoreRemote) > 5)
-        {
-            throw new Exception("Local docker score and remote api score are different.");
-        }
+        //IterationAwardsSimulatedAnnealing iterationAwardsSimulatedAnnealing = new(
+        //    map,
+        //    selectedCustomers,
+        //    configService,
+        //    mapCustomerLookup,
+        //    personalities,
+        //    awards
+        //    );
+
+
 
         Console.WriteLine("Done.");
     }

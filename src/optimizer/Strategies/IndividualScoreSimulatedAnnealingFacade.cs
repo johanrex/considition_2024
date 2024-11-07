@@ -13,7 +13,7 @@ namespace optimizer.Strategies
 {
     internal class IndividualScoreSimulatedAnnealingFacade
     {
-        public static List<CustomerPropositionDetails> Run(
+        public static List<CustomerLoanRequestProposalEx> Run(
             ConfigService configService,
             Map map, Dictionary<Personality, 
             PersonalitySpecification> personalities,
@@ -26,7 +26,7 @@ namespace optimizer.Strategies
 
             var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
 
-            var details = new ConcurrentBag<CustomerPropositionDetails>();
+            var details = new ConcurrentBag<CustomerLoanRequestProposalEx>();
 
             var startMonthsToPayBackLoan = map.GameLengthInMonths / 2;
             var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4;
@@ -85,13 +85,13 @@ namespace optimizer.Strategies
                 }
 
 
-                var detail = new CustomerPropositionDetails
+                var detail = new CustomerLoanRequestProposalEx
                 {
                     CustomerName = customerName,
                     ScoreContribution = bestScore,
                     LoanAmount = customer.Loan.Amount,
-                    OptimalInterestRate = optimalInterestRate,
-                    OptimalMonthsPayBack = optimalMonthsToPayBackLoan
+                    YearlyInterestRate = optimalInterestRate,
+                    MonthsToPayBackLoan = optimalMonthsToPayBackLoan
                 };
                 details.Add(detail);
 

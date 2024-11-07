@@ -11,13 +11,13 @@ namespace optimizer.Strategies
     {
         private static Random random = new Random();
 
-        public static List<CustomerPropositionDetails> Select(Map map, List<CustomerPropositionDetails> customerDetails, int populationSize=200, int generations=500, double mutationRate=0.1, int elitismCount = 5)
+        public static List<CustomerLoanRequestProposalEx> Select(Map map, List<CustomerLoanRequestProposalEx> customerDetails, int populationSize=200, int generations=500, double mutationRate=0.1, int elitismCount = 5)
         {
             Console.WriteLine("Selecting customers: Genetic.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             double budget = map.Budget;
-            List<List<CustomerPropositionDetails>> population = InitializePopulation(customerDetails, populationSize, budget);
+            List<List<CustomerLoanRequestProposalEx>> population = InitializePopulation(customerDetails, populationSize, budget);
 
             for (int generation = 0; generation < generations; generation++)
             {
@@ -32,13 +32,13 @@ namespace optimizer.Strategies
             return selectedCustomers;
         }
 
-        private static List<List<CustomerPropositionDetails>> InitializePopulation(List<CustomerPropositionDetails> customerDetails, int populationSize, double budget)
+        private static List<List<CustomerLoanRequestProposalEx>> InitializePopulation(List<CustomerLoanRequestProposalEx> customerDetails, int populationSize, double budget)
         {
-            List<List<CustomerPropositionDetails>> population = new List<List<CustomerPropositionDetails>>();
+            List<List<CustomerLoanRequestProposalEx>> population = new List<List<CustomerLoanRequestProposalEx>>();
 
             for (int i = 0; i < populationSize; i++)
             {
-                List<CustomerPropositionDetails> individual = new List<CustomerPropositionDetails>();
+                List<CustomerLoanRequestProposalEx> individual = new List<CustomerLoanRequestProposalEx>();
                 double totalWeight = 0;
 
                 foreach (var customer in customerDetails.OrderBy(x => random.Next()))
@@ -56,9 +56,9 @@ namespace optimizer.Strategies
             return population;
         }
 
-        private static List<List<CustomerPropositionDetails>> EvolvePopulation(List<List<CustomerPropositionDetails>> population, double budget, double mutationRate, int elitismCount)
+        private static List<List<CustomerLoanRequestProposalEx>> EvolvePopulation(List<List<CustomerLoanRequestProposalEx>> population, double budget, double mutationRate, int elitismCount)
         {
-            List<List<CustomerPropositionDetails>> newPopulation = new List<List<CustomerPropositionDetails>>();
+            List<List<CustomerLoanRequestProposalEx>> newPopulation = new List<List<CustomerLoanRequestProposalEx>>();
 
             // Sort the population by fitness in descending order
             var sortedPopulation = population.OrderByDescending(ComputeFitness).ToList();
@@ -88,14 +88,14 @@ namespace optimizer.Strategies
         }
 
 
-        private static List<CustomerPropositionDetails> SelectParent(List<List<CustomerPropositionDetails>> population)
+        private static List<CustomerLoanRequestProposalEx> SelectParent(List<List<CustomerLoanRequestProposalEx>> population)
         {
             return population[random.Next(population.Count)];
         }
 
-        private static List<CustomerPropositionDetails> Crossover(List<CustomerPropositionDetails> parent1, List<CustomerPropositionDetails> parent2, double budget)
+        private static List<CustomerLoanRequestProposalEx> Crossover(List<CustomerLoanRequestProposalEx> parent1, List<CustomerLoanRequestProposalEx> parent2, double budget)
         {
-            List<CustomerPropositionDetails> offspring = new List<CustomerPropositionDetails>();
+            List<CustomerLoanRequestProposalEx> offspring = new List<CustomerLoanRequestProposalEx>();
             double totalWeight = 0;
 
             foreach (var customer in parent1.Concat(parent2).OrderBy(x => random.Next()))
@@ -110,7 +110,7 @@ namespace optimizer.Strategies
             return offspring;
         }
 
-        private static void Mutate(List<CustomerPropositionDetails> individual, double budget)
+        private static void Mutate(List<CustomerLoanRequestProposalEx> individual, double budget)
         {
             if (individual.Count == 0) return;
 
@@ -121,7 +121,7 @@ namespace optimizer.Strategies
             // This part can be improved to ensure the mutation is valid
         }
 
-        private static double ComputeFitness(List<CustomerPropositionDetails> individual)
+        private static double ComputeFitness(List<CustomerLoanRequestProposalEx> individual)
         {
             return individual.Sum(c => c.ScoreContribution);
         }
