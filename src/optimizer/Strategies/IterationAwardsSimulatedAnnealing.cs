@@ -58,10 +58,10 @@ namespace optimizer.Strategies
             double bestScore = currentScore;
             double bestTotalCost = currentTotalCost;
 
-            double temperature = 1.0;
-            double coolingRate = 0.003;
+            //double temperature = 1.0;
+            //double coolingRate = 0.003;
 
-            int maxIterations = 1000; 
+            //int maxIterations = 1000; 
             int iteration = 0;
 
             while (temperature > 0.1 && iteration < maxIterations)

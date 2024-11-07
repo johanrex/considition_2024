@@ -106,14 +106,10 @@ class Program
              * SELECT best customers for our budget.
              */
             Console.WriteLine("-----------------------------------------------------------");
-            //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
             List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
-            //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
-            //var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
 
 
             Console.WriteLine("-----------------------------------------------------------");
-
             Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
             Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
 
@@ -156,16 +152,6 @@ class Program
             var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
             Console.WriteLine($"Score from remote api:");
             Console.WriteLine(totalScoreRemote);
-
-            //IterationAwardsSimulatedAnnealing iterationAwardsSimulatedAnnealing = new(
-            //    map,
-            //    selectedCustomers,
-            //    configService,
-            //    mapCustomerLookup,
-            //    personalities,
-            //    awards
-            //    );
-
 
             //log score to file
             using (StreamWriter writer = new StreamWriter("scores.txt", append: true))

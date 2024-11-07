@@ -30,12 +30,11 @@ namespace optimizer.Strategies
 
             double temperature = 1.0;
             double coolingRate = 0.003;
+            int maxIterations = 2000;
+            var retries = 3;
 
-            int maxIterations = 1000; 
-
-            //TODO parallel for
-
-            for(int i = 0;i < proposalExs.Count; i++)
+            // Parallel for loop
+            Parallel.For(0, proposalExs.Count, i =>
             {
                 var proposalEx = proposalExs[i];
                 IterationAwardsSimulatedAnnealing annealing = new IterationAwardsSimulatedAnnealing(
@@ -52,7 +51,7 @@ namespace optimizer.Strategies
 
                 var bestProposal = annealing.Run();
                 bestProposalExs.Add(bestProposal);
-            }
+            });
 
             // Stop the stopwatch
             stopwatch.Stop();
