@@ -27,12 +27,14 @@ namespace optimizer.Strategies
             var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
 
             var details = new ConcurrentBag<CustomerLoanRequestProposalEx>();
-
+            
             var startMonthsToPayBackLoan = map.GameLengthInMonths / 2;
-            var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4;
+            var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4; //TODO is this actually a good value?
+            //var maxMonthsToPayBackLoan = int.MaxValue;
+            //var maxMonthsToPayBackLoan = new Random().Next(1000, 3001);
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 1000;
+            var maxIterations = 2000;
             var retries = 3;
 
             Parallel.For(0, map.Customers.Count, i =>

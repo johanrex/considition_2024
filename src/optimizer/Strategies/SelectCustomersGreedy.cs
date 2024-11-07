@@ -12,7 +12,7 @@ namespace optimizer.Strategies
     {
         public static List<CustomerLoanRequestProposalEx> Select(Map map, List<CustomerLoanRequestProposalEx> customerDetails)
         {
-            Console.WriteLine("Selecting customers: Greedy.");
+            Console.WriteLine("Selecting customers within budget: Greedy approach.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             double budget = map.Budget;

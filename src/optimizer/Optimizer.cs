@@ -29,6 +29,7 @@ class Program
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
+        //string mapName = "Almhult";
         //string mapName = "Gothenburg";
         string mapName = "Nottingham";
 
@@ -69,89 +70,100 @@ class Program
 
         Console.WriteLine("Done.");
 
-        /*
-         * SIMULATE
-         */
-        //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
-        Console.WriteLine("-----------------------------------------------------------");
-        var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(configService, map, personalities, awards);
-
-
-        /*
-         * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
-         */
-        Console.WriteLine("-----------------------------------------------------------");
-        int cntBefore = customerDetails.Count;
-        customerDetails = customerDetails.Where(c => c.ScoreContribution > 0).ToList();
-        int cntAfter = customerDetails.Count;
-        Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
-
-
-        /*
-         * SELECT best customers for our budget.
-         */
-        Console.WriteLine("-----------------------------------------------------------");
-        //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
-        List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
-        //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
-        //var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
-
-
-        Console.WriteLine("-----------------------------------------------------------");
-
-        Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
-        Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
-
-        var notSelectedCustomers = customerDetails.Except(selectedCustomers).ToList();
-
-        if (notSelectedCustomers.Count > 0)
+        while (true)
         {
-            var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
-            Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
-            Console.WriteLine(notSelectedDf.ToString());
+
+            /*
+             * SIMULATE
+             */
+            //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
+            Console.WriteLine("-----------------------------------------------------------");
+            var customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(configService, map, personalities, awards);
+
+
+            /*
+             * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
+             */
+            Console.WriteLine("-----------------------------------------------------------");
+            int cntBefore = customerDetails.Count;
+            customerDetails = customerDetails.Where(c => c.ScoreContribution > 0).ToList();
+            int cntAfter = customerDetails.Count;
+            Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
+
+
+            /*
+             * SELECT best customers for our budget.
+             */
+            Console.WriteLine("-----------------------------------------------------------");
+            //var selectedCustomers = SelectCustomersDp.Select(map, customerDetails); // DP breaks down for 100 customers. 
+            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+            //var selectedCustomers = SelectCustomersBranchAndBound.Select(map, customerDetails);
+            //var selectedCustomers = SelectCustomersGeneticElitism.Select(map, customerDetails);
+
+
+            Console.WriteLine("-----------------------------------------------------------");
+
+            Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
+            Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());
+
+            var notSelectedCustomers = customerDetails.Except(selectedCustomers).ToList();
+
+            if (notSelectedCustomers.Count > 0)
+            {
+                var notSelectedDf = DataFrameHelper.ToDataFrame(notSelectedCustomers);
+                Console.WriteLine($"These customers were NOT selected ({notSelectedCustomers.Count}):");
+                Console.WriteLine(notSelectedDf.ToString());
+            }
+
+            Console.WriteLine("-----------------------------------------------------------");
+
+            var predictedScore = selectedCustomers.Sum(c => c.ScoreContribution);
+            Console.WriteLine("Predicted score from selection process: ");
+            Console.WriteLine(predictedScore);
+
+            var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
+
+            //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
+            var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
+            //var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
+            //var gameResponse = scorer.RunGame(gameInput, mapCustomerLookup);
+
+            //LOG INPUT TO FILE BEFORE SUBMITTING
+            var inputJson = System.Text.Json.JsonSerializer.Serialize(gameInput);
+            File.WriteAllText("finalGameInput.json", inputJson);
+            //Console.WriteLine("Final game input:");
+            //Console.WriteLine(inputJson);
+
+            //DOCKER SCORE
+            var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
+            var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
+            Console.WriteLine($"Score from local docker:");
+            Console.WriteLine(totalScore);
+
+            //REMOTE SCORE
+            var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
+            var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
+            Console.WriteLine($"Score from remote api:");
+            Console.WriteLine(totalScoreRemote);
+
+            //IterationAwardsSimulatedAnnealing iterationAwardsSimulatedAnnealing = new(
+            //    map,
+            //    selectedCustomers,
+            //    configService,
+            //    mapCustomerLookup,
+            //    personalities,
+            //    awards
+            //    );
+
+
+            //log score to file
+            using (StreamWriter writer = new StreamWriter("scores.txt", append: true))
+            {
+                writer.WriteLine(totalScoreRemote.ToString());
+            }
+
+            Console.WriteLine("Done.");
         }
-
-        Console.WriteLine("-----------------------------------------------------------");
-
-        var predictedScore = selectedCustomers.Sum(c => c.ScoreContribution);
-        Console.WriteLine("Predicted score from selection process: ");
-        Console.WriteLine(predictedScore);
-
-        var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
-
-        //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
-        var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
-        //var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
-        //var gameResponse = scorer.RunGame(gameInput, mapCustomerLookup);
-
-        //LOG INPUT TO FILE BEFORE SUBMITTING
-        var inputJson = System.Text.Json.JsonSerializer.Serialize(gameInput);
-        File.WriteAllText("finalGameInput.json", inputJson);
-        //Console.WriteLine("Final game input:");
-        //Console.WriteLine(inputJson);
-
-        //DOCKER SCORE
-        var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
-        var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
-        Console.WriteLine($"Score from local docker: {totalScore}.");
-
-        //REMOTE SCORE
-        var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
-        var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
-        Console.WriteLine($"Score from remote api: {totalScoreRemote}");
-
-        //IterationAwardsSimulatedAnnealing iterationAwardsSimulatedAnnealing = new(
-        //    map,
-        //    selectedCustomers,
-        //    configService,
-        //    mapCustomerLookup,
-        //    personalities,
-        //    awards
-        //    );
-
-
-
-        Console.WriteLine("Done.");
     }
 }
 
