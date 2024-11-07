@@ -106,9 +106,7 @@ namespace NativeScorer
 
             foreach (Customer customer in customers)
             {
-                //TODO han fuckar med map.Budget. Det borde vi väl inte?
-
-                if (map.Budget <= 0.0)
+                if (this.budget <= 0.0)
                     return "Your bank went bankrupt";
                 if (!customer.IsBankrupt)
                 {
@@ -116,7 +114,7 @@ namespace NativeScorer
                     customer.Payday();
                     customer.PayBills(month, personalitySpecifications);
                     if (customer.CanPayLoan())
-                        map.Budget += customer.PayLoan();
+                        this.budget += customer.PayLoan();
                     else
                         customer.IncrementMark();
                     if (customerAction.Type == CustomerActionType.Award)
@@ -125,7 +123,7 @@ namespace NativeScorer
                         customer.AwardsReceived.Add(customerAction.Award);
                         double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
-                        map.Budget -= num;
+                        this.budget -= num;
                     }
                     else
                     {
