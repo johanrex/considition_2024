@@ -18,8 +18,10 @@ namespace Common.Services
         };
         private readonly string[] cities = new string[]
         {
+            //TODO this wasn't a good idea.
           "gothenburg",
-          "nottingham"
+          "nottingham",
+          "almhult"
         };
 
         private readonly Dictionary<string, Map> maps = new Dictionary<string, Map>();
