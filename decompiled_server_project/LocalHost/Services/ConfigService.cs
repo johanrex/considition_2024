@@ -1,7 +1,7 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: LocalHost.Services.ConfigService
 // Assembly: LocalHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: D1B7BF3C-328E-422C-8A9F-0E1266BF8FE0
+// MVID: 77EDA3FC-B32E-487F-8161-20E228F5089F
 // Assembly location: C:\temp\app\LocalHost.dll
 
 using LocalHost.Interfaces;
@@ -12,28 +12,40 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 #nullable enable
 namespace LocalHost.Services
 {
     public class ConfigService : IConfigService
     {
-        private readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true
-        };
-        private readonly string[] cities = new string[2]
-        {
-      "gothenburg",
-      "nottingham"
-        };
-        private readonly Dictionary<string, Map> maps = new Dictionary<string, Map>();
-        private readonly Dictionary<PersonalityKey, PersonalitySpecification> personalities = new Dictionary<PersonalityKey, PersonalitySpecification>();
-        private readonly Dictionary<AwardKey, AwardSpecification> awards = new Dictionary<AwardKey, AwardSpecification>();
+        private readonly JsonSerializerOptions jsonSerializerOptions;
+        private readonly string[] cities;
+        private readonly Dictionary<string, Map> maps;
+        private readonly Dictionary<PersonalityKey, PersonalitySpecification> personalities;
+        private readonly Dictionary<AwardKey, AwardSpecification> awards;
 
         public ConfigService()
         {
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions();
+            serializerOptions.WriteIndented = true;
+            serializerOptions.Converters.Add((JsonConverter)new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            serializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            serializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+            this.jsonSerializerOptions = serializerOptions;
+            this.cities = new string[3]
+            {
+        "gothenburg",
+        "nottingham",
+        "almhult"
+            };
+            this.maps = new Dictionary<string, Map>();
+            this.personalities = new Dictionary<PersonalityKey, PersonalitySpecification>();
+            this.awards = new Dictionary<AwardKey, AwardSpecification>();
+            // ISSUE: explicit constructor call
+            base.\u002Ector();
             this.SetMaps();
             string name = (Assembly.GetExecutingAssembly().GetName() ?? throw new Exception("Couldn't get assembly info.")).Name;
             if (name == null)
