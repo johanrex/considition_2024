@@ -148,15 +148,15 @@ class Program
             Console.WriteLine(totalScore);
 
             //REMOTE SCORE
-            var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
-            var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
-            Console.WriteLine($"Score from remote api:");
-            Console.WriteLine(totalScoreRemote);
+            //var gameResponseRemote = serverUtilsRemote.SubmitGameAsync(gameInput).Result;
+            //var totalScoreRemote = GameUtils.LogGameResponse(gameResponseRemote, "finalGameOutputRemote.json");
+            //Console.WriteLine($"Score from remote api:");
+            //Console.WriteLine(totalScoreRemote);
 
             //log score to file
             using (StreamWriter writer = new StreamWriter("scores.txt", append: true))
             {
-                writer.WriteLine(totalScoreRemote.ToString());
+                writer.WriteLine($"{DateTime.Now}: {totalScore}");
             }
 
             Console.WriteLine("Done.");

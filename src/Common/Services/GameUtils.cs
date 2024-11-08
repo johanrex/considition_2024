@@ -94,25 +94,65 @@ namespace Common.Services
                 proposals.Add(proposal);
             }
 
-            List<CustomerActionIteration> iterations = new();
+            
 
+            List<CustomerActionIteration> iterations = new();
             for (int i = 0; i < gameLengthInMonths; i++)
             {
-                CustomerActionIteration customerActionIteration = new();
-                Dictionary<string, CustomerAction> custActions = new();
-                customerActionIteration.CustomerActions = custActions;
+                var gameCustomerActionsCurrentIteration = new CustomerActionIteration();
+                iterations.Add(gameCustomerActionsCurrentIteration);
 
-                foreach (var proposition in propositionDetails)
+                gameCustomerActionsCurrentIteration.CustomerActions = new Dictionary<string, CustomerAction>();
+
+                //har jag någon för denna iterationen?
+                foreach (CustomerLoanRequestProposalEx propositionDetail in propositionDetails)
                 {
-                    custActions[proposition.CustomerName] = new CustomerAction
+                    if (propositionDetail.Iterations.Count > i)
                     {
-                        Type = CustomerActionType.Skip,
-                        Award = AwardType.None
-                    };
-                }
+                        Dictionary<string, CustomerAction> singleCustomerActions = propositionDetail.Iterations[i].CustomerActions;
+                        if (singleCustomerActions == null)
+                            throw new Exception("Iteration is null");
 
-                iterations.Add(customerActionIteration);
+                        //should only be one customer, but let's loop through them anyway
+                        foreach (var kvp in singleCustomerActions)
+                        {
+                            string propositionCustomerName = kvp.Key;
+                            CustomerAction propositionAction = kvp.Value;
+
+                            gameCustomerActionsCurrentIteration.CustomerActions[propositionCustomerName] = new CustomerAction
+                            {
+                                Type = propositionAction.Type,
+                                Award = propositionAction.Award
+                            };
+                        }
+                    }
+                }
             }
+
+
+
+            //CustomerActionIteration customerActionIteration = new();
+            //Dictionary<string, CustomerAction> custActions = new();
+
+            //foreach (var proposition in propositionDetails)
+            //{
+            //    CustomerActionIteration actions = proposition.Iterations[i];
+            //    foreach (var kvp in actions)
+            //    {
+            //        kvp.Value.CustomerName = proposition.CustomerName;
+            //    }
+
+            //    action.
+
+            //    custActions[proposition.CustomerName] = new CustomerAction
+            //    {
+            //        Type = CustomerActionType.Skip,
+            //        Award = AwardType.None
+            //    };
+            //}
+
+            //iterations.Add(customerActionIteration);
+
 
             GameInput input = new()
             {

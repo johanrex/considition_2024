@@ -31,6 +31,7 @@ namespace optimizer.Strategies
             var maxMonthsToPayBackLoan = map.GameLengthInMonths * 4; //TODO is this actually a good value?
             //var maxMonthsToPayBackLoan = int.MaxValue;
             //var maxMonthsToPayBackLoan = new Random().Next(1000, 3001);
+
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
             var maxIterations = 2000;
@@ -97,7 +98,7 @@ namespace optimizer.Strategies
                 details.Add(detail);
 
                 //Log progress
-                string msg = $"({details.Count}/{map.Customers.Count})";
+                string msg = $"Single customer loan length and interest rate ({details.Count}/{map.Customers.Count})";
                 Console.WriteLine(msg);
             });
 

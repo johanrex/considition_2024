@@ -51,6 +51,11 @@ namespace optimizer.Strategies
 
                 var bestProposal = annealing.Run();
                 bestProposalExs.Add(bestProposal);
+
+                //Log progress
+                string msg = $"Iteration awards single customer ({bestProposalExs.Count}/{map.Customers.Count})";
+                Console.WriteLine(msg);
+
             });
 
             // Stop the stopwatch

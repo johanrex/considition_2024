@@ -32,22 +32,6 @@ foreach (var resourceName in resources)
     Console.WriteLine("Done.");
 }
 
-//string[] cities = new string[]
-//{
-//      "gothenburg",
-//      "nottingham"
-//};
-//foreach (var city in cities)
-//{
-//    string resourceName;
-
-//    resourceName = assemblyName + ".Config." + city + ".awards.json";
-//    WriteResourceToString(assembly, resourceName, outputDirectory + resourceName);
-
-//    resourceName = assemblyName + ".Config." + city + ".personalities.json";
-//    WriteResourceToString(assembly, resourceName, outputDirectory + resourceName);
-//}
-
 Console.WriteLine("Done");
 
 
