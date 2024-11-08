@@ -58,10 +58,6 @@ namespace optimizer.Strategies
             double bestScore = currentScore;
             double bestTotalCost = currentTotalCost;
 
-            //double temperature = 1.0;
-            //double coolingRate = 0.003;
-
-            //int maxIterations = 1000; 
             int iteration = 0;
 
             while (temperature > 0.1 && iteration < maxIterations)
@@ -145,17 +141,11 @@ namespace optimizer.Strategies
             /// 2. Change the action at random                ///
             /////////////////////////////////////////////////////
             CustomerAction action = kvp[customerName];
-            if (action.Type == CustomerActionType.Award)
-            {
-                action.Type = CustomerActionType.Skip;
-                action.Award = AwardType.None;
-            }
-            else
-            {
-                int awardTypeCount = Enum.GetValues(typeof(AwardType)).Length;
-                AwardType randomType = (AwardType)random.Next(1, awardTypeCount); //we skip the "None"-award, the first one. 
-                action.Award = randomType;
-            }
+
+            int awardTypeCount = Enum.GetValues(typeof(AwardType)).Length;
+            AwardType randomType = (AwardType)random.Next(awardTypeCount);
+            action.Award = randomType;
+            action.Type = action.Award == AwardType.None ? CustomerActionType.Skip : CustomerActionType.Award;
 
             return neighbor;
         }

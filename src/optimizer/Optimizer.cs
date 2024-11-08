@@ -5,6 +5,7 @@ using Common.Models;
 using Common.Services;
 using System.Text;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 class Program
 {
@@ -77,6 +78,8 @@ class Program
 
         while (true)
         {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             List<CustomerLoanRequestProposalEx> customerDetails;
 
             /*
@@ -153,10 +156,16 @@ class Program
             //Console.WriteLine($"Score from remote api:");
             //Console.WriteLine(totalScoreRemote);
 
+            stopwatch.Stop();
+
+            // Calculate total time and customers per second
+            double totalTimeInSeconds = stopwatch.Elapsed.TotalSeconds;
+
+
             //log score to file
             using (StreamWriter writer = new StreamWriter("scores.txt", append: true))
             {
-                writer.WriteLine($"{DateTime.Now}: {totalScore}");
+                writer.WriteLine($"{DateTime.Now}: {totalScore}. Iteration took: {totalTimeInSeconds}s.");
             }
 
             Console.WriteLine("Done.");
