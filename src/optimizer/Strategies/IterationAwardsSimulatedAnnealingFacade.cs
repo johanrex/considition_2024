@@ -36,25 +36,37 @@ namespace optimizer.Strategies
             // Parallel for loop
             Parallel.For(0, proposalExs.Count, i =>
             {
-                var proposalEx = proposalExs[i];
-                IterationAwardsSimulatedAnnealing annealing = new IterationAwardsSimulatedAnnealing(
-                    map,
-                    proposalEx,
-                    configService,
-                    mapCustomerLookup,
-                    personalities,
-                    awards,
-                    temperature,
-                    coolingRate,
-                    maxIterations
-                    );
+                CustomerLoanRequestProposalEx bestProposal = null;
+                for (int _=0;_<retries; _++)
+                {
+                    // Let's test simulated annealing
+                    // Get the proposalEx (CustomerLoanRequestProposalEx)
+                    var proposalEx = proposalExs[i];
+                    IterationAwardsSimulatedAnnealing annealing = new IterationAwardsSimulatedAnnealing(
+                        map,
+                        proposalEx,
+                        configService,
+                        mapCustomerLookup,
+                        personalities,
+                        awards,
+                        temperature,
+                        coolingRate,
+                        maxIterations
+                        );
 
-                var bestProposal = annealing.Run();
+                    var currentProposal = annealing.Run();
+                    if (bestProposal == null || currentProposal.TotalScore > bestProposal.TotalScore)
+                    {
+                        bestProposal = currentProposal;
+                    }
+                }
+
                 bestProposalExs.Add(bestProposal);
 
                 //Log progress
                 string msg = $"Iteration awards single customer ({bestProposalExs.Count}/{map.Customers.Count})";
                 Console.WriteLine(msg);
+
 
             });
 
