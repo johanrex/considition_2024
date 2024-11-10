@@ -17,7 +17,7 @@ namespace Common.Models
     {
         public string Name { get; init; }
 
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
 
         public Loan Loan { get; init; }
 
@@ -44,13 +44,13 @@ namespace Common.Models
 
         public int AwardsInRow { get; set; }
 
-        public List<AwardType> AwardsReceived { get; set; }
+        public List<AwardType> AwardsReceived { get; set; } = new List<AwardType>();
 
         public int MonthsWithoutAwardsInRow { get; set; }
 
         public double Profit { get; set; }
 
-        private int MarkLimit { get; }
+        private int MarkLimit { get; } = 3;
 
         public void Payday() => this.Capital += this.Income;
 
@@ -85,35 +85,22 @@ namespace Common.Models
                 this.Happiness -= 50.0;
         }
 
-        public bool Propose(
-          double yearlyInterestRate,
-          int monthsToPayBack,
-          Dictionary<Personality, PersonalitySpecification> personalityDict,
-          int mapLength)
+        public bool Propose(double yearlyInterestRate, int monthsToPayBack, Dictionary<Personality, PersonalitySpecification> personalityDict, int mapLength)
         {
-            double? acceptedMinInterest = personalityDict[this.Personality].AcceptedMinInterest;
-            double? acceptedMaxInterest = personalityDict[this.Personality].AcceptedMaxInterest;
-            double num1 = yearlyInterestRate;
-            double? nullable1 = acceptedMinInterest;
-            double valueOrDefault1 = nullable1.GetValueOrDefault();
-            if (!(num1 < valueOrDefault1 & nullable1.HasValue))
+            double? acceptedMinInterest = personalityDict[Personality].AcceptedMinInterest;
+            double? acceptedMaxInterest = personalityDict[Personality].AcceptedMaxInterest;
+            if (yearlyInterestRate < acceptedMinInterest || yearlyInterestRate > acceptedMaxInterest)
             {
-                double num2 = yearlyInterestRate;
-                double? nullable2 = acceptedMaxInterest;
-                double valueOrDefault2 = nullable2.GetValueOrDefault();
-                if (!(num2 > valueOrDefault2 & nullable2.HasValue) && (int)(1 + this.Personality) * mapLength >= monthsToPayBack)
-                {
-                    this.Loan.YearlyInterestRate = yearlyInterestRate;
-                    this.Loan.MonthsToPayBack = monthsToPayBack;
-                    return true;
-                }
+                return false;
             }
-            return false;
-        }
-
-
-        public Customer()
-        {
+            int t = (int)(1 + Personality);
+            if (t * mapLength < monthsToPayBack)
+            {
+                return false;
+            }
+            Loan.YearlyInterestRate = yearlyInterestRate;
+            Loan.MonthsToPayBack = monthsToPayBack;
+            return true;
         }
     }
 }
