@@ -20,7 +20,7 @@ namespace optimizer.Strategies
         private int maxIterations;
 
         public IterationAwardsSimulatedAnnealing(
-            ServerUtils serverUtils,
+            ScoreUtils scoreUtils,
             Map map, 
             CustomerLoanRequestProposalEx proposalEx,
             double temperature,

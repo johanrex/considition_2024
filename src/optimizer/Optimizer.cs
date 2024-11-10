@@ -53,6 +53,9 @@ class Program
         var serverUtils = new ServerUtils(gameUrlLocal, apiKey);
         var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
 
+        ScoreUtils scoreUtils = new(serverUtils, configService);
+
+
         Console.WriteLine("-----------------------------------------------------------");
         Console.WriteLine("Map name: " + map.Name);
         Console.WriteLine("Customer count: " + map.Customers.Count.ToString());
@@ -84,7 +87,7 @@ class Program
              * SIMULATE: INDIVIDUAL CUSTOMERS WITH NO AWARDS
              */
             Console.WriteLine("-----------------------------------------------------------");
-            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(serverUtils, map, personalities, maxDegreesOfParallelism);
+            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(scoreUtils, map, personalities, maxDegreesOfParallelism);
 
             var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, customerDetails);
             var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
@@ -95,7 +98,7 @@ class Program
              * SIMULATE: INDIVIDUAL CUSTOMERS ONLY AWARDS
              */
             Console.WriteLine("-----------------------------------------------------------");
-            customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(serverUtils, map, customerDetails, maxDegreesOfParallelism);
+            customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(scoreUtils, map, customerDetails, maxDegreesOfParallelism);
 
             /*
              * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION

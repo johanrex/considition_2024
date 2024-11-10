@@ -56,6 +56,7 @@ namespace Common.Services
             return customerNames.Distinct().Count() == customerNames.Count();
         }
 
+        //TODO do I really need this function?
         public static double GetTotalScore(GameResponse gameResponse)
         {
             //TODO this might not always have a score if something bad happened.

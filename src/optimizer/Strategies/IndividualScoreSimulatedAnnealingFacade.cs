@@ -14,7 +14,7 @@ namespace optimizer.Strategies
     internal class IndividualScoreSimulatedAnnealingFacade
     {
         public static List<CustomerLoanRequestProposalEx> Run(
-            ServerUtils serverUtils,
+            ScoreUtils scoreUtils,
             Map map,
             Dictionary<Personality, PersonalitySpecification> personalities,
             int maxDegreeOfParallelism)
@@ -57,7 +57,7 @@ namespace optimizer.Strategies
                 for (int _ = 0; _ < retries; _++)
                 {
                     IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
-                        serverUtils,
+                        scoreUtils,
                         map,
                         customerName,
                         startYearlyInterestRate,

@@ -13,7 +13,7 @@ namespace optimizer.Strategies
     internal class IterationAwardsSimulatedAnnealingFacade
     {
         public static List<CustomerLoanRequestProposalEx> Run(
-            ServerUtils serverUtils,
+            ScoreUtils scoreUtils,
             Map map, 
             List<CustomerLoanRequestProposalEx> proposalExs,
             int maxDegreeOfParallelism)
@@ -43,7 +43,7 @@ namespace optimizer.Strategies
                     // Get the proposalEx (CustomerLoanRequestProposalEx)
                     var proposalEx = proposalExs[i];
                     IterationAwardsSimulatedAnnealing annealing = new IterationAwardsSimulatedAnnealing(
-                        serverUtils,
+                        scoreUtils,
                         map,
                         proposalEx,
                         temperature,

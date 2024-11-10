@@ -11,7 +11,7 @@ namespace optimizer.Strategies
 {
     internal class IndividualScoreSimulatedAnnealing
     {
-        private ServerUtils serverUtils;
+        private ScoreUtils scoreUtils;
         private Map map;
         private string customerName;
         private double acceptedMinInterest;
@@ -24,7 +24,7 @@ namespace optimizer.Strategies
         { }
 
         public IndividualScoreSimulatedAnnealing(
-            ServerUtils serverUtils,
+            ScoreUtils scoreUtils,
             Map map, 
             string customerName, 
             double startYearlyInterestRate, 
@@ -34,7 +34,7 @@ namespace optimizer.Strategies
             int maxMonthsToPayBackLoan)
         {
             // Set the properties
-            this.serverUtils = serverUtils;
+            this.scoreUtils = scoreUtils;
             this.map = map;
             this.customerName = customerName;
             this.acceptedMinInterest = acceptedMinInterest;
@@ -50,8 +50,8 @@ namespace optimizer.Strategies
         {
             //TODO this function may not be needed when I have a better. 
             var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customerName, yearlyInterestRate, monthsToPayBackLoan);
-            var gameResponse = serverUtils.SubmitGameAsync(input).Result;
-            var score = GameUtils.GetTotalScore(gameResponse);
+            var gameResponse = scoreUtils.SubmitGame(input);
+            var score = gameResponse.TotalScore;
             return score;
         }
 
