@@ -11,35 +11,26 @@ namespace optimizer.Strategies
 {
     internal class IterationAwardsSimulatedAnnealing
     {
+        private ServerUtils serverUtils;
         private Map map;
-        private ConfigService configService;
         private CustomerLoanRequestProposalEx proposalEx;
-        private Dictionary<string, Customer> mapCustomerLookup;
-        private Dictionary<Personality, PersonalitySpecification> personalities;
-        private Dictionary<AwardType, AwardSpecification> awards;
         private Random random;
         private double temperature;
         private double coolingRate;
         private int maxIterations;
 
         public IterationAwardsSimulatedAnnealing(
+            ServerUtils serverUtils,
             Map map, 
             CustomerLoanRequestProposalEx proposalEx,
-            ConfigService configService,
-            Dictionary<string, Customer> mapCustomerLookup,
-            Dictionary<Personality, PersonalitySpecification> personalities,
-            Dictionary<AwardType, AwardSpecification> awards,
             double temperature,
             double coolingRate,
             int maxIterations
             )
         {
+            this.serverUtils = serverUtils;
             this.map = map;
-            this.configService = configService;
             this.proposalEx = proposalEx;
-            this.mapCustomerLookup = mapCustomerLookup;
-            this.personalities = personalities;
-            this.awards = awards;
             this.temperature = temperature;
             this.coolingRate = coolingRate;
             this.maxIterations = maxIterations;
@@ -153,10 +144,10 @@ namespace optimizer.Strategies
         private (double, double) ScoreFunction(List<CustomerActionIteration> currentState)
         {
             var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, proposalEx.CustomerName, proposalEx.YearlyInterestRate, proposalEx.MonthsToPayBackLoan, currentState);
-            var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
-            var gameResponse = scorer.RunGame(input, mapCustomerLookup);
+
+            var gameResponse = serverUtils.SubmitGameAsync(input).Result;
+            var totalCost = gameResponse.Score.TotalScore - gameResponse.Score.TotalProfit;
             var score = GameUtils.GetTotalScore(gameResponse);
-            var totalCost = -scorer.expenses;
 
             return (score, totalCost);
         }

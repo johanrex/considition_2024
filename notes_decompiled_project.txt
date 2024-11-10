@@ -4,7 +4,7 @@ manually remove c:\temp\app folder
 manually delete c:\temp\project
 docker-copy-from-container-to-local.ps1
 run the resource extractor program.
-Copy the resources to the project folder. 
+Copy the extracted resources to the vs project folder. 
 dotpeek decompile dll <-- make sure to c:\temp\app\localhost.dll
 delete files in C:\git\considition_2024\decompiled_server_project\LocalHost
 copy-to-git-folder-ps1

@@ -11,11 +11,8 @@ namespace optimizer.Strategies
 {
     internal class IndividualScoreSimulatedAnnealing
     {
-        private ConfigService configService;
+        private ServerUtils serverUtils;
         private Map map;
-        private Dictionary<string, Customer> mapCustomerLookup;
-        private Dictionary<Personality, PersonalitySpecification> personalities;
-        private Dictionary<AwardType, AwardSpecification> awards;
         private string customerName;
         private double acceptedMinInterest;
         private double acceptedMaxInterest;
@@ -27,11 +24,8 @@ namespace optimizer.Strategies
         { }
 
         public IndividualScoreSimulatedAnnealing(
-            ConfigService configService,
+            ServerUtils serverUtils,
             Map map, 
-            Dictionary<string, Customer> mapCustomerLookup, 
-            Dictionary<Personality, PersonalitySpecification> personalities, 
-            Dictionary<AwardType, AwardSpecification> awards, 
             string customerName, 
             double startYearlyInterestRate, 
             int startMonthsToPayBackLoan, 
@@ -40,11 +34,8 @@ namespace optimizer.Strategies
             int maxMonthsToPayBackLoan)
         {
             // Set the properties
-            this.configService = configService;
+            this.serverUtils = serverUtils;
             this.map = map;
-            this.mapCustomerLookup = mapCustomerLookup;
-            this.personalities = personalities;
-            this.awards = awards;
             this.customerName = customerName;
             this.acceptedMinInterest = acceptedMinInterest;
             this.acceptedMaxInterest = acceptedMaxInterest;
@@ -57,9 +48,9 @@ namespace optimizer.Strategies
 
         private double ScoreFunction(double yearlyInterestRate, int monthsToPayBackLoan)
         {
+            //TODO this function may not be needed when I have a better. 
             var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, customerName, yearlyInterestRate, monthsToPayBackLoan);
-            var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
-            var gameResponse = scorer.RunGame(input, mapCustomerLookup);
+            var gameResponse = serverUtils.SubmitGameAsync(input).Result;
             var score = GameUtils.GetTotalScore(gameResponse);
             return score;
         }

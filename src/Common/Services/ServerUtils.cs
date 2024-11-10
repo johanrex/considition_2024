@@ -12,6 +12,7 @@ namespace Common.Services
     {
         public string GameUrl;
         public string ApiKey;
+        private static readonly HttpClient client = new HttpClient();
 
         private ServerUtils()
         { }
@@ -22,22 +23,20 @@ namespace Common.Services
             ApiKey = apiKey;
         }
 
-
-        async public Task<GameResponse> SubmitGameAsync(GameInput input)
+        public async Task<GameResponse> SubmitGameAsync(GameInput input)
         {
-            HttpRequestMessage request = new()
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(GameUrl + "game", UriKind.Absolute)
-            };
-            request.Headers.Add("x-api-key", ApiKey);
-            request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(input), Encoding.UTF8, "application/json");
+            var inputJson = System.Text.Json.JsonSerializer.Serialize(input);
 
-            HttpClient client = new();
-            var res = client.Send(request);
-            var responsePayload = await res.Content.ReadAsStringAsync();
-            var gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
-            return gameResponse;
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri(GameUrl + "game", UriKind.Absolute)))
+            {
+                request.Headers.Add("x-api-key", ApiKey);
+                request.Content = new StringContent(inputJson, Encoding.UTF8, "application/json");
+
+                var res = await client.SendAsync(request);
+                var responsePayload = await res.Content.ReadAsStringAsync();
+                var gameResponse = JsonConvert.DeserializeObject<GameResponse>(responsePayload);
+                return gameResponse;
+            }
         }
     }
 }

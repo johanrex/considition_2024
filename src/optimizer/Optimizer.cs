@@ -6,6 +6,8 @@ using Common.Services;
 using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
+using NativeScorer;
+using Microsoft.Extensions.Options;
 
 class Program
 {
@@ -28,6 +30,7 @@ class Program
         parseCommandLineArguments(args);
 
 
+        int maxDegreesOfParallelism = 8; //how much abuse can the server take?
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
@@ -43,16 +46,11 @@ class Program
 
         ConfigService configService = new();
         var map = configService.GetMap(mapName);
-        Dictionary<string, Customer> mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
-
-
 
         var personalities = configService.GetPersonalitySpecifications(mapName);
         var awards = configService.GetAwardSpecifications(mapName);
 
-
-
-        var serverUtilsLocal = new ServerUtils(gameUrlLocal, apiKey);
+        var serverUtils = new ServerUtils(gameUrlLocal, apiKey);
         var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
 
         Console.WriteLine("-----------------------------------------------------------");
@@ -85,15 +83,19 @@ class Program
             /*
              * SIMULATE: INDIVIDUAL CUSTOMERS WITH NO AWARDS
              */
-            //var bruteForceDetails = new BruteForce().Run(serverUtilsLocal, map, personalities);
             Console.WriteLine("-----------------------------------------------------------");
-            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(configService, map, mapCustomerLookup, personalities, awards);
+            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(serverUtils, map, personalities, maxDegreesOfParallelism);
+
+            var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, customerDetails);
+            var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
+            Console.WriteLine("Score:");
+            Console.WriteLine(gameResponse.Score.TotalScore);
 
             /*
              * SIMULATE: INDIVIDUAL CUSTOMERS ONLY AWARDS
              */
             Console.WriteLine("-----------------------------------------------------------");
-            customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(map, customerDetails, configService, mapCustomerLookup, personalities, awards);
+            customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(serverUtils, map, customerDetails, maxDegreesOfParallelism);
 
             /*
              * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
@@ -131,7 +133,7 @@ class Program
             Console.WriteLine("Predicted score from selection process: ");
             Console.WriteLine(predictedScore);
 
-            var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
+            gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
             //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
             //var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
@@ -145,7 +147,7 @@ class Program
             //Console.WriteLine(inputJson);
 
             //DOCKER SCORE
-            var gameResponse = serverUtilsLocal.SubmitGameAsync(gameInput).Result;
+            gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
             var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
             Console.WriteLine($"Score from local docker:");
             Console.WriteLine(totalScore);

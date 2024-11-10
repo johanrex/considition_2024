@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Common.Models;
 using Common.Services;
@@ -14,11 +14,10 @@ namespace optimizer.Strategies
     internal class IndividualScoreSimulatedAnnealingFacade
     {
         public static List<CustomerLoanRequestProposalEx> Run(
-            ConfigService configService,
+            ServerUtils serverUtils,
             Map map,
-            Dictionary<string, Customer> mapCustomerLookup,
             Dictionary<Personality, PersonalitySpecification> personalities,
-            Dictionary<AwardType, AwardSpecification> awards)
+            int maxDegreeOfParallelism)
         {
             Console.WriteLine("Starting simulated annealing. Only loan and length.");
 
@@ -34,10 +33,13 @@ namespace optimizer.Strategies
 
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 2000;
-            var retries = 3;
+            var maxIterations = 500;
+            var retries = 1;
 
-            Parallel.For(0, map.Customers.Count, i =>
+            ParallelOptions options = new ParallelOptions();
+            options.MaxDegreeOfParallelism = maxDegreeOfParallelism;
+
+            Parallel.For(0, map.Customers.Count, options, i =>
             {
                 // Let's test simulated annealing
                 var customer = map.Customers[i];
@@ -55,11 +57,8 @@ namespace optimizer.Strategies
                 for (int _ = 0; _ < retries; _++)
                 {
                     IndividualScoreSimulatedAnnealing anneal = new IndividualScoreSimulatedAnnealing(
-                        configService,
+                        serverUtils,
                         map,
-                        mapCustomerLookup,
-                        personalities,
-                        awards,
                         customerName,
                         startYearlyInterestRate,
                         startMonthsToPayBackLoan,

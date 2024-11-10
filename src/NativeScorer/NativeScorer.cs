@@ -13,38 +13,26 @@ namespace NativeScorer
 {
     public class NativeScorer
     {
-        private readonly Dictionary<Personality, PersonalitySpecification> personalities;
-        public double budget;
-        public double expenses;
-        private readonly Dictionary<AwardType, AwardSpecification> awards;
-
         private ConfigService configService;
 
         private NativeScorer()
         { }
 
         public NativeScorer(
-            ConfigService configService,
-            Dictionary<Personality, PersonalitySpecification> personalities,
-            Dictionary<AwardType, AwardSpecification> awards
+            ConfigService configService
             )
         {
             this.configService = configService;
-            this.personalities = personalities;
-            this.awards = awards;
         }
 
-        public GameResponse RunGame(GameInput gameInput, Dictionary<string, Customer> mapCustomerLookup)
+        public GameResponse RunGame(GameInput gameInput)
         {
             var map = configService.GetMap(gameInput.MapName);
-            List<Customer> customerList = RequestCustomers(gameInput, map, mapCustomerLookup);
 
-            budget = map.Budget;
-            expenses = 0;
+            List<Customer> customerList = RequestCustomers(gameInput, map);
 
             double num = customerList.Sum(c => c.Loan.Amount);
-            budget -= num;
-            expenses -= num;
+            map.Budget -= num;
 
             string errorMessage = HandleIterations(gameInput.Iterations, customerList, map);
             GameResult gameResult = CalculateScoreAndSaveGame(gameInput, customerList);
@@ -55,25 +43,20 @@ namespace NativeScorer
             };
         }
 
-        public List<Customer> RequestCustomers(GameInput gameInput, Map map, Dictionary<string, Customer> mapCustomerLookup)
+        public List<Customer> RequestCustomers(GameInput gameInput, Map map)
         {
-            //ooof jag har bara en kund i min gameInput i normalfallet. Dvs jag behöver definitivt inte kopiera alla customers från map. 
-            //Behöver bara ett snabbt sätt att hitta kunden i map.
-
-            List<Customer> acceptedCustomers = new List<Customer>();
-
-            //TODO silly proposal1, remove
+            List<Customer> customerList = new List<Customer>();
+            Dictionary<Personality, PersonalitySpecification> personalitySpecifications = this.configService.GetPersonalitySpecifications(map.Name);
             foreach (var proposal1 in gameInput.Proposals)
             {
                 CustomerLoanRequestProposal proposal = proposal1;
+                //TODO performance. Could make a dictionary in a MapEx class instead. 
+                Customer customer = map.Customers.FirstOrDefault<Customer>((Func<Customer, bool>)(c => c.Name.Equals(proposal.CustomerName)));
 
-                var customer = ObjectUtils.DeepCopyWithJson(mapCustomerLookup[proposal.CustomerName]);
-
-                //if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities))
-                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalities, map.GameLengthInMonths))
-                    acceptedCustomers.Add(customer);
+                if ((object)customer != null && customer.Propose(proposal.YearlyInterestRate, proposal.MonthsToPayBackLoan, personalitySpecifications, map.GameLengthInMonths))
+                    customerList.Add(customer);
             }
-            return acceptedCustomers;
+            return customerList;
         }
 
         private string HandleIterations(
@@ -104,7 +87,7 @@ namespace NativeScorer
 
             foreach (Customer customer in customers)
             {
-                if (this.budget <= 0.0)
+                if (map.Budget <= 0.0)
                     return "Your bank went bankrupt";
                 if (!customer.IsBankrupt)
                 {
@@ -112,7 +95,7 @@ namespace NativeScorer
                     customer.Payday();
                     customer.PayBills(month, personalitySpecifications);
                     if (customer.CanPayLoan())
-                        this.budget += customer.PayLoan();
+                        map.Budget += customer.PayLoan();
                     else
                         customer.IncrementMark();
                     if (customerAction.Type == CustomerActionType.Award)
@@ -121,8 +104,7 @@ namespace NativeScorer
                         customer.AwardsReceived.Add(customerAction.Award);
                         double num = this.Award(customer, customerAction.Award, awardSpecifications, personalitySpecifications);
                         customer.Profit -= num;
-                        this.budget -= num;
-                        this.expenses -= num;
+                        map.Budget -= num;
                     }
                     else
                     {

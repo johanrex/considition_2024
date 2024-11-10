@@ -13,13 +13,10 @@ namespace optimizer.Strategies
     internal class IterationAwardsSimulatedAnnealingFacade
     {
         public static List<CustomerLoanRequestProposalEx> Run(
+            ServerUtils serverUtils,
             Map map, 
             List<CustomerLoanRequestProposalEx> proposalExs,
-            ConfigService configService,
-            Dictionary<string, Customer> mapCustomerLookup,
-            Dictionary<Personality, PersonalitySpecification> personalities,
-            Dictionary<AwardType, AwardSpecification> awards
-            )
+            int maxDegreeOfParallelism)
         {
             Console.WriteLine("Starting simulated annealing. Awards for single customer.");
 
@@ -30,11 +27,14 @@ namespace optimizer.Strategies
 
             double temperature = 1.0;
             double coolingRate = 0.003;
-            int maxIterations = 2000;
-            var retries = 3;
+            int maxIterations = 500;
+            var retries = 1;
+
+            ParallelOptions options = new ParallelOptions();
+            options.MaxDegreeOfParallelism = maxDegreeOfParallelism;
 
             // Parallel for loop
-            Parallel.For(0, proposalExs.Count, i =>
+            Parallel.For(0, proposalExs.Count, options, i =>
             {
                 CustomerLoanRequestProposalEx bestProposal = null;
                 for (int _=0;_<retries; _++)
@@ -43,12 +43,9 @@ namespace optimizer.Strategies
                     // Get the proposalEx (CustomerLoanRequestProposalEx)
                     var proposalEx = proposalExs[i];
                     IterationAwardsSimulatedAnnealing annealing = new IterationAwardsSimulatedAnnealing(
+                        serverUtils,
                         map,
                         proposalEx,
-                        configService,
-                        mapCustomerLookup,
-                        personalities,
-                        awards,
                         temperature,
                         coolingRate,
                         maxIterations
