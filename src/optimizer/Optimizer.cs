@@ -8,9 +8,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using NativeScorer;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualBasic;
 
 class Program
 {
+    private static Dictionary<string, double> CustomerCosts(Dictionary<AwardType, AwardSpecification> awardSpecs, List<CustomerLoanRequestProposalEx> customerDetails)
+    {
+        //find out the total cost of each customer
+        Dictionary<string, double> customerNameCosts = new();
+        foreach (var customer in customerDetails)
+        {
+            double totalAwardCost = 0;
+            foreach (CustomerActionIteration iteration in customer.Iterations)
+            {
+                var customerAction = iteration.CustomerActions[customer.CustomerName];
+                if (customerAction.Award == AwardType.None)
+                    continue;
+
+                AwardSpecification spec = awardSpecs[customerAction.Award];
+                totalAwardCost += spec.Cost;
+            }
+
+            double totalCustomerCost = customer.LoanAmount + totalAwardCost;
+            customerNameCosts[customer.CustomerName] = totalCustomerCost;
+        }
+        return customerNameCosts;
+    }
+
+
     static void Main(string[] args)
     {
         int maxDegreesOfParallelism = -1;
@@ -24,8 +49,8 @@ class Program
         ConfigService configService = new();
         var map = configService.GetMap(mapName);
 
-        var personalities = configService.GetPersonalitySpecifications(mapName);
-        var awards = configService.GetAwardSpecifications(mapName);
+        var personalitySpecs = configService.GetPersonalitySpecifications(mapName);
+        var awardSpecs = configService.GetAwardSpecifications(mapName);
 
         var serverUtils = new ServerUtils(gameUrlLocal, apiKey);
         var serverUtilsRemote = new ServerUtils(gameUrlRemote, apiKey);
@@ -43,13 +68,13 @@ class Program
         if (!GameUtils.IsCustomerNamesUnique(map))
             throw new Exception("Customer names are not unique. This was promised during training.");
 
-        if (!PersonalityUtils.HasKnownPersonalities(map, personalities))
+        if (!PersonalityUtils.HasKnownPersonalities(map, personalitySpecs))
             throw new Exception("Map contains unknown personalities.");
 
-        if (!PersonalityUtils.HasKnownInterestRates(personalities))
+        if (!PersonalityUtils.HasKnownInterestRates(personalitySpecs))
             throw new Exception("Some personalities have unknown interest rates.");
 
-        if (awards.Count <= 0)
+        if (awardSpecs.Count <= 0)
             throw new Exception("No awards found in file.");
 
         Console.WriteLine("Done.");
@@ -64,7 +89,7 @@ class Program
              * SIMULATE: INDIVIDUAL CUSTOMERS WITH NO AWARDS
              */
             Console.WriteLine("-----------------------------------------------------------");
-            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(scoreUtils, map, personalities, maxDegreesOfParallelism);
+            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(scoreUtils, map, personalitySpecs, maxDegreesOfParallelism);
 
 
             /*
@@ -89,11 +114,13 @@ class Program
             customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(scoreUtils, map, customerDetails, maxDegreesOfParallelism);
 
 
+            var customerNameCosts = CustomerCosts(awardSpecs, customerDetails);
+
             /*
              * SELECT best customers for our budget.
              */
             Console.WriteLine("-----------------------------------------------------------");
-            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(configService, map, customerDetails);
+            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(customerNameCosts, map, customerDetails);
 
 
             Console.WriteLine("-----------------------------------------------------------");

@@ -11,13 +11,13 @@ using Common.Services;
 //{
 //    internal class SelectCustomersSimulatedAnnealing
 //    {
-//        public static List<CustomerLoanRequestProposalEx> Select(ConfigService configService, Map map, List<CustomerLoanRequestProposalEx> customerDetails)
+//        public static List<CustomerLoanRequestProposalEx> Select(Dictionary<string, double> customerNameCosts, Map map, List<CustomerLoanRequestProposalEx> customerDetails)
 //        {
 //            Console.WriteLine("Selecting customers within budget: Simulated Annealing approach.");
 //            Stopwatch stopwatch = Stopwatch.StartNew();
 
 //            double budget = map.Budget;
-//            List< CustomerLoanRequestProposalEx> selectedCustomer = new();
+//            List<CustomerLoanRequestProposalEx> selectedCustomer = new();
 
 //            //TODO implement simulated annealing
 
