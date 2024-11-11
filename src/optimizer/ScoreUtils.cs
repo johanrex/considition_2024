@@ -22,21 +22,21 @@ namespace optimizer
             this.configService = configService;
         }
 
-
         public GameResult SubmitGame(GameInput input)
         {
-            //TODO remove docker call once verified.
-            var serverGameResponse = serverUtils.SubmitGameAsync(input).Result;
-            var serverTotalScore = serverGameResponse.Score.TotalScore;
-
             var scorer = new NativeScorer.NativeScorer(configService);
             var gameResponse = scorer.RunGame(input);
             var totalScore = gameResponse.Score.TotalScore;
 
-            if (Math.Abs(serverTotalScore - totalScore) > 5)
-            {
-                throw new Exception();
-            }
+            //TODO remove docker call once verified.
+            //var serverGameResponse = serverUtils.SubmitGameAsync(input).Result;
+            //var serverTotalScore = serverGameResponse.Score.TotalScore;
+
+            //if (Math.Abs(serverTotalScore - totalScore) > 5)
+            //{
+            //    throw new Exception();
+            //}
+
             return gameResponse.Score;
         }
     }

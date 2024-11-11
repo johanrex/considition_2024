@@ -33,8 +33,8 @@ namespace optimizer.Strategies
 
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 500;
-            var retries = 1;
+            var maxIterations = 1000;
+            var retries = 2;
 
             ParallelOptions options = new ParallelOptions();
             options.MaxDegreeOfParallelism = maxDegreeOfParallelism;
@@ -90,7 +90,7 @@ namespace optimizer.Strategies
                 {
                     CustomerName = customerName,
                     TotalScore = bestScore,
-                    Cost = customer.Loan.Amount,
+                    LoanAmount = customer.Loan.Amount,
                     YearlyInterestRate = optimalInterestRate,
                     MonthsToPayBackLoan = optimalMonthsToPayBackLoan
                 };

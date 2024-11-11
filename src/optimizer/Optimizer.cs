@@ -30,7 +30,7 @@ class Program
         parseCommandLineArguments(args);
 
 
-        int maxDegreesOfParallelism = 8; //how much abuse can the server take?
+        int maxDegreesOfParallelism = -1;
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
         string apiKey = "05ae5782-1936-4c6a-870b-f3d64089dcf5";
@@ -89,10 +89,28 @@ class Program
             Console.WriteLine("-----------------------------------------------------------");
             customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(scoreUtils, map, personalities, maxDegreesOfParallelism);
 
-            var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, customerDetails);
-            var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
-            Console.WriteLine("Score:");
-            Console.WriteLine(gameResponse.Score.TotalScore);
+
+            /*
+             * REMOVE USELESS CUSTOMERS 
+             */
+            Console.WriteLine("-----------------------------------------------------------");
+            int cntBefore = customerDetails.Count;
+            //keep only customers with a positive total score
+            customerDetails = customerDetails.Where(c => c.TotalScore > 0).ToList();
+            int cntAfter = customerDetails.Count;
+            Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
+            cntBefore = cntAfter;
+            customerDetails = customerDetails.Where(c => c.LoanAmount <= map.Budget / 2).ToList();
+            cntAfter = customerDetails.Count;
+            Console.WriteLine($"Removed {cntBefore - cntAfter} customers that wants to loan too much.");
+
+
+
+
+            //var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, customerDetails);
+            //var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
+            //Console.WriteLine("Score:");
+            //Console.WriteLine(gameResponse.Score.TotalScore);
 
             /*
              * SIMULATE: INDIVIDUAL CUSTOMERS ONLY AWARDS
@@ -100,21 +118,12 @@ class Program
             Console.WriteLine("-----------------------------------------------------------");
             customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(scoreUtils, map, customerDetails, maxDegreesOfParallelism);
 
-            /*
-             * REMOVE CUSTOMERS WITH NEGATIVE SCORE CONTRIBUTION
-             */
-            Console.WriteLine("-----------------------------------------------------------");
-            int cntBefore = customerDetails.Count;
-            customerDetails = customerDetails.Where(c => c.TotalScore > 0).ToList();
-            int cntAfter = customerDetails.Count;
-            Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
-
 
             /*
              * SELECT best customers for our budget.
              */
             Console.WriteLine("-----------------------------------------------------------");
-            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(map, customerDetails);
+            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(configService, map, customerDetails);
 
 
             Console.WriteLine("-----------------------------------------------------------");
@@ -136,7 +145,7 @@ class Program
             Console.WriteLine("Predicted score from selection process: ");
             Console.WriteLine(predictedScore);
 
-            gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
+            var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
             //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
             //var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
@@ -149,8 +158,12 @@ class Program
             //Console.WriteLine("Final game input:");
             //Console.WriteLine(inputJson);
 
+
+            var gameResult = scoreUtils.SubmitGame(gameInput);
+
+
             //DOCKER SCORE
-            gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
+            var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
             var totalScore = GameUtils.LogGameResponse(gameResponse, "finalGameOutput.json");
             Console.WriteLine($"Score from local docker:");
             Console.WriteLine(totalScore);
@@ -162,10 +175,7 @@ class Program
             //Console.WriteLine(totalScoreRemote);
 
             stopwatch.Stop();
-
-            // Calculate total time and customers per second
             double totalTimeInSeconds = stopwatch.Elapsed.TotalSeconds;
-
 
             //log score to file
             using (StreamWriter writer = new StreamWriter("scores.txt", append: true))

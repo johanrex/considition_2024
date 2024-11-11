@@ -43,10 +43,10 @@ namespace optimizer.Strategies
 
                 foreach (var customer in customerDetails.OrderBy(x => random.Next()))
                 {
-                    if (totalWeight + customer.Cost <= budget)
+                    if (totalWeight + customer.LoanAmount <= budget)
                     {
                         individual.Add(customer);
-                        totalWeight += customer.Cost;
+                        totalWeight += customer.LoanAmount;
                     }
                 }
 
@@ -100,10 +100,10 @@ namespace optimizer.Strategies
 
             foreach (var customer in parent1.Concat(parent2).OrderBy(x => random.Next()))
             {
-                if (totalWeight + customer.Cost <= budget && !offspring.Contains(customer))
+                if (totalWeight + customer.LoanAmount <= budget && !offspring.Contains(customer))
                 {
                     offspring.Add(customer);
-                    totalWeight += customer.Cost;
+                    totalWeight += customer.LoanAmount;
                 }
             }
 

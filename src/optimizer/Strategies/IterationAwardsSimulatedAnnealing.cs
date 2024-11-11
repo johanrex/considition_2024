@@ -11,7 +11,7 @@ namespace optimizer.Strategies
 {
     internal class IterationAwardsSimulatedAnnealing
     {
-        private ServerUtils serverUtils;
+        private ScoreUtils scoreUtils;
         private Map map;
         private CustomerLoanRequestProposalEx proposalEx;
         private Random random;
@@ -28,7 +28,8 @@ namespace optimizer.Strategies
             int maxIterations
             )
         {
-            this.serverUtils = serverUtils;
+
+            this.scoreUtils = scoreUtils;
             this.map = map;
             this.proposalEx = proposalEx;
             this.temperature = temperature;
@@ -44,30 +45,26 @@ namespace optimizer.Strategies
             var currentState = initialState;
             var bestState = initialState;
 
-            (double currentScore, double currentTotalCost) = ScoreFunction(currentState);
-            
+            double currentScore = ScoreFunction(currentState);
             double bestScore = currentScore;
-            double bestTotalCost = currentTotalCost;
 
             int iteration = 0;
 
             while (temperature > 0.1 && iteration < maxIterations)
             {
                 var neighbor = GetNeighbor(currentState, proposalEx.CustomerName);
-                (double neighborScore, double neighborTotalCost) = ScoreFunction(neighbor);
+                double neighborScore = ScoreFunction(neighbor);
 
                 if (AcceptanceProbability(currentScore, neighborScore, temperature) > random.NextDouble())
                 {
                     currentState = neighbor;
                     currentScore = neighborScore;
-                    currentTotalCost = neighborTotalCost;
                 }
 
                 if (currentScore > bestScore)
                 {
                     bestState = currentState;
                     bestScore = currentScore;
-                    bestTotalCost = currentTotalCost;
                 }
 
                 temperature *= 1 - coolingRate;
@@ -80,7 +77,7 @@ namespace optimizer.Strategies
                 YearlyInterestRate = proposalEx.YearlyInterestRate,
                 MonthsToPayBackLoan = proposalEx.MonthsToPayBackLoan,
                 TotalScore = bestScore,
-                Cost = bestTotalCost,
+                LoanAmount = proposalEx.LoanAmount,
                 Iterations = bestState
             };
 
@@ -141,17 +138,13 @@ namespace optimizer.Strategies
             return neighbor;
         }
 
-        private (double, double) ScoreFunction(List<CustomerActionIteration> currentState)
+        private double ScoreFunction(List<CustomerActionIteration> currentState)
         {
             var input = GameUtils.CreateSingleCustomerGameInput(map.Name, map.GameLengthInMonths, proposalEx.CustomerName, proposalEx.YearlyInterestRate, proposalEx.MonthsToPayBackLoan, currentState);
+            var gameResult = this.scoreUtils.SubmitGame(input);
+            var totalScore = gameResult.TotalScore;
 
-            var gameResponse = serverUtils.SubmitGameAsync(input).Result;
-            var totalCost = gameResponse.Score.TotalScore - gameResponse.Score.TotalProfit;
-            var score = GameUtils.GetTotalScore(gameResponse);
-
-            return (score, totalCost);
+            return totalScore;
         }
-
-
     }
 }

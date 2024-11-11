@@ -4,7 +4,9 @@ using System.IO.Enumeration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Common.Models;
 
@@ -12,10 +14,7 @@ namespace Common.Services
 {
     public class ConfigService
     {
-        private readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true
-        };
+        private readonly JsonSerializerOptions jsonSerializerOptions;
         private readonly string[] cities = new string[]
         {
             //TODO this wasn't a good idea.
@@ -30,6 +29,13 @@ namespace Common.Services
 
         public ConfigService()
         {
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions();
+            serializerOptions.WriteIndented = true;
+            serializerOptions.Converters.Add((JsonConverter)new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            serializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            serializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+            this.jsonSerializerOptions = serializerOptions;
+
             this.SetMaps();
             this.SetAwards();
             this.SetPersonalities();

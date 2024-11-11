@@ -36,7 +36,7 @@
     <None Update="Config\Maps\Map-Gothenburg.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Config\Maps\Map-Nottingham.json">
+    <None Update="Config\Maps\zzz_Map-Nottingham.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Config\Maps\map_100.json">

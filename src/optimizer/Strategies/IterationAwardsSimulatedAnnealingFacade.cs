@@ -27,8 +27,8 @@ namespace optimizer.Strategies
 
             double temperature = 1.0;
             double coolingRate = 0.003;
-            int maxIterations = 500;
-            var retries = 1;
+            int maxIterations = 1000;
+            var retries = 2;
 
             ParallelOptions options = new ParallelOptions();
             options.MaxDegreeOfParallelism = maxDegreeOfParallelism;

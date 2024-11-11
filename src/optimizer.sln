@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceExtractor", "Resour
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigInference", "ConfigInference\ConfigInference.csproj", "{CD3C0A3B-5BCD-4607-A750-12E49B16EA6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileScorer", "FileScorer\FileScorer.csproj", "{FB8EC74F-84D2-4DB9-9811-5E0B3997C950}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{CD3C0A3B-5BCD-4607-A750-12E49B16EA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD3C0A3B-5BCD-4607-A750-12E49B16EA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD3C0A3B-5BCD-4607-A750-12E49B16EA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8EC74F-84D2-4DB9-9811-5E0B3997C950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8EC74F-84D2-4DB9-9811-5E0B3997C950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8EC74F-84D2-4DB9-9811-5E0B3997C950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8EC74F-84D2-4DB9-9811-5E0B3997C950}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

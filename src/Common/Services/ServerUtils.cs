@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Common.Services
 {
     public class ServerUtils
@@ -25,6 +26,7 @@ namespace Common.Services
 
         public async Task<GameResponse> SubmitGameAsync(GameInput input)
         {
+            //Must use System.Text.Json since we have objects configured for this serialization. 
             var inputJson = System.Text.Json.JsonSerializer.Serialize(input);
 
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri(GameUrl + "game", UriKind.Absolute)))

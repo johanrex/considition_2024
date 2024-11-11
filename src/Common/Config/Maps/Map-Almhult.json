@@ -5,6 +5,7 @@
   "customers": [
     {
       "name": "Delia Lockman",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 44700,
@@ -20,6 +21,7 @@
     },
     {
       "name": "Allan Jacobson",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 86400,
@@ -35,6 +37,7 @@
     },
     {
       "name": "Shane Turner",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 90100,
@@ -50,6 +53,7 @@
     },
     {
       "name": "Debbie Schaden",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 89400,
@@ -65,6 +69,7 @@
     },
     {
       "name": "Paulette Connelly",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 89300,
@@ -80,6 +85,7 @@
     },
     {
       "name": "Travis Kub",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 4400,
@@ -95,6 +101,7 @@
     },
     {
       "name": "Courtney Harvey",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 56400,
@@ -110,6 +117,7 @@
     },
     {
       "name": "Ramon Von",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 1200,
@@ -125,6 +133,7 @@
     },
     {
       "name": "Erma Daniel",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 13300,
@@ -140,6 +149,7 @@
     },
     {
       "name": "Hugo Runolfsdottir",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 7500,
@@ -155,6 +165,7 @@
     },
     {
       "name": "Luis Quigley",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 47200,
@@ -170,6 +181,7 @@
     },
     {
       "name": "Antoinette Robel",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 14000,
@@ -185,6 +197,7 @@
     },
     {
       "name": "Naomi O\u0027Keefe",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 98300,
@@ -200,6 +213,7 @@
     },
     {
       "name": "Gary Kreiger",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 14600,
@@ -215,6 +229,7 @@
     },
     {
       "name": "Peggy Fahey",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 4600,
@@ -230,6 +245,7 @@
     },
     {
       "name": "Lynne Price",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9500,
@@ -245,6 +261,7 @@
     },
     {
       "name": "Julian Corkery",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 62600,
@@ -260,6 +277,7 @@
     },
     {
       "name": "Norman Muller",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 58700,
@@ -275,6 +293,7 @@
     },
     {
       "name": "Lori Mosciski",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 41000,
@@ -290,6 +309,7 @@
     },
     {
       "name": "Sherri Kertzmann",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 56600,
@@ -305,6 +325,7 @@
     },
     {
       "name": "Wilma Doyle",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 46100,
@@ -320,6 +341,7 @@
     },
     {
       "name": "Wanda McLaughlin",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 400,
@@ -335,6 +357,7 @@
     },
     {
       "name": "Eugene Larkin",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 11400,
@@ -350,6 +373,7 @@
     },
     {
       "name": "Connie Leannon",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 400,
@@ -365,6 +389,7 @@
     },
     {
       "name": "Jody Lehner",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 62600,
@@ -380,6 +405,7 @@
     },
     {
       "name": "Patrick Hickle",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 46400,
@@ -395,6 +421,7 @@
     },
     {
       "name": "Sheldon Wilderman",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 71400,
@@ -410,6 +437,7 @@
     },
     {
       "name": "Christian Rau",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 57200,
@@ -425,6 +453,7 @@
     },
     {
       "name": "Stewart Roob",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 53000,
@@ -440,6 +469,7 @@
     },
     {
       "name": "Angel Howe",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 45500,
@@ -455,6 +485,7 @@
     },
     {
       "name": "Spencer Herzog",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 98000,
@@ -470,6 +501,7 @@
     },
     {
       "name": "Ernesto Bradtke",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 6400,
@@ -485,6 +517,7 @@
     },
     {
       "name": "Glenn Predovic",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 80100,
@@ -500,6 +533,7 @@
     },
     {
       "name": "Belinda Weimann",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 22300,
@@ -515,6 +549,7 @@
     },
     {
       "name": "Peter Hoeger",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 79300,
@@ -530,6 +565,7 @@
     },
     {
       "name": "Kim Wyman",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 90100,
@@ -545,6 +581,7 @@
     },
     {
       "name": "Sue Gibson",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 8500,
@@ -560,6 +597,7 @@
     },
     {
       "name": "Johnny Hilpert",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 800,
@@ -575,6 +613,7 @@
     },
     {
       "name": "Daniel O\u0027Reilly",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 99100,
@@ -590,6 +629,7 @@
     },
     {
       "name": "Levi Lehner",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 4100,
@@ -605,6 +645,7 @@
     },
     {
       "name": "Sally Stark",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 87100,
@@ -620,6 +661,7 @@
     },
     {
       "name": "Melanie Padberg",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 10500,
@@ -635,6 +677,7 @@
     },
     {
       "name": "Leah Cartwright",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 96800,
@@ -650,6 +693,7 @@
     },
     {
       "name": "Lana Grant",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 98300,
@@ -665,6 +709,7 @@
     },
     {
       "name": "Debbie Runolfsson",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9600,
@@ -680,6 +725,7 @@
     },
     {
       "name": "Bradley Farrell",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 6200,
@@ -695,6 +741,7 @@
     },
     {
       "name": "Vanessa Mertz",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 23800,
@@ -710,6 +757,7 @@
     },
     {
       "name": "Marco Dickens",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 65900,
@@ -725,6 +773,7 @@
     },
     {
       "name": "Terence Streich",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 15000,
@@ -740,6 +789,7 @@
     },
     {
       "name": "Christy Schmeler",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 57400,
@@ -755,6 +805,7 @@
     },
     {
       "name": "Bradley Sauer",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 5900,
@@ -770,6 +821,7 @@
     },
     {
       "name": "Lee Heaney",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 38200,
@@ -785,6 +837,7 @@
     },
     {
       "name": "Cathy Ziemann",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 97200,
@@ -800,6 +853,7 @@
     },
     {
       "name": "Alison Rice",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 41800,
@@ -815,6 +869,7 @@
     },
     {
       "name": "Lisa Braun",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3400,
@@ -830,6 +885,7 @@
     },
     {
       "name": "Wayne Carter",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 95200,
@@ -845,6 +901,7 @@
     },
     {
       "name": "Ivan Littel",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 81000,
@@ -860,6 +917,7 @@
     },
     {
       "name": "Chelsea Romaguera",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 92400,
@@ -875,6 +933,7 @@
     },
     {
       "name": "Noel Wolff",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 99500,
@@ -890,6 +949,7 @@
     },
     {
       "name": "Tony Hintz",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 99100,
@@ -905,6 +965,7 @@
     },
     {
       "name": "Miriam Kessler",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 33500,
@@ -920,6 +981,7 @@
     },
     {
       "name": "Shari Cummerata",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 86200,
@@ -935,6 +997,7 @@
     },
     {
       "name": "Helen Klein",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 54900,
@@ -950,6 +1013,7 @@
     },
     {
       "name": "Doyle Hilpert",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 99500,
@@ -965,6 +1029,7 @@
     },
     {
       "name": "Stephen Oberbrunner",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 62700,
@@ -980,6 +1045,7 @@
     },
     {
       "name": "Gail Yundt",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 98500,
@@ -995,6 +1061,7 @@
     },
     {
       "name": "Ross Mitchell",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 26500,
@@ -1010,6 +1077,7 @@
     },
     {
       "name": "Marlene Stiedemann",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 91000,
@@ -1025,6 +1093,7 @@
     },
     {
       "name": "Nadine Schoen",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 17900,
@@ -1040,6 +1109,7 @@
     },
     {
       "name": "Francis Shields",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 99600,
@@ -1055,6 +1125,7 @@
     },
     {
       "name": "Earnest Bechtelar",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 58100,
@@ -1070,6 +1141,7 @@
     },
     {
       "name": "Cathy Jones",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 22100,
@@ -1085,6 +1157,7 @@
     },
     {
       "name": "Jeannette Carter",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 83700,
@@ -1100,6 +1173,7 @@
     },
     {
       "name": "Irvin Wilderman",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 14100,
@@ -1115,6 +1189,7 @@
     },
     {
       "name": "Amelia Gleason",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 31100,
@@ -1130,6 +1205,7 @@
     },
     {
       "name": "Patty Pollich",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 24800,
@@ -1145,6 +1221,7 @@
     },
     {
       "name": "Sheldon Rohan",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 42500,
@@ -1160,6 +1237,7 @@
     },
     {
       "name": "Rebecca Buckridge",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3200,
@@ -1175,6 +1253,7 @@
     },
     {
       "name": "Geraldine Bauch",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 17200,
@@ -1190,6 +1269,7 @@
     },
     {
       "name": "Marcus Rolfson",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 10400,
@@ -1205,6 +1285,7 @@
     },
     {
       "name": "Wilma Conroy",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 94300,
@@ -1220,6 +1301,7 @@
     },
     {
       "name": "Rebecca Marquardt",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 6300,
@@ -1235,6 +1317,7 @@
     },
     {
       "name": "Roberto Ondricka",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 43700,
@@ -1250,6 +1333,7 @@
     },
     {
       "name": "Charlotte Okuneva",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 58500,
@@ -1265,6 +1349,7 @@
     },
     {
       "name": "Cedric Reilly",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 50800,
@@ -1280,6 +1365,7 @@
     },
     {
       "name": "Earl Heller",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 24300,
@@ -1295,6 +1381,7 @@
     },
     {
       "name": "Victor Anderson",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 49900,
@@ -1310,6 +1397,7 @@
     },
     {
       "name": "Vicki Pfannerstill",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 93200,
@@ -1325,6 +1413,7 @@
     },
     {
       "name": "Suzanne Mraz",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 6200,
@@ -1340,6 +1429,7 @@
     },
     {
       "name": "Wilson Konopelski",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 99100,
@@ -1355,6 +1445,7 @@
     },
     {
       "name": "Oscar Cartwright",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 46200,
@@ -1370,6 +1461,7 @@
     },
     {
       "name": "Ismael Conn",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 79800,
@@ -1385,6 +1477,7 @@
     },
     {
       "name": "Leigh O\u0027Hara",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 93700,
@@ -1400,6 +1493,7 @@
     },
     {
       "name": "Ernest Hodkiewicz",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 6100,
@@ -1415,6 +1509,7 @@
     },
     {
       "name": "Don Bode",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 56200,
@@ -1430,6 +1525,7 @@
     },
     {
       "name": "Boyd Cummings",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 22000,
@@ -1445,6 +1541,7 @@
     },
     {
       "name": "Jonathan Wisoky",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 26200,
@@ -1460,6 +1557,7 @@
     },
     {
       "name": "Zachary Durgan",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 96000,
@@ -1475,6 +1573,7 @@
     },
     {
       "name": "Boyd Kautzer",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 46400,
@@ -1490,6 +1589,7 @@
     },
     {
       "name": "Hilda Okuneva",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 59200,
@@ -1505,6 +1605,7 @@
     },
     {
       "name": "Ryan Jacobson",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 85700,
@@ -1520,6 +1621,7 @@
     },
     {
       "name": "Shelley Kris",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 3200,
@@ -1535,6 +1637,7 @@
     },
     {
       "name": "Clyde Sawayn",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 1200,
@@ -1550,6 +1653,7 @@
     },
     {
       "name": "Scott Bauch",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 83900,
@@ -1565,6 +1669,7 @@
     },
     {
       "name": "Ethel Kutch",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 40300,
@@ -1580,6 +1685,7 @@
     },
     {
       "name": "Joseph Ledner",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 96300,
@@ -1595,6 +1701,7 @@
     },
     {
       "name": "Vivian Kulas",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 10300,
@@ -1610,6 +1717,7 @@
     },
     {
       "name": "Kelley Rippin",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 55600,
@@ -1625,6 +1733,7 @@
     },
     {
       "name": "William Stehr",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 83100,
@@ -1640,6 +1749,7 @@
     },
     {
       "name": "Celia Brown",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 54000,
@@ -1655,6 +1765,7 @@
     },
     {
       "name": "Elvira Hermann",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 26600,
@@ -1670,6 +1781,7 @@
     },
     {
       "name": "Irvin Schneider",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 16600,
@@ -1685,6 +1797,7 @@
     },
     {
       "name": "Roberta Mayert",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 4000,
@@ -1700,6 +1813,7 @@
     },
     {
       "name": "Robert Ryan",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 82500,
@@ -1715,6 +1829,7 @@
     },
     {
       "name": "Kerry Lynch",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 94000,
@@ -1730,6 +1845,7 @@
     },
     {
       "name": "Neil Dach",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 28100,
@@ -1745,6 +1861,7 @@
     },
     {
       "name": "Heather Schmitt",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 83600,
@@ -1760,6 +1877,7 @@
     },
     {
       "name": "Willie Ernser",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9500,
@@ -1775,6 +1893,7 @@
     },
     {
       "name": "Dominick Green",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 6100,
@@ -1790,6 +1909,7 @@
     },
     {
       "name": "Bryant Jerde",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 27300,
@@ -1805,6 +1925,7 @@
     },
     {
       "name": "Elvira Kemmer",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 15900,
@@ -1820,6 +1941,7 @@
     },
     {
       "name": "Bridget Lang",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 93300,
@@ -1835,6 +1957,7 @@
     },
     {
       "name": "Fredrick Keebler",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 8500,
@@ -1850,6 +1973,7 @@
     },
     {
       "name": "Aubrey Will",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 87900,
@@ -1865,6 +1989,7 @@
     },
     {
       "name": "Charlie Metz",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 21700,
@@ -1880,6 +2005,7 @@
     },
     {
       "name": "Bill Koepp",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 11500,
@@ -1895,6 +2021,7 @@
     },
     {
       "name": "Martin Shanahan",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95100,
@@ -1910,6 +2037,7 @@
     },
     {
       "name": "Debbie Mills",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95000,
@@ -1925,6 +2053,7 @@
     },
     {
       "name": "Evelyn Bernier",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 57000,
@@ -1940,6 +2069,7 @@
     },
     {
       "name": "Virginia Kertzmann",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 400,
@@ -1955,6 +2085,7 @@
     },
     {
       "name": "Lisa Shanahan",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 87100,
@@ -1970,6 +2101,7 @@
     },
     {
       "name": "Thelma Olson",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 87100,
@@ -1985,6 +2117,7 @@
     },
     {
       "name": "Jan Jast",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 95400,
@@ -2000,6 +2133,7 @@
     },
     {
       "name": "Lester Hansen",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 93300,
@@ -2015,6 +2149,7 @@
     },
     {
       "name": "Juan Runte",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 27200,
@@ -2030,6 +2165,7 @@
     },
     {
       "name": "Floyd Huel",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 13000,
@@ -2045,6 +2181,7 @@
     },
     {
       "name": "Betsy Johns",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47800,
@@ -2060,6 +2197,7 @@
     },
     {
       "name": "Martin Langosh",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 26700,
@@ -2075,6 +2213,7 @@
     },
     {
       "name": "Ruben Langworth",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 54200,
@@ -2090,6 +2229,7 @@
     },
     {
       "name": "Ernest Tillman",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 6300,
@@ -2105,6 +2245,7 @@
     },
     {
       "name": "Anita Ruecker",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 23500,
@@ -2120,6 +2261,7 @@
     },
     {
       "name": "Lamar Green",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 4800,
@@ -2135,6 +2277,7 @@
     },
     {
       "name": "Margaret Jast",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 17600,
@@ -2150,6 +2293,7 @@
     },
     {
       "name": "Nicolas Kris",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 47200,
@@ -2165,6 +2309,7 @@
     },
     {
       "name": "Craig Lakin",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 56500,
@@ -2180,6 +2325,7 @@
     },
     {
       "name": "Tracy Schowalter",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 95400,
@@ -2195,6 +2341,7 @@
     },
     {
       "name": "Dominick Brakus",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 91300,
@@ -2210,6 +2357,7 @@
     },
     {
       "name": "Sarah Turcotte",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 13900,
@@ -2225,6 +2373,7 @@
     },
     {
       "name": "Brooke Botsford",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 19600,
@@ -2240,6 +2389,7 @@
     },
     {
       "name": "Sergio Fahey",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 92600,
@@ -2255,6 +2405,7 @@
     },
     {
       "name": "Ellis Schaden",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 18000,
@@ -2270,6 +2421,7 @@
     },
     {
       "name": "Shane Wehner",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 44500,
@@ -2285,6 +2437,7 @@
     },
     {
       "name": "Camille Farrell",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 100,
@@ -2300,6 +2453,7 @@
     },
     {
       "name": "Gustavo Luettgen",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 9000,
@@ -2315,6 +2469,7 @@
     },
     {
       "name": "Jonathan Sanford",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 13500,
@@ -2330,6 +2485,7 @@
     },
     {
       "name": "Carroll Gulgowski",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 61700,
@@ -2345,6 +2501,7 @@
     },
     {
       "name": "Rufus Williamson",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 40900,
@@ -2360,6 +2517,7 @@
     },
     {
       "name": "Rogelio Zulauf",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 3400,
@@ -2375,6 +2533,7 @@
     },
     {
       "name": "Jerald Powlowski",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 36400,
@@ -2390,6 +2549,7 @@
     },
     {
       "name": "Craig Ankunding",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 45300,
@@ -2405,6 +2565,7 @@
     },
     {
       "name": "Leroy Hilll",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 88900,
@@ -2420,6 +2581,7 @@
     },
     {
       "name": "Lela Steuber",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 47200,
@@ -2435,6 +2597,7 @@
     },
     {
       "name": "Irving Rogahn",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 95000,
@@ -2450,6 +2613,7 @@
     },
     {
       "name": "Rex Dooley",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 97000,
@@ -2465,6 +2629,7 @@
     },
     {
       "name": "Alvin Windler",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 91500,
@@ -2480,6 +2645,7 @@
     },
     {
       "name": "Phil Kunze",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95900,
@@ -2495,6 +2661,7 @@
     },
     {
       "name": "Ron Muller",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 92000,
@@ -2510,6 +2677,7 @@
     },
     {
       "name": "Brendan Stark",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 23100,
@@ -2525,6 +2693,7 @@
     },
     {
       "name": "Irene Langworth",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 48800,
@@ -2540,6 +2709,7 @@
     },
     {
       "name": "Ervin Bergstrom",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 59100,
@@ -2555,6 +2725,7 @@
     },
     {
       "name": "Clinton Fahey",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 54000,
@@ -2570,6 +2741,7 @@
     },
     {
       "name": "Darlene Hickle",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 95300,
@@ -2585,6 +2757,7 @@
     },
     {
       "name": "Ed Marquardt",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 86000,
@@ -2600,6 +2773,7 @@
     },
     {
       "name": "Derek Kertzmann",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 99300,
@@ -2615,6 +2789,7 @@
     },
     {
       "name": "Marco Ebert",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 14600,
@@ -2630,6 +2805,7 @@
     },
     {
       "name": "Orlando Schamberger",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 52600,
@@ -2645,6 +2821,7 @@
     },
     {
       "name": "Gwendolyn O\u0027Conner",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 42200,
@@ -2660,6 +2837,7 @@
     },
     {
       "name": "Lindsey Bogisich",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95700,
@@ -2675,6 +2853,7 @@
     },
     {
       "name": "Thomas Walker",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 11700,
@@ -2690,6 +2869,7 @@
     },
     {
       "name": "Adam Steuber",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 5900,
@@ -2705,6 +2885,7 @@
     },
     {
       "name": "Robyn Mills",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 94800,
@@ -2720,6 +2901,7 @@
     },
     {
       "name": "Maxine Cremin",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 5600,
@@ -2735,6 +2917,7 @@
     },
     {
       "name": "Eileen McClure",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 46600,
@@ -2750,6 +2933,7 @@
     },
     {
       "name": "Margaret Lowe",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 14200,
@@ -2765,6 +2949,7 @@
     },
     {
       "name": "Jill Weber",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 82400,
@@ -2780,6 +2965,7 @@
     },
     {
       "name": "Horace Rohan",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 59000,
@@ -2795,6 +2981,7 @@
     },
     {
       "name": "Ashley Runolfsdottir",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 7400,
@@ -2810,6 +2997,7 @@
     },
     {
       "name": "Emma Stehr",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 50000,
@@ -2825,6 +3013,7 @@
     },
     {
       "name": "Ruth DuBuque",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 1900,
@@ -2840,6 +3029,7 @@
     },
     {
       "name": "Rita Tillman",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 37800,
@@ -2855,6 +3045,7 @@
     },
     {
       "name": "Rose Romaguera",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 17000,
@@ -2870,6 +3061,7 @@
     },
     {
       "name": "Lyle Pollich",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 31300,
@@ -2885,6 +3077,7 @@
     },
     {
       "name": "Angelica Marquardt",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 35700,
@@ -2900,6 +3093,7 @@
     },
     {
       "name": "Austin Hammes",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 18000,
@@ -2915,6 +3109,7 @@
     },
     {
       "name": "Molly Marquardt",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 99500,
@@ -2930,6 +3125,7 @@
     },
     {
       "name": "Yolanda Emard",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 11300,
@@ -2945,6 +3141,7 @@
     },
     {
       "name": "Violet Hahn",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 57800,
@@ -2960,6 +3157,7 @@
     },
     {
       "name": "Wesley Aufderhar",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 96200,
@@ -2975,6 +3173,7 @@
     },
     {
       "name": "Luis Stamm",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 87800,
@@ -2990,6 +3189,7 @@
     },
     {
       "name": "Natasha Sauer",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 79100,
@@ -3005,6 +3205,7 @@
     },
     {
       "name": "Alberto Wiegand",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 4700,
@@ -3020,6 +3221,7 @@
     },
     {
       "name": "Hazel Schultz",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 85800,
@@ -3035,6 +3237,7 @@
     },
     {
       "name": "Drew Block",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 20700,
@@ -3050,6 +3253,7 @@
     },
     {
       "name": "Karen Harber",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95300,
@@ -3065,6 +3269,7 @@
     },
     {
       "name": "Kristine Luettgen",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 92000,
@@ -3080,6 +3285,7 @@
     },
     {
       "name": "Santiago Wyman",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 600,
@@ -3095,6 +3301,7 @@
     },
     {
       "name": "Jenny Sauer",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9300,
@@ -3110,6 +3317,7 @@
     },
     {
       "name": "Melvin Hammes",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 85400,
@@ -3125,6 +3333,7 @@
     },
     {
       "name": "Willard Emmerich",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 96300,
@@ -3140,6 +3349,7 @@
     },
     {
       "name": "Nadine Marquardt",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 7600,
@@ -3155,6 +3365,7 @@
     },
     {
       "name": "Mercedes Toy",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 46400,
@@ -3170,6 +3381,7 @@
     },
     {
       "name": "Sam Mitchell",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 96400,
@@ -3185,6 +3397,7 @@
     },
     {
       "name": "Ora Nader",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 22600,
@@ -3200,6 +3413,7 @@
     },
     {
       "name": "Cecil Koch",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 81700,
@@ -3215,6 +3429,7 @@
     },
     {
       "name": "Dale Quitzon",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 91800,
@@ -3230,6 +3445,7 @@
     },
     {
       "name": "Veronica Waters",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 14300,
@@ -3245,6 +3461,7 @@
     },
     {
       "name": "Abel Wintheiser",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 96500,
@@ -3260,6 +3477,7 @@
     },
     {
       "name": "Reginald Nienow",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 84000,
@@ -3275,6 +3493,7 @@
     },
     {
       "name": "Kerry Gislason",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 53300,
@@ -3290,6 +3509,7 @@
     },
     {
       "name": "Angelina Nitzsche",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 92000,
@@ -3305,6 +3525,7 @@
     },
     {
       "name": "Ricky Daugherty",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 99200,
@@ -3320,6 +3541,7 @@
     },
     {
       "name": "Elmer Erdman",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 53100,
@@ -3335,6 +3557,7 @@
     },
     {
       "name": "Emma Lueilwitz",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 7200,
@@ -3350,6 +3573,7 @@
     },
     {
       "name": "Luther Tromp",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 50600,
@@ -3365,6 +3589,7 @@
     },
     {
       "name": "Lynne O\u0027Kon",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 70900,
@@ -3380,6 +3605,7 @@
     },
     {
       "name": "Toni Conroy",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9500,
@@ -3395,6 +3621,7 @@
     },
     {
       "name": "Connie Larson",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 40800,
@@ -3410,6 +3637,7 @@
     },
     {
       "name": "Olive Daniel",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47700,
@@ -3425,6 +3653,7 @@
     },
     {
       "name": "Javier Steuber",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3300,
@@ -3440,6 +3669,7 @@
     },
     {
       "name": "Geoffrey Kunde",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 19100,
@@ -3455,6 +3685,7 @@
     },
     {
       "name": "Ruby Frami",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 54800,
@@ -3470,6 +3701,7 @@
     },
     {
       "name": "Marjorie Bruen",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 88700,
@@ -3485,6 +3717,7 @@
     },
     {
       "name": "Thelma Bartoletti",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9800,
@@ -3500,6 +3733,7 @@
     },
     {
       "name": "Jimmy Rempel",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9900,
@@ -3515,6 +3749,7 @@
     },
     {
       "name": "Bennie Haley",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 69100,
@@ -3530,6 +3765,7 @@
     },
     {
       "name": "Muriel Blanda",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 86000,
@@ -3545,6 +3781,7 @@
     },
     {
       "name": "Benny O\u0027Reilly",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 19300,
@@ -3560,6 +3797,7 @@
     },
     {
       "name": "Donald Runte",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 87000,
@@ -3575,6 +3813,7 @@
     },
     {
       "name": "Guadalupe Reinger",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 15300,
@@ -3590,6 +3829,7 @@
     },
     {
       "name": "Megan Waelchi",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 89000,
@@ -3605,6 +3845,7 @@
     },
     {
       "name": "Kathleen Koelpin",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 10600,
@@ -3620,6 +3861,7 @@
     },
     {
       "name": "Terry Schowalter",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 89300,
@@ -3635,6 +3877,7 @@
     },
     {
       "name": "Vernon Legros",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 15800,
@@ -3650,6 +3893,7 @@
     },
     {
       "name": "Felipe Greenholt",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 92500,
@@ -3665,6 +3909,7 @@
     },
     {
       "name": "Marlon Friesen",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 57100,
@@ -3680,6 +3925,7 @@
     },
     {
       "name": "Glenn Bednar",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 15400,
@@ -3695,6 +3941,7 @@
     },
     {
       "name": "Kristen Schroeder",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 95900,
@@ -3710,6 +3957,7 @@
     },
     {
       "name": "Suzanne Orn",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2700,
@@ -3725,6 +3973,7 @@
     },
     {
       "name": "Sarah Hackett",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 90300,
@@ -3740,6 +3989,7 @@
     },
     {
       "name": "Devin Collins",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 73400,
@@ -3755,6 +4005,7 @@
     },
     {
       "name": "Marjorie Price",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 90300,
@@ -3770,6 +4021,7 @@
     },
     {
       "name": "Ian Gorczany",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 83700,
@@ -3785,6 +4037,7 @@
     },
     {
       "name": "Herman Collier",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 23700,
@@ -3800,6 +4053,7 @@
     },
     {
       "name": "Mark Predovic",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 27100,
@@ -3815,6 +4069,7 @@
     },
     {
       "name": "Cindy Christiansen",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 8300,
@@ -3830,6 +4085,7 @@
     },
     {
       "name": "Jeannette Mills",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 19200,
@@ -3845,6 +4101,7 @@
     },
     {
       "name": "Marcus Davis",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 59500,
@@ -3860,6 +4117,7 @@
     },
     {
       "name": "Charlie Collins",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 12900,
@@ -3875,6 +4133,7 @@
     },
     {
       "name": "Meredith Dach",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 93200,
@@ -3890,6 +4149,7 @@
     },
     {
       "name": "Tasha Rohan",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 23600,
@@ -3905,6 +4165,7 @@
     },
     {
       "name": "Al Doyle",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3500,
@@ -3920,6 +4181,7 @@
     },
     {
       "name": "Carl Hagenes",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 10700,
@@ -3935,6 +4197,7 @@
     },
     {
       "name": "Roman Harvey",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 13800,
@@ -3950,6 +4213,7 @@
     },
     {
       "name": "Woodrow Hauck",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 57000,
@@ -3965,6 +4229,7 @@
     },
     {
       "name": "Emmett Aufderhar",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 29700,
@@ -3980,6 +4245,7 @@
     },
     {
       "name": "Gregory Thiel",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 96800,
@@ -3995,6 +4261,7 @@
     },
     {
       "name": "Ann Price",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 4300,
@@ -4010,6 +4277,7 @@
     },
     {
       "name": "Louis Yundt",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 56600,
@@ -4025,6 +4293,7 @@
     },
     {
       "name": "Casey Buckridge",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 1000,
@@ -4040,6 +4309,7 @@
     },
     {
       "name": "Meghan Cronin",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 13900,
@@ -4055,6 +4325,7 @@
     },
     {
       "name": "Verna Baumbach",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 23800,
@@ -4070,6 +4341,7 @@
     },
     {
       "name": "John Zulauf",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 94100,
@@ -4085,6 +4357,7 @@
     },
     {
       "name": "Victoria Tromp",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 7000,
@@ -4100,6 +4373,7 @@
     },
     {
       "name": "Tommy Lakin",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 18000,
@@ -4115,6 +4389,7 @@
     },
     {
       "name": "Joy Bradtke",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 81600,
@@ -4130,6 +4405,7 @@
     },
     {
       "name": "Ted McClure",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 98800,
@@ -4145,6 +4421,7 @@
     },
     {
       "name": "Phyllis Turner",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 59800,
@@ -4160,6 +4437,7 @@
     },
     {
       "name": "Rosie MacGyver",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 13100,
@@ -4175,6 +4453,7 @@
     },
     {
       "name": "Todd Gutmann",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 94800,
@@ -4190,6 +4469,7 @@
     },
     {
       "name": "Tara Windler",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 96000,
@@ -4205,6 +4485,7 @@
     },
     {
       "name": "Brandi West",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3800,
@@ -4220,6 +4501,7 @@
     },
     {
       "name": "Brandon Daniel",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 7000,
@@ -4235,6 +4517,7 @@
     },
     {
       "name": "Regina O\u0027Keefe",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 92000,
@@ -4250,6 +4533,7 @@
     },
     {
       "name": "Melvin Boehm",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 3200,
@@ -4265,6 +4549,7 @@
     },
     {
       "name": "Angela Hegmann",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 51300,
@@ -4280,6 +4565,7 @@
     },
     {
       "name": "Ruby Crona",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 100,
@@ -4295,6 +4581,7 @@
     },
     {
       "name": "Dolores Turcotte",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 5200,
@@ -4310,6 +4597,7 @@
     },
     {
       "name": "Thomas Rath",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 86000,
@@ -4325,6 +4613,7 @@
     },
     {
       "name": "Blanche D\u0027Amore",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 19500,
@@ -4340,6 +4629,7 @@
     },
     {
       "name": "Pat Predovic",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 19200,
@@ -4355,6 +4645,7 @@
     },
     {
       "name": "Audrey Wisoky",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 88100,
@@ -4370,6 +4661,7 @@
     },
     {
       "name": "Roberto Dibbert",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 20200,
@@ -4385,6 +4677,7 @@
     },
     {
       "name": "Alvin Gottlieb",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 87200,
@@ -4400,6 +4693,7 @@
     },
     {
       "name": "Rosemarie Green",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 30300,
@@ -4415,6 +4709,7 @@
     },
     {
       "name": "Terry Rosenbaum",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 4500,
@@ -4430,6 +4725,7 @@
     },
     {
       "name": "Santiago Towne",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 54800,
@@ -4445,6 +4741,7 @@
     },
     {
       "name": "Aaron Luettgen",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 27700,
@@ -4460,6 +4757,7 @@
     },
     {
       "name": "Roberta Feeney",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 7700,
@@ -4475,6 +4773,7 @@
     },
     {
       "name": "Edgar Casper",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 57800,
@@ -4490,6 +4789,7 @@
     },
     {
       "name": "Edna Stiedemann",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 97100,
@@ -4505,6 +4805,7 @@
     },
     {
       "name": "Owen Brekke",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 83000,
@@ -4520,6 +4821,7 @@
     },
     {
       "name": "Barbara Huel",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 53900,
@@ -4535,6 +4837,7 @@
     },
     {
       "name": "Adrian Braun",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 41600,
@@ -4550,6 +4853,7 @@
     },
     {
       "name": "Israel Runte",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 5800,
@@ -4565,6 +4869,7 @@
     },
     {
       "name": "Roxanne Durgan",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 86700,
@@ -4580,6 +4885,7 @@
     },
     {
       "name": "Lee Kassulke",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 100000,
@@ -4595,6 +4901,7 @@
     },
     {
       "name": "Colleen Kertzmann",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 99000,
@@ -4610,6 +4917,7 @@
     },
     {
       "name": "Catherine Jast",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 89200,
@@ -4625,6 +4933,7 @@
     },
     {
       "name": "Ernestine Dickinson",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 90400,
@@ -4640,6 +4949,7 @@
     },
     {
       "name": "Rebecca Walsh",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 9700,
@@ -4655,6 +4965,7 @@
     },
     {
       "name": "Bob DuBuque",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 54700,
@@ -4670,6 +4981,7 @@
     },
     {
       "name": "Ashley Harris",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 5600,
@@ -4685,6 +4997,7 @@
     },
     {
       "name": "Regina Hamill",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 49500,
@@ -4700,6 +5013,7 @@
     },
     {
       "name": "Brandi Keebler",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 61500,
@@ -4715,6 +5029,7 @@
     },
     {
       "name": "Michael Nitzsche",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 43000,
@@ -4730,6 +5045,7 @@
     },
     {
       "name": "Leigh D\u0027Amore",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 20100,
@@ -4745,6 +5061,7 @@
     },
     {
       "name": "Sadie Steuber",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 20200,
@@ -4760,6 +5077,7 @@
     },
     {
       "name": "Gerard Parisian",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 25600,
@@ -4775,6 +5093,7 @@
     },
     {
       "name": "Sophie Gutkowski",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 29400,
@@ -4790,6 +5109,7 @@
     },
     {
       "name": "Angela Bode",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 54000,
@@ -4805,6 +5125,7 @@
     },
     {
       "name": "Kim Emard",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 98400,
@@ -4820,6 +5141,7 @@
     },
     {
       "name": "George Hilll",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 38100,
@@ -4835,6 +5157,7 @@
     },
     {
       "name": "Raul Klein",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 29500,
@@ -4850,6 +5173,7 @@
     },
     {
       "name": "Marshall Zieme",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 50600,
@@ -4865,6 +5189,7 @@
     },
     {
       "name": "Marlon Jaskolski",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 99300,
@@ -4880,6 +5205,7 @@
     },
     {
       "name": "Edna Zboncak",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47500,
@@ -4895,6 +5221,7 @@
     },
     {
       "name": "Henrietta Hoppe",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 17100,
@@ -4910,6 +5237,7 @@
     },
     {
       "name": "Jessica Kemmer",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 97700,
@@ -4925,6 +5253,7 @@
     },
     {
       "name": "Theodore Ebert",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 21600,
@@ -4940,6 +5269,7 @@
     },
     {
       "name": "Saul Kub",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 44300,
@@ -4955,6 +5285,7 @@
     },
     {
       "name": "Amy Ferry",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 62200,
@@ -4970,6 +5301,7 @@
     },
     {
       "name": "Janis Carroll",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 21800,
@@ -4985,6 +5317,7 @@
     },
     {
       "name": "Leigh Hansen",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 1300,
@@ -5000,6 +5333,7 @@
     },
     {
       "name": "Cathy Schumm",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 21100,
@@ -5015,6 +5349,7 @@
     },
     {
       "name": "Gene Boyle",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 74800,
@@ -5030,6 +5365,7 @@
     },
     {
       "name": "Shirley Toy",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 55200,
@@ -5045,6 +5381,7 @@
     },
     {
       "name": "George Mitchell",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2200,
@@ -5060,6 +5397,7 @@
     },
     {
       "name": "Alexis Thompson",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 90300,
@@ -5075,6 +5413,7 @@
     },
     {
       "name": "Jose Homenick",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 41300,
@@ -5090,6 +5429,7 @@
     },
     {
       "name": "Delbert McClure",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9200,
@@ -5105,6 +5445,7 @@
     },
     {
       "name": "Lee Paucek",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 10700,
@@ -5120,6 +5461,7 @@
     },
     {
       "name": "Gregg Wintheiser",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 28400,
@@ -5135,6 +5477,7 @@
     },
     {
       "name": "Loretta Rempel",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 18200,
@@ -5150,6 +5493,7 @@
     },
     {
       "name": "Ron Quitzon",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 39900,
@@ -5165,6 +5509,7 @@
     },
     {
       "name": "Felicia Quigley",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 1900,
@@ -5180,6 +5525,7 @@
     },
     {
       "name": "Tabitha Dickens",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 69200,
@@ -5195,6 +5541,7 @@
     },
     {
       "name": "Elias Shields",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 96400,
@@ -5210,6 +5557,7 @@
     },
     {
       "name": "Miriam Lowe",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 87600,
@@ -5225,6 +5573,7 @@
     },
     {
       "name": "Alma Bosco",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 38100,
@@ -5240,6 +5589,7 @@
     },
     {
       "name": "Sadie Schulist",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 67300,
@@ -5255,6 +5605,7 @@
     },
     {
       "name": "Emily Daniel",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 83600,
@@ -5270,6 +5621,7 @@
     },
     {
       "name": "Allison Kozey",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 87300,
@@ -5285,6 +5637,7 @@
     },
     {
       "name": "Ellen Kuvalis",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95800,
@@ -5300,6 +5653,7 @@
     },
     {
       "name": "Angel Rutherford",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 86700,
@@ -5315,6 +5669,7 @@
     },
     {
       "name": "Jane Padberg",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 1400,
@@ -5330,6 +5685,7 @@
     },
     {
       "name": "Angelica Balistreri",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 18800,
@@ -5345,6 +5701,7 @@
     },
     {
       "name": "William Cremin",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 91900,
@@ -5360,6 +5717,7 @@
     },
     {
       "name": "Hubert Durgan",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 43800,
@@ -5375,6 +5733,7 @@
     },
     {
       "name": "Ignacio Kshlerin",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 16200,
@@ -5390,6 +5749,7 @@
     },
     {
       "name": "Edmund Beier",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 19700,
@@ -5405,6 +5765,7 @@
     },
     {
       "name": "Marilyn Bednar",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 22000,
@@ -5420,6 +5781,7 @@
     },
     {
       "name": "Blanca Witting",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 55300,
@@ -5435,6 +5797,7 @@
     },
     {
       "name": "Ellen Stanton",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 52600,
@@ -5450,6 +5813,7 @@
     },
     {
       "name": "Preston Rosenbaum",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 93400,
@@ -5465,6 +5829,7 @@
     },
     {
       "name": "Gregg Bartell",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 95700,
@@ -5480,6 +5845,7 @@
     },
     {
       "name": "Dianna West",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47700,
@@ -5495,6 +5861,7 @@
     },
     {
       "name": "Diana Heller",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 91300,
@@ -5510,6 +5877,7 @@
     },
     {
       "name": "Vanessa Hegmann",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3400,
@@ -5525,6 +5893,7 @@
     },
     {
       "name": "Sheri Botsford",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3900,
@@ -5540,6 +5909,7 @@
     },
     {
       "name": "Pearl Hodkiewicz",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 95900,
@@ -5555,6 +5925,7 @@
     },
     {
       "name": "Alonzo Thompson",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 89800,
@@ -5570,6 +5941,7 @@
     },
     {
       "name": "Caleb Brekke",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 13300,
@@ -5585,6 +5957,7 @@
     },
     {
       "name": "Tami Rice",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 15900,
@@ -5600,6 +5973,7 @@
     },
     {
       "name": "Deanna Corwin",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3700,
@@ -5615,6 +5989,7 @@
     },
     {
       "name": "Miriam Lebsack",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9500,
@@ -5630,6 +6005,7 @@
     },
     {
       "name": "Eduardo Kuhlman",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 14200,
@@ -5645,6 +6021,7 @@
     },
     {
       "name": "Jeremiah Rohan",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 15700,
@@ -5660,6 +6037,7 @@
     },
     {
       "name": "Phil Cummerata",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 85200,
@@ -5675,6 +6053,7 @@
     },
     {
       "name": "Susan Senger",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 7200,
@@ -5690,6 +6069,7 @@
     },
     {
       "name": "Joanne Johnston",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 7600,
@@ -5705,6 +6085,7 @@
     },
     {
       "name": "Sandy Monahan",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 56800,
@@ -5720,6 +6101,7 @@
     },
     {
       "name": "Rene Hoeger",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47600,
@@ -5735,6 +6117,7 @@
     },
     {
       "name": "Byron Koch",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 14300,
@@ -5750,6 +6133,7 @@
     },
     {
       "name": "Sandy Dickinson",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 8400,
@@ -5765,6 +6149,7 @@
     },
     {
       "name": "Zachary Klocko",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 95900,
@@ -5780,6 +6165,7 @@
     },
     {
       "name": "Clarence West",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 37500,
@@ -5795,6 +6181,7 @@
     },
     {
       "name": "Erin Tremblay",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 88800,
@@ -5810,6 +6197,7 @@
     },
     {
       "name": "Alejandro Cartwright",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 92800,
@@ -5825,6 +6213,7 @@
     },
     {
       "name": "Irvin Murray",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 60500,
@@ -5840,6 +6229,7 @@
     },
     {
       "name": "Lydia Labadie",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 15000,
@@ -5855,6 +6245,7 @@
     },
     {
       "name": "Mary Schaefer",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 47800,
@@ -5870,6 +6261,7 @@
     },
     {
       "name": "Rudy D\u0027Amore",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 17400,
@@ -5885,6 +6277,7 @@
     },
     {
       "name": "Traci Wilderman",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47500,
@@ -5900,6 +6293,7 @@
     },
     {
       "name": "Yvonne Torp",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 5700,
@@ -5915,6 +6309,7 @@
     },
     {
       "name": "Peter Koss",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 3700,
@@ -5930,6 +6325,7 @@
     },
     {
       "name": "Claude Rohan",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 21400,
@@ -5945,6 +6341,7 @@
     },
     {
       "name": "Daisy Wuckert",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 42400,
@@ -5960,6 +6357,7 @@
     },
     {
       "name": "Elena Crona",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 76100,
@@ -5975,6 +6373,7 @@
     },
     {
       "name": "Fannie Macejkovic",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 13600,
@@ -5990,6 +6389,7 @@
     },
     {
       "name": "Ralph Will",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9600,
@@ -6005,6 +6405,7 @@
     },
     {
       "name": "Luther MacGyver",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 13200,
@@ -6020,6 +6421,7 @@
     },
     {
       "name": "Nathan Murazik",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 95900,
@@ -6035,6 +6437,7 @@
     },
     {
       "name": "Jacqueline Pouros",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 5600,
@@ -6050,6 +6453,7 @@
     },
     {
       "name": "Mario Ledner",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 17700,
@@ -6065,6 +6469,7 @@
     },
     {
       "name": "Rolando Stamm",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 12500,
@@ -6080,6 +6485,7 @@
     },
     {
       "name": "Craig Stamm",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 91400,
@@ -6095,6 +6501,7 @@
     },
     {
       "name": "Jesus Hilpert",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 98400,
@@ -6110,6 +6517,7 @@
     },
     {
       "name": "Colin Reichert",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 98500,
@@ -6125,6 +6533,7 @@
     },
     {
       "name": "Ada Tromp",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 300,
@@ -6140,6 +6549,7 @@
     },
     {
       "name": "Vera Howe",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 90300,
@@ -6155,6 +6565,7 @@
     },
     {
       "name": "Marion Will",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 91600,
@@ -6170,6 +6581,7 @@
     },
     {
       "name": "Daryl Schaden",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2900,
@@ -6185,6 +6597,7 @@
     },
     {
       "name": "Nathaniel Walker",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 32700,
@@ -6200,6 +6613,7 @@
     },
     {
       "name": "Marion Harvey",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 57800,
@@ -6215,6 +6629,7 @@
     },
     {
       "name": "Tina Jacobs",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 47100,
@@ -6230,6 +6645,7 @@
     },
     {
       "name": "Aaron Muller",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 44500,
@@ -6245,6 +6661,7 @@
     },
     {
       "name": "Rodney Flatley",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 7500,
@@ -6260,6 +6677,7 @@
     },
     {
       "name": "Sheila Stoltenberg",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 5200,
@@ -6275,6 +6693,7 @@
     },
     {
       "name": "Doreen Muller",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 17800,
@@ -6290,6 +6709,7 @@
     },
     {
       "name": "Rebecca Thompson",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 15700,
@@ -6305,6 +6725,7 @@
     },
     {
       "name": "Phillip Beatty",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 200,
@@ -6320,6 +6741,7 @@
     },
     {
       "name": "Floyd Parisian",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 64500,
@@ -6335,6 +6757,7 @@
     },
     {
       "name": "Margaret Barrows",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 93100,
@@ -6350,6 +6773,7 @@
     },
     {
       "name": "Natalie Kshlerin",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 65600,
@@ -6365,6 +6789,7 @@
     },
     {
       "name": "Andre Yundt",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 0,
@@ -6380,6 +6805,7 @@
     },
     {
       "name": "Patricia Zulauf",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 55000,
@@ -6395,6 +6821,7 @@
     },
     {
       "name": "Colleen O\u0027Kon",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 4000,
@@ -6410,6 +6837,7 @@
     },
     {
       "name": "Emma Kuhn",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 97400,
@@ -6425,6 +6853,7 @@
     },
     {
       "name": "Gilbert Fahey",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 57500,
@@ -6440,6 +6869,7 @@
     },
     {
       "name": "Isabel Zboncak",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 89600,
@@ -6455,6 +6885,7 @@
     },
     {
       "name": "Mable Runte",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 33700,
@@ -6470,6 +6901,7 @@
     },
     {
       "name": "Juana Wiegand",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 55400,
@@ -6485,6 +6917,7 @@
     },
     {
       "name": "Jenny DuBuque",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 90500,
@@ -6500,6 +6933,7 @@
     },
     {
       "name": "Grady Schmidt",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 15100,
@@ -6515,6 +6949,7 @@
     },
     {
       "name": "Velma Dooley",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 800,
@@ -6530,6 +6965,7 @@
     },
     {
       "name": "Mark Swift",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2100,
@@ -6545,6 +6981,7 @@
     },
     {
       "name": "Gail Cassin",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 52500,
@@ -6560,6 +6997,7 @@
     },
     {
       "name": "Yvonne Schinner",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 4000,
@@ -6575,6 +7013,7 @@
     },
     {
       "name": "Ernestine Schaden",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 18900,
@@ -6590,6 +7029,7 @@
     },
     {
       "name": "Leslie Tillman",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 18400,
@@ -6605,6 +7045,7 @@
     },
     {
       "name": "Robert Hodkiewicz",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 59100,
@@ -6620,6 +7061,7 @@
     },
     {
       "name": "Alexis Stroman",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 91500,
@@ -6635,6 +7077,7 @@
     },
     {
       "name": "Melvin Cummings",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2200,
@@ -6650,6 +7093,7 @@
     },
     {
       "name": "Clarence Monahan",
+      "gender": "male",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 91900,
@@ -6665,6 +7109,7 @@
     },
     {
       "name": "Hugo Donnelly",
+      "gender": "male",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 5800,
@@ -6680,6 +7125,7 @@
     },
     {
       "name": "Alvin Waelchi",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 70400,
@@ -6695,6 +7141,7 @@
     },
     {
       "name": "Jenna Anderson",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 18900,
@@ -6710,6 +7157,7 @@
     },
     {
       "name": "Lisa Schultz",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 54100,
@@ -6725,6 +7173,7 @@
     },
     {
       "name": "Lindsay Greenholt",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 54300,
@@ -6740,6 +7189,7 @@
     },
     {
       "name": "Jamie Bartell",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 54400,
@@ -6755,6 +7205,7 @@
     },
     {
       "name": "Carolyn Stiedemann",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 8100,
@@ -6770,6 +7221,7 @@
     },
     {
       "name": "Jody Cruickshank",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 94800,
@@ -6785,6 +7237,7 @@
     },
     {
       "name": "Beulah Rath",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 47600,
@@ -6800,6 +7253,7 @@
     },
     {
       "name": "Audrey Mertz",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 41400,
@@ -6815,6 +7269,7 @@
     },
     {
       "name": "Bryan Stroman",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 40600,
@@ -6830,6 +7285,7 @@
     },
     {
       "name": "Mable Feil",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 73400,
@@ -6845,6 +7301,7 @@
     },
     {
       "name": "Ada Adams",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 53700,
@@ -6860,6 +7317,7 @@
     },
     {
       "name": "Steven Metz",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 82500,
@@ -6875,6 +7333,7 @@
     },
     {
       "name": "Luis Johns",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 50400,
@@ -6890,6 +7349,7 @@
     },
     {
       "name": "Roger Rutherford",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 52100,
@@ -6905,6 +7365,7 @@
     },
     {
       "name": "Meredith Zemlak",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 21500,
@@ -6920,6 +7381,7 @@
     },
     {
       "name": "Darnell Yundt",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 94600,
@@ -6935,6 +7397,7 @@
     },
     {
       "name": "Gary Rowe",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 23200,
@@ -6950,6 +7413,7 @@
     },
     {
       "name": "Marian Larkin",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2700,
@@ -6965,6 +7429,7 @@
     },
     {
       "name": "Robin Casper",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9500,
@@ -6980,6 +7445,7 @@
     },
     {
       "name": "Lillian Mann",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 8900,
@@ -6995,6 +7461,7 @@
     },
     {
       "name": "Jaime Haley",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 89800,
@@ -7010,6 +7477,7 @@
     },
     {
       "name": "Raul Shanahan",
+      "gender": "male",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 82800,
@@ -7025,6 +7493,7 @@
     },
     {
       "name": "Lillie Runolfsson",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 17300,
@@ -7040,6 +7509,7 @@
     },
     {
       "name": "Delores Maggio",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 27000,
@@ -7055,6 +7525,7 @@
     },
     {
       "name": "Daryl Bauch",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 41200,
@@ -7070,6 +7541,7 @@
     },
     {
       "name": "Aubrey Zieme",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 2600,
@@ -7085,6 +7557,7 @@
     },
     {
       "name": "Lori Krajcik",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 98700,
@@ -7100,6 +7573,7 @@
     },
     {
       "name": "Kristen Prosacco",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 36000,
@@ -7115,6 +7589,7 @@
     },
     {
       "name": "Clara Kirlin",
+      "gender": "female",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 19900,
@@ -7130,6 +7605,7 @@
     },
     {
       "name": "Marcia Hoeger",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 95500,
@@ -7145,6 +7621,7 @@
     },
     {
       "name": "Meghan Hermann",
+      "gender": "female",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 81100,
@@ -7160,6 +7637,7 @@
     },
     {
       "name": "Alexander Jones",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 5600,
@@ -7175,6 +7653,7 @@
     },
     {
       "name": "Cecelia Bashirian",
+      "gender": "female",
       "loan": {
         "product": "Diesel car",
         "environmentalImpact": 2900,
@@ -7190,6 +7669,7 @@
     },
     {
       "name": "Marty Bosco",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 35100,
@@ -7205,6 +7685,7 @@
     },
     {
       "name": "Kristine Hammes",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 8600,
@@ -7220,6 +7701,7 @@
     },
     {
       "name": "Armando Schumm",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 26300,
@@ -7235,6 +7717,7 @@
     },
     {
       "name": "Edward Weimann",
+      "gender": "male",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 45500,
@@ -7250,6 +7733,7 @@
     },
     {
       "name": "Beulah Senger",
+      "gender": "female",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 43400,
@@ -7265,6 +7749,7 @@
     },
     {
       "name": "Desiree Dickinson",
+      "gender": "female",
       "loan": {
         "product": "Sailboat",
         "environmentalImpact": 55800,
@@ -7280,6 +7765,7 @@
     },
     {
       "name": "Christine Schmitt",
+      "gender": "female",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 9000,
@@ -7295,6 +7781,7 @@
     },
     {
       "name": "Cody Reinger",
+      "gender": "male",
       "loan": {
         "product": "Motorboat",
         "environmentalImpact": 8400,
@@ -7310,6 +7797,7 @@
     },
     {
       "name": "Kent Goyette",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 38900,
@@ -7325,6 +7813,7 @@
     },
     {
       "name": "Wilson Schinner",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 39300,
@@ -7340,6 +7829,7 @@
     },
     {
       "name": "Doreen Veum",
+      "gender": "female",
       "loan": {
         "product": "Car charger",
         "environmentalImpact": 91200,
@@ -7355,6 +7845,7 @@
     },
     {
       "name": "Irvin Blick",
+      "gender": "male",
       "loan": {
         "product": "Electric car",
         "environmentalImpact": 95300,
@@ -7370,6 +7861,7 @@
     },
     {
       "name": "Jesus Murray",
+      "gender": "male",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 12200,
@@ -7385,6 +7877,7 @@
     },
     {
       "name": "Jamie Dooley",
+      "gender": "female",
       "loan": {
         "product": "Vacation",
         "environmentalImpact": 17800,
@@ -7400,6 +7893,7 @@
     },
     {
       "name": "Nathaniel Stanton",
+      "gender": "male",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 87200,
@@ -7415,6 +7909,7 @@
     },
     {
       "name": "Gerald Collins",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 32800,
@@ -7430,6 +7925,7 @@
     },
     {
       "name": "Franklin Franecki",
+      "gender": "male",
       "loan": {
         "product": "Tractor",
         "environmentalImpact": 48900,
@@ -7445,6 +7941,7 @@
     },
     {
       "name": "Cassandra Walsh",
+      "gender": "female",
       "loan": {
         "product": "E-bike",
         "environmentalImpact": 98900,
@@ -7460,6 +7957,7 @@
     },
     {
       "name": "Eloise Barton",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 97400,
@@ -7475,6 +7973,7 @@
     },
     {
       "name": "Brenda McCullough",
+      "gender": "female",
       "loan": {
         "product": "Solar panels",
         "environmentalImpact": 87800,
@@ -7490,6 +7989,7 @@
     },
     {
       "name": "Randy Corwin",
+      "gender": "male",
       "loan": {
         "product": "IKEA Furniture",
         "environmentalImpact": 25500,
