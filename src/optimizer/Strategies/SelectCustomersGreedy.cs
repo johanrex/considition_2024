@@ -27,15 +27,15 @@ namespace optimizer.Strategies
             double startBudget = map.Budget;
             double moneySpent = 0;
             List<CustomerLoanRequestProposalEx> selectedCustomers = new List<CustomerLoanRequestProposalEx>();
-            foreach (CustomerLoanRequestProposalEx customer in sortedCustomerDetails)
+            foreach (CustomerLoanRequestProposalEx customer in customerDetails)
             {
                 var totalCustomerCost = customerNameCosts[customer.CustomerName];
 
-                if (moneySpent + totalCustomerCost <= startBudget)
-                {
-                    moneySpent += totalCustomerCost;
-                    selectedCustomers.Add(customer);
-                }
+                if (moneySpent + totalCustomerCost > startBudget)
+                    break;
+
+                moneySpent += totalCustomerCost;
+                selectedCustomers.Add(customer);
             }
 
             stopwatch.Stop();
