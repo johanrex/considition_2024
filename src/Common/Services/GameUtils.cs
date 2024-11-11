@@ -13,43 +13,6 @@ namespace Common.Services
 {
     public class GameUtils
     {
-        //public static Map GetMap(string mapFilename)
-        //{
-        //    var jsonSerializerOptions = new JsonSerializerOptions()
-        //    {
-        //        PropertyNameCaseInsensitive = true
-        //    };
-
-        //    Map map = JsonSerializer.Deserialize<Map>(File.ReadAllText(mapFilename), jsonSerializerOptions);
-
-        //    return map;
-        //}
-
-
-        //public static Dictionary<AwardType, AwardSpecification> GetAwards(string awardsFilename)
-        //{
-        //    string json = File.ReadAllText(awardsFilename);
-
-        //    var jsonSerializerOptions = new JsonSerializerOptions()
-        //    {
-        //        PropertyNameCaseInsensitive = true
-        //    };
-
-        //    Dictionary<AwardType, AwardSpecification> awards;
-
-        //    using (JsonDocument document = JsonDocument.Parse(json))
-        //    {
-        //        JsonElement root = document.RootElement;
-        //        JsonElement awardsElement = root.GetProperty("Awards");
-
-        //        awards = JsonSerializer.Deserialize<Dictionary<AwardType, AwardSpecification>>(awardsElement.GetRawText(), jsonSerializerOptions);
-        //    }
-
-        //    return awards;
-        //}
-
-
-
         public static bool IsCustomerNamesUnique(Map map)
         {
             var customerNames = map.Customers.Select(c => c.Name);

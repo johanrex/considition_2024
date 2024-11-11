@@ -5,45 +5,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/*
-namespace optimizer.Strategies
-{
-    internal class SelectCustomersSimulatedAnnealing
-    {
-        public static List<CustomerLoanRequestProposalEx> Select(Map map, List<CustomerLoanRequestProposalEx> customerDetails)
-        {
-            Console.WriteLine("Selecting customers within budget: Simulated Annealing approach.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
+using Common.Services;
 
-            double budget = map.Budget;
+//namespace optimizer.Strategies
+//{
+//    internal class SelectCustomersSimulatedAnnealing
+//    {
+//        public static List<CustomerLoanRequestProposalEx> Select(ConfigService configService, Map map, List<CustomerLoanRequestProposalEx> customerDetails)
+//        {
+//            Console.WriteLine("Selecting customers within budget: Simulated Annealing approach.");
+//            Stopwatch stopwatch = Stopwatch.StartNew();
 
-            // Sort customers by the ratio of ScoreContribution to LoanAmount in descending order
-            var sortedCustomers = customerDetails
-                .OrderByDescending(c => c.TotalScore / c.Cost)
-                .ToList();
+//            double budget = map.Budget;
+//            List< CustomerLoanRequestProposalEx> selectedCustomer = new();
 
-            List<CustomerLoanRequestProposalEx> selectedCustomers = new List<CustomerLoanRequestProposalEx>();
+//            //TODO implement simulated annealing
 
-            foreach (var customer in sortedCustomers)
-            {
-                if (customer.Cost <= budget)
-                {
-                    selectedCustomers.Add(customer);
-                    budget -= customer.Cost;
-                }
-            }
+//            stopwatch.Stop();
+//            Console.WriteLine($"Selection took {stopwatch.ElapsedMilliseconds} ms.");
 
-            stopwatch.Stop();
-            Console.WriteLine($"Selection took {stopwatch.ElapsedMilliseconds} ms.");
+//            return selectedCustomers;
+//        }
 
-            return selectedCustomers;
-        }
+//        private double ScoreFunction(List<CustomerLoanRequestProposalEx> solution)
+//        {
+//            return solution.Sum(x => x.Value);
+//        }
 
-        private double ScoreFunction(List<CustomerLoanRequestProposalEx> solution)
-        {
-            return solution.Sum(x => x.Value);
-        }
-
-    }
-}
-*/
+//    }
+//}

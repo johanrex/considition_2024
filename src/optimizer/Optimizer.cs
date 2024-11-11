@@ -11,25 +11,8 @@ using Microsoft.Extensions.Options;
 
 class Program
 {
-    static void parseCommandLineArguments(string[] args)
-    {
-        if (args.Length == 0)
-        {
-            Console.WriteLine("No command line arguments found.");
-            return;
-        }
-
-        for (int i = 0; i < args.Length; i++)
-        {
-            Console.WriteLine($"Argument {i}: {args[i]}");
-        }
-    }
-
     static void Main(string[] args)
     {
-        parseCommandLineArguments(args);
-
-
         int maxDegreesOfParallelism = -1;
         string gameUrlRemote = "https://api.considition.com/";
         string gameUrlLocal = "http://localhost:8080/";
@@ -37,12 +20,6 @@ class Program
         string mapName = "Almhult";
         //string mapName = "Gothenburg";
         //string mapName = "Nottingham";
-
-        /*
-        ///////////////////////////////////////////////////////////////////
-        //Here comes the meat.
-        ///////////////////////////////////////////////////////////////////
-        */
 
         ConfigService configService = new();
         var map = configService.GetMap(mapName);
@@ -105,13 +82,6 @@ class Program
             Console.WriteLine($"Removed {cntBefore - cntAfter} customers that wants to loan too much.");
 
 
-
-
-            //var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, customerDetails);
-            //var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
-            //Console.WriteLine("Score:");
-            //Console.WriteLine(gameResponse.Score.TotalScore);
-
             /*
              * SIMULATE: INDIVIDUAL CUSTOMERS ONLY AWARDS
              */
@@ -147,20 +117,11 @@ class Program
 
             var gameInput = GameUtils.CreateGameInput(map.Name, map.GameLengthInMonths, selectedCustomers);
 
-            //TODO, score it againt and see if we have any bankrupcies. <-- Yes we have. 
-            //var mapCustomerLookup = map.Customers.ToDictionary(c => c.Name);
-            //var scorer = new NativeScorer.NativeScorer(configService, personalities, awards);
-            //var gameResponse = scorer.RunGame(gameInput, mapCustomerLookup);
-
             //LOG INPUT TO FILE BEFORE SUBMITTING
             var inputJson = System.Text.Json.JsonSerializer.Serialize(gameInput);
             File.WriteAllText("finalGameInput.json", inputJson);
-            //Console.WriteLine("Final game input:");
-            //Console.WriteLine(inputJson);
-
 
             var gameResult = scoreUtils.SubmitGame(gameInput);
-
 
             //DOCKER SCORE
             var gameResponse = serverUtils.SubmitGameAsync(gameInput).Result;
