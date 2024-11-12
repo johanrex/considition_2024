@@ -18,7 +18,7 @@ namespace optimizer.Strategies
             List<CustomerLoanRequestProposalEx> proposalExs,
             int maxDegreeOfParallelism)
         {
-            Console.WriteLine("Starting simulated annealing. Awards for single customer.");
+            Console.WriteLine("Awards for single customer. Starting simulated annealing.");
 
             // Start the stopwatch
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -27,8 +27,8 @@ namespace optimizer.Strategies
 
             double temperature = 1.0;
             double coolingRate = 0.003;
-            int maxIterations = 1000;
-            var retries = 2;
+            int maxIterations = 2000;
+            var retries = 3;
 
             ParallelOptions options = new ParallelOptions();
             options.MaxDegreeOfParallelism = maxDegreeOfParallelism;
@@ -61,10 +61,8 @@ namespace optimizer.Strategies
                 bestProposalExs.Add(bestProposal);
 
                 //Log progress
-                string msg = $"Iteration awards single customer ({bestProposalExs.Count}/{map.Customers.Count})";
+                string msg = $"Determining awards for single customer ({bestProposalExs.Count}/{map.Customers.Count})";
                 Console.WriteLine(msg);
-
-
             });
 
             // Stop the stopwatch

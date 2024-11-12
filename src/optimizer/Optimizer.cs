@@ -83,28 +83,28 @@ class Program
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
+            int cntBefore;
+            int cntAfter;
             List<CustomerLoanRequestProposalEx> customerDetails;
+
+
+            //Build a dictionary of customers 
+            Dictionary<string, Customer> nameCustomers = map.Customers.Select(c => c).ToDictionary(c => c.Name);
+
+            /*
+             * FILTER OUT TOO EXPENSIVE CUSTOMERS
+             */
+            Console.WriteLine("-----------------------------------------------------------");
+            cntBefore = nameCustomers.Count;
+            nameCustomers = nameCustomers.Where(kvp => kvp.Value.Loan.Amount < map.Budget).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            cntAfter = nameCustomers.Count;
+            Console.WriteLine($"Removed {cntBefore - cntAfter} customers that wanted to loan too much.");
 
             /*
              * SIMULATE: INDIVIDUAL CUSTOMERS WITH NO AWARDS
              */
             Console.WriteLine("-----------------------------------------------------------");
-            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(scoreUtils, map, personalitySpecs, maxDegreesOfParallelism);
-
-
-            /*
-             * REMOVE USELESS CUSTOMERS 
-             */
-            Console.WriteLine("-----------------------------------------------------------");
-            int cntBefore = customerDetails.Count;
-            //keep only customers with a positive total score
-            customerDetails = customerDetails.Where(c => c.TotalScore > 0).ToList();
-            int cntAfter = customerDetails.Count;
-            Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
-            cntBefore = cntAfter;
-            customerDetails = customerDetails.Where(c => c.LoanAmount <= map.Budget / 2).ToList();
-            cntAfter = customerDetails.Count;
-            Console.WriteLine($"Removed {cntBefore - cntAfter} customers that wants to loan too much.");
+            customerDetails = IndividualScoreSimulatedAnnealingFacade.Run(scoreUtils, map, personalitySpecs, maxDegreesOfParallelism, nameCustomers);
 
 
             /*
@@ -114,15 +114,26 @@ class Program
             customerDetails = IterationAwardsSimulatedAnnealingFacade.Run(scoreUtils, map, customerDetails, maxDegreesOfParallelism);
 
 
+            /*
+             * REMOVE USELESS CUSTOMERS 
+             */
+            Console.WriteLine("-----------------------------------------------------------");
+            cntBefore = customerDetails.Count;
+            customerDetails = customerDetails.Where(c => c.TotalScore > 0).ToList();
+            cntAfter = customerDetails.Count;
+            Console.WriteLine($"Removed {cntBefore - cntAfter} customers with negative ScoreContribution.");
+            cntBefore = cntAfter;
+
+
             var customerNameCosts = CustomerCosts(awardSpecs, customerDetails);
+            var customerNameDetails = customerDetails.ToDictionary(c => c.CustomerName);
 
             /*
              * SELECT best customers for our budget.
              */
             Console.WriteLine("-----------------------------------------------------------");
-            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(customerNameCosts, map, customerDetails);
-
-
+            //List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersGreedy.Select(customerNameCosts, map, customerDetails);
+            List<CustomerLoanRequestProposalEx> selectedCustomers = SelectCustomersSimulatedAnnealing.Select(customerNameDetails, customerNameCosts, map);
             Console.WriteLine("-----------------------------------------------------------");
             Console.WriteLine($"These customers were selected ({selectedCustomers.Count}):");
             Console.WriteLine(DataFrameHelper.ToDataFrame(selectedCustomers).ToString());

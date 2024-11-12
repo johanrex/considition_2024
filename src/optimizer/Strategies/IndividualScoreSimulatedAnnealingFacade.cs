@@ -17,9 +17,10 @@ namespace optimizer.Strategies
             ScoreUtils scoreUtils,
             Map map,
             Dictionary<Personality, PersonalitySpecification> personalities,
-            int maxDegreeOfParallelism)
+            int maxDegreeOfParallelism,
+            Dictionary<string, Customer> nameCustomers)
         {
-            Console.WriteLine("Starting simulated annealing. Only loan and length.");
+            Console.WriteLine("Single customer. Interest rate and length. Simulated annealing approach. ");
 
             // Start the stopwatch
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -33,16 +34,15 @@ namespace optimizer.Strategies
 
             var initialTemperature = 1000.0;
             var coolingRate = 0.95;
-            var maxIterations = 1000;
-            var retries = 2;
+            var maxIterations = 2000;
+            var retries = 3;
 
             ParallelOptions options = new ParallelOptions();
             options.MaxDegreeOfParallelism = maxDegreeOfParallelism;
 
-            Parallel.For(0, map.Customers.Count, options, i =>
+            Parallel.ForEach(nameCustomers, options, kvp =>
             {
-                // Let's test simulated annealing
-                var customer = map.Customers[i];
+                var customer = kvp.Value;
                 var customerName = customer.Name;
                 var personality = customer.Personality;
                 var personalitySpec = personalities[personality];
