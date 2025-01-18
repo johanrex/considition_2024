@@ -1,1 +1,1 @@
-# considition_2024
+# My Considition 2024 competition entry
